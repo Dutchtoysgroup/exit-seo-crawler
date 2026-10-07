@@ -297,6 +297,7 @@ import {
 import { fetch as undiciFetch } from 'undici';
 import { ProjectDb, EXPENSIVE_ISSUE_DEFINITIONS } from '@freecrawl/db';
 import { buildAppMenu } from './menu.js';
+import { checkForUpdatesInteractive, initAutoUpdates } from './auto-update.js';
 import {
   L,
   getMenuLabels,
@@ -3109,7 +3110,7 @@ function rebuildMenu(): void {
       recentProjects: getRecentProjects(),
       onResetDiagnosticDialogs: () => resetDiagnosticDialogs(),
       onOpenLogsFolder: () => openLogsFolder(),
-      onCheckForUpdates: () => void checkForUpdates(),
+      onCheckForUpdates: () => void checkForUpdatesInteractive(),
       onOpenLogAnalyzer: () => openLogAnalyzerWindow(),
       onEditCopy: () => {
         const win = BrowserWindow.getFocusedWindow();
@@ -3188,20 +3189,6 @@ function resetDiagnosticDialogs(): void {
   }
 }
 
-/**
- * Dutch Toys Group: releases live in the private
- * Dutchtoysgroup/exit-seo-crawler repo, which the anonymous GitHub API
- * cannot read, so there is no background version check (upstream's
- * checked kemalai/FreeCrawl-SEO-Tool and would have offered the upstream
- * installer). Help → Check for Updates opens the releases page in the
- * browser, where the user is signed in to GitHub.
- */
-const RELEASES_URL = 'https://github.com/Dutchtoysgroup/exit-seo-crawler/releases';
-
-async function checkForUpdates(opts: { silent?: boolean } = {}): Promise<void> {
-  if (opts.silent === true) return;
-  await shell.openExternal(RELEASES_URL);
-}
 
 async function promptOpenProject(): Promise<void> {
   const parent = dialogParent();
@@ -10476,6 +10463,9 @@ void app.whenReady().then(async () => {
       `MCP bridge failed to start: ${err instanceof Error ? err.message : String(err)} — MCP crawl control disabled this session.`,
     );
   }
+
+  // Background update checks (download page feed); see auto-update.ts.
+  initAutoUpdates();
 
   // V2 Faz 1 — Provision the JS-rendering browser without the user ever
   // touching a terminal. Normally the installer already carries a

@@ -1,11 +1,15 @@
 appId: com.dutchtoysgroup.exitseocrawler
 productName: EXIT SEO Crawler
 electronVersion: 41.2.2
+# Update feed for electron-updater (written into the app as app-update.yml).
+# The repo is private, so the public download page proxies the release:
+# dashboard-exit.com/crawler/update serves latest.yml / latest-mac.yml and
+# redirects installers, zips and blockmaps to GitHub (marketing-dashboard,
+# src/app/crawler/update). The release workflow builds with --publish never
+# and uploads the files to the GitHub release itself.
 publish:
-  provider: github
-  owner: Dutchtoysgroup
-  repo: exit-seo-crawler
-  releaseType: release
+  provider: generic
+  url: https://dashboard-exit.com/crawler/update
 directories:
   buildResources: resources
   output: release
@@ -74,8 +78,13 @@ mac:
   # arch now comes from the CLI: the release workflow passes one per leg,
   # a local `npm run build:mac` builds the host arch, and
   # `npm run build:mac -- --arm64 --x64` builds both.
+  # dmg for people, zip for electron-updater (Squirrel.Mac only takes zips).
+  # The zip keeps the arch in its name — the updater picks the Apple-silicon
+  # build by the word "arm64" — while the release workflow gives the dmg the
+  # friendly Apple-Silicon / Intel name via -c.dmg.artifactName.
   target:
     - dmg
+    - zip
   category: public.app-category.business
   # Developer ID signing + notarization (release workflow). The identity is
   # imported into a temporary keychain by the workflow; notarization runs

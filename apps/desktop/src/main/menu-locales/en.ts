@@ -94,7 +94,7 @@ export const MENU_EN: MenuLabels = {
     'Wipe the entire active project (URLs, links, images, headers, source snapshots, sitemaps). Cannot be undone — Save Project As… first if you want a backup.',
   checkForUpdates: 'Check for Updates…',
   checkForUpdatesTooltip:
-    'Fetch the latest GitHub release and compare it with your installed version. No background polling — runs only when you click.',
+    'Check whether a newer version is available. Updates also download automatically in the background.',
   about: 'About EXIT SEO Crawler',
 
   ctxCopy: 'Copy',
@@ -235,6 +235,13 @@ export const MENU_EN: MenuLabels = {
   detailReleaseNotes: 'Release notes:',
   detailSeeReleasePage: 'See the release page for the changelog.',
   dlgDontShowVersionAgain: "Don't show this version again",
+  btnRestartNow: 'Restart Now',
+  btnOpenDownloadPage: 'Open Download Page',
+  msgUpdateReady: 'Version {version} is ready to install.',
+  detailUpdateReady: 'Restart EXIT SEO Crawler to finish the update, or it installs automatically the next time you quit the app.',
+  msgUpdateDownloading: 'Downloading version {version} in the background. You\'ll be asked to restart when it\'s ready.',
+  msgUpdateCheckFailed: 'Couldn\'t check for updates.',
+  detailUpdateCheckFailed: '{error}\n\nYou can always download the latest version from {url}.',
 
   winLogsTitle: 'EXIT SEO Crawler — Logs ({label})',
   winLabelPrimary: 'Primary',

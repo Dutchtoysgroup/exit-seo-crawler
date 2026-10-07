@@ -95,7 +95,7 @@ export const MENU_IT: MenuLabels = {
     'Svuota completamente il progetto attivo (URL, link, immagini, header, snapshot del codice sorgente, sitemap). Non è reversibile — usa prima Salva progetto con nome… se vuoi un backup.',
   checkForUpdates: 'Controlla aggiornamenti…',
   checkForUpdatesTooltip:
-    'Recupera l’ultima release pubblicata su GitHub e la confronta con la versione installata. Nessun controllo in background: viene eseguito solo quando fai clic.',
+    'Verifica se è disponibile una versione più recente. Gli aggiornamenti vengono anche scaricati automaticamente in background.',
   about: 'Informazioni su EXIT SEO Crawler',
 
   ctxCopy: 'Copia',
@@ -237,6 +237,13 @@ export const MENU_IT: MenuLabels = {
   detailReleaseNotes: 'Note di versione:',
   detailSeeReleasePage: 'Consulta la pagina della versione per il changelog.',
   dlgDontShowVersionAgain: 'Non mostrare più questa versione',
+  btnRestartNow: 'Riavvia ora',
+  btnOpenDownloadPage: 'Apri la pagina di download',
+  msgUpdateReady: 'La versione {version} è pronta per l’installazione.',
+  detailUpdateReady: 'Riavvia EXIT SEO Crawler per completare l’aggiornamento, altrimenti verrà installato automaticamente alla prossima chiusura dell’app.',
+  msgUpdateDownloading: 'Download della versione {version} in background. Ti verrà chiesto di riavviare quando sarà pronta.',
+  msgUpdateCheckFailed: 'Impossibile verificare la presenza di aggiornamenti.',
+  detailUpdateCheckFailed: '{error}\n\nPuoi sempre scaricare l’ultima versione da {url}.',
 
   winLogsTitle: 'EXIT SEO Crawler — Log ({label})',
   winLabelPrimary: 'Principale',

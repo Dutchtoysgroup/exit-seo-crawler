@@ -100,7 +100,7 @@ export const MENU_AZ: MenuLabels = {
     'Aktiv layihəni tamamilə boşaldır (URL-lər, keçidlər, şəkillər, başlıqlar, mənbə görüntüləri, sitemap-lar). Geri qaytarıla bilməz — ehtiyat nüsxə istəyirsinizsə, əvvəlcə «Layihəni fərqli saxla…» seçin.',
   checkForUpdates: 'Yeniləmələri yoxla…',
   checkForUpdatesTooltip:
-    'GitHub-dakı son buraxılışı gətirib quraşdırılmış versiyanızla müqayisə edir. Fonda sorğu yoxdur: yalnız siz kliklədikdə işləyir.',
+    'Daha yeni versiyanın olub-olmadığını yoxlayır. Yeniləmələr arxa planda avtomatik olaraq da yüklənir.',
   about: 'EXIT SEO Crawler haqqında',
 
   ctxCopy: 'Kopyala',
@@ -242,6 +242,13 @@ export const MENU_AZ: MenuLabels = {
   detailReleaseNotes: 'Buraxılış qeydləri:',
   detailSeeReleasePage: 'Dəyişikliklər siyahısı üçün buraxılış səhifəsinə baxın.',
   dlgDontShowVersionAgain: 'Bu versiyanı bir daha göstərmə',
+  btnRestartNow: 'İndi yenidən başlat',
+  btnOpenDownloadPage: 'Yükləmə səhifəsini aç',
+  msgUpdateReady: '{version} versiyası quraşdırılmağa hazırdır.',
+  detailUpdateReady: 'Yeniləməni tamamlamaq üçün EXIT SEO Crawler-i yenidən başladın, əks halda tətbiqdən növbəti dəfə çıxanda avtomatik quraşdırılacaq.',
+  msgUpdateDownloading: '{version} versiyası arxa planda yüklənir. Hazır olanda yenidən başlatmağınız xahiş olunacaq.',
+  msgUpdateCheckFailed: 'Yeniləmələri yoxlamaq mümkün olmadı.',
+  detailUpdateCheckFailed: '{error}\n\nƏn son versiyanı həmişə {url} ünvanından yükləyə bilərsiniz.',
 
   winLogsTitle: 'EXIT SEO Crawler — Qeydlər ({label})',
   winLabelPrimary: 'Əsas',

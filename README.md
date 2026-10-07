@@ -18,7 +18,7 @@ De Mac-versie is vanaf 1.0.2 ondertekend en door Apple genotariseerd: hij opent 
 
 - **Windows**: SmartScreen toont "Windows heeft uw pc beschermd". Klik op **Meer informatie** → **Toch uitvoeren**.
 
-Updates: Help → Controleren op updates opent de Releases-pagina. De app zoekt niet zelf naar updates, omdat de repo privé is.
+**Updates gaan vanzelf** (vanaf 1.0.3, Mac en Windows-installer): de app kijkt bij het starten en daarna elke 4 uur op `dashboard-exit.com/crawler/update`, downloadt alleen de gewijzigde delen en vraagt om opnieuw te starten. Kies je "Later", dan installeert de update zodra je de app afsluit. Help → Controleren op updates kijkt meteen. De portable Windows-versie werkt zichzelf niet bij; daarvoor opent die knop de downloadpagina. Versies 1.0.0 tot en met 1.0.2 hebben de updater nog niet: die installeer je één keer opnieuw.
 
 ## CLI
 
@@ -43,7 +43,7 @@ Daarna bijvoorbeeld `exit-seo-crawler https://www.exittoys.nl --max 500 --out cr
 1. **Geen DNS-fallback naar vaste IP-adressen.** FreeCrawl viel bij een mislukte DNS-lookup terug op 1.1.1.1, 1.0.0.1, 8.8.8.8 en 9.9.9.9 (UDP/53 en DNS-over-HTTPS). Die directe verbindingen leverden firewall- en sandboxprompts op waarin je eerst IP-adressen moest goedkeuren. Deze versie gebruikt alleen de DNS van het besturingssysteem (`packages/core/src/dns-resolver.ts`).
 2. **Geen blokkade op interne adressen.** FreeCrawl sloeg externe links en afbeeldingen op `localhost`, `*.local`, 10.x, 172.16–31.x, 192.168.x en 169.254.x over zodra de start-URL publiek was. Deze versie controleert ze gewoon. Gevolg: linkt een gecrawlde pagina naar een adres in je eigen netwerk, dan stuurt de crawler daar een verzoek naartoe. Crawl dus alleen sites die je vertrouwt.
 3. **EXIT-huisstijl.** Logo, app-icoon, Inter als font en het kleurpalet van het marketing dashboard (licht thema is standaard). Bronbestanden en uitleg: [apps/desktop/resources/brand](apps/desktop/resources/brand/README.md).
-4. **Naam en updates.** "FreeCrawl" heet in de hele app (11 talen) "EXIT SEO Crawler". De update-check van upstream is vervangen door een link naar de Releases-pagina hierboven. Het Over-venster vermeldt FreeCrawl als basis.
+4. **Naam en updates.** "FreeCrawl" heet in de hele app (11 talen) "EXIT SEO Crawler". De update-check van upstream (die bij kemalai keek) is vervangen door electron-updater met de downloadpagina als bron (`apps/desktop/src/main/auto-update.ts`). Het Over-venster vermeldt FreeCrawl als basis.
 
 Bewust níét veranderd: de standaard User-Agent (`FreeCrawlSEO/0.1`). Daardoor ziet een site die je crawlt (ook van een concurrent) niet dat de crawler van EXIT komt. Je kunt hem per crawl aanpassen in Instellingen.
 

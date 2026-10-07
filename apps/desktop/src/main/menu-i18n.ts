@@ -242,6 +242,13 @@ export interface MenuLabels {
   detailReleaseNotes: string;
   detailSeeReleasePage: string;
   dlgDontShowVersionAgain: string;
+  btnRestartNow: string;
+  btnOpenDownloadPage: string;
+  msgUpdateReady: string;
+  detailUpdateReady: string;
+  msgUpdateDownloading: string;
+  msgUpdateCheckFailed: string;
+  detailUpdateCheckFailed: string;
 
   // ── Secondary window titles ──
   /** `{label}` = project name, or `winLabelPrimary` / `titleUntitledProject`. */

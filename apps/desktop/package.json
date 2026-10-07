@@ -1,6 +1,6 @@
 {
   "name": "@freecrawl/desktop",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "productName": "EXIT SEO Crawler",
   "private": true,
   "description": "EXIT SEO Crawler — desktop application (Dutch Toys Group, based on FreeCrawl SEO Tool)",
@@ -44,6 +44,7 @@
     "dagre": "^0.8.5",
     "dictionary-tr": "^2.0.0",
     "eld": "^2.0.3",
+    "electron-updater": "^6.8.9",
     "franc": "^6.2.0",
     "i18next": "^26.2.0",
     "lucide-react": "^0.544.0",

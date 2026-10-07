@@ -91,7 +91,7 @@ export const MENU_ZH_CN: MenuLabels = {
     '清空整个当前项目（URL、链接、图片、响应头、源码快照、站点地图）。此操作无法撤销——如需备份，请先使用“项目另存为…”。',
   checkForUpdates: '检查更新…',
   checkForUpdatesTooltip:
-    '获取 GitHub 上的最新发布版本，并与已安装的版本比较。不做后台轮询：仅在你点击时运行。',
+    '检查是否有更新的版本。更新也会在后台自动下载。',
   about: '关于 EXIT SEO Crawler',
 
   ctxCopy: '复制',
@@ -232,6 +232,13 @@ export const MENU_ZH_CN: MenuLabels = {
   detailReleaseNotes: '版本说明：',
   detailSeeReleasePage: '更新日志请查看发布页面。',
   dlgDontShowVersionAgain: '不再提示此版本',
+  btnRestartNow: '立即重启',
+  btnOpenDownloadPage: '打开下载页面',
+  msgUpdateReady: '版本 {version} 已可以安装。',
+  detailUpdateReady: '重启 EXIT SEO Crawler 以完成更新；否则会在下次退出应用时自动安装。',
+  msgUpdateDownloading: '正在后台下载版本 {version}。准备就绪后会提示您重启。',
+  msgUpdateCheckFailed: '无法检查更新。',
+  detailUpdateCheckFailed: '{error}\n\n您随时可以在 {url} 下载最新版本。',
 
   winLogsTitle: 'EXIT SEO Crawler — 日志（{label}）',
   winLabelPrimary: '主窗口',

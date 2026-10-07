@@ -93,7 +93,7 @@ export const MENU_KO: MenuLabels = {
     '현재 프로젝트 전체(URL, 링크, 이미지, 헤더, 소스 스냅샷, 사이트맵)를 비웁니다. 되돌릴 수 없으므로 백업이 필요하면 먼저 "다른 이름으로 프로젝트 저장…"을 사용하십시오.',
   checkForUpdates: '업데이트 확인…',
   checkForUpdatesTooltip:
-    'GitHub의 최신 릴리스를 가져와 설치된 버전과 비교합니다. 백그라운드 조회는 없으며 클릭할 때만 실행됩니다.',
+    '새 버전이 있는지 확인합니다. 업데이트는 백그라운드에서 자동으로도 다운로드됩니다.',
   about: 'EXIT SEO Crawler 정보',
 
   ctxCopy: '복사',
@@ -234,6 +234,13 @@ export const MENU_KO: MenuLabels = {
   detailReleaseNotes: '릴리스 노트:',
   detailSeeReleasePage: '변경 내역은 릴리스 페이지를 확인하세요.',
   dlgDontShowVersionAgain: '이 버전 다시 표시 안 함',
+  btnRestartNow: '지금 다시 시작',
+  btnOpenDownloadPage: '다운로드 페이지 열기',
+  msgUpdateReady: '버전 {version}을(를) 설치할 준비가 되었습니다.',
+  detailUpdateReady: '업데이트를 완료하려면 EXIT SEO Crawler를 다시 시작하세요. 그렇지 않으면 다음에 앱을 종료할 때 자동으로 설치됩니다.',
+  msgUpdateDownloading: '버전 {version}을(를) 백그라운드에서 다운로드하는 중입니다. 준비되면 다시 시작하라는 안내가 표시됩니다.',
+  msgUpdateCheckFailed: '업데이트를 확인할 수 없습니다.',
+  detailUpdateCheckFailed: '{error}\n\n최신 버전은 언제든지 {url}에서 다운로드할 수 있습니다.',
 
   winLogsTitle: 'EXIT SEO Crawler — 로그 ({label})',
   winLabelPrimary: '기본',

@@ -65,18 +65,19 @@ jobs:
           # expands them.
           - os: macos-latest
             build_script: build:mac
-            build_args: "-- --arm64 -c.mac.artifactName='EXIT-SEO-Crawler-${version}-macOS-Apple-Silicon.${ext}'"
+            build_args: "-- --arm64 -c.dmg.artifactName='EXIT-SEO-Crawler-${version}-macOS-Apple-Silicon.${ext}'"
             cli_target: darwin-arm64
             artifact_name: macos-installer-arm64
             artifact_paths: |
               apps/desktop/release/*Apple-Silicon*.dmg
               apps/desktop/release/*Apple-Silicon*.dmg.blockmap
-              apps/desktop/release/*Apple-Silicon*.zip
+              apps/desktop/release/*-macOS-arm64.zip
+              apps/desktop/release/*-macOS-arm64.zip.blockmap
               apps/desktop/release/latest-mac.yml
               apps/cli/release/*
           - os: macos-latest
             build_script: build:mac
-            build_args: "-- --x64 -c.mac.artifactName='EXIT-SEO-Crawler-${version}-macOS-Intel.${ext}'"
+            build_args: "-- --x64 -c.dmg.artifactName='EXIT-SEO-Crawler-${version}-macOS-Intel.${ext}'"
             # Cross-download the Intel browsers on the arm64 runner.
             # Playwright picks its download by host platform, so this
             # override is what makes the x64 bundle actually x64.
@@ -86,14 +87,17 @@ jobs:
             # official x64 Node binary of the same version.
             cli_node_platform: darwin-x64
             artifact_name: macos-installer-x64
-            # latest-mac.yml is published by the arm64 job only — both
-            # jobs would otherwise upload a same-named file describing
-            # just their own arch, and the winner would be whichever
-            # finished last.
+            # Both jobs write a latest-mac.yml describing only their own
+            # arch. The arm64 one is published as is; this one is renamed
+            # to latest-mac-x64.yml, and the update feed on the dashboard
+            # merges the two so Intel Macs find their zip.
+            rename_latest_mac: latest-mac-x64.yml
             artifact_paths: |
-              apps/desktop/release/*.dmg
-              apps/desktop/release/*.dmg.blockmap
-              apps/desktop/release/*.zip
+              apps/desktop/release/*Intel*.dmg
+              apps/desktop/release/*Intel*.dmg.blockmap
+              apps/desktop/release/*-macOS-x64.zip
+              apps/desktop/release/*-macOS-x64.zip.blockmap
+              apps/desktop/release/latest-mac-x64.yml
               apps/cli/release/*
     runs-on: ${{ matrix.os }}
     steps:
@@ -179,6 +183,11 @@ jobs:
           # being built — the exact mismatch that shipped an arm64
           # Chromium inside the Intel .dmg.
           PLAYWRIGHT_HOST_PLATFORM_OVERRIDE: ${{ matrix.playwright_host_platform }}
+
+      - name: Rename per-arch update manifest
+        if: matrix.rename_latest_mac
+        shell: bash
+        run: mv apps/desktop/release/latest-mac.yml "apps/desktop/release/${{ matrix.rename_latest_mac }}"
 
       - name: Build CLI (single executable, no Node needed)
         shell: bash

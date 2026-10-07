@@ -94,7 +94,7 @@ export const MENU_TR: MenuLabels = {
     'Aktif projenin tamamını sil (URL\'ler, linkler, görseller, başlıklar, kaynak snapshot\'ları, sitemap\'ler). Geri alınamaz — yedek istiyorsanız önce Projeyi Farklı Kaydet.',
   checkForUpdates: 'Güncellemeleri Kontrol Et…',
   checkForUpdatesTooltip:
-    'En son GitHub release\'ini çek ve kurulu sürümünüzle karşılaştır. Arka planda yoklama yok — yalnızca tıkladığınızda çalışır.',
+    'Daha yeni bir sürüm olup olmadığını denetler. Güncellemeler arka planda otomatik olarak da indirilir.',
   about: 'EXIT SEO Crawler Hakkında',
 
   ctxCopy: 'Kopyala',
@@ -235,6 +235,13 @@ export const MENU_TR: MenuLabels = {
   detailReleaseNotes: 'Sürüm notları:',
   detailSeeReleasePage: 'Değişiklik listesi için sürüm sayfasına bakın.',
   dlgDontShowVersionAgain: 'Bu sürümü bir daha gösterme',
+  btnRestartNow: 'Şimdi yeniden başlat',
+  btnOpenDownloadPage: 'İndirme sayfasını aç',
+  msgUpdateReady: '{version} sürümü yüklenmeye hazır.',
+  detailUpdateReady: 'Güncellemeyi tamamlamak için EXIT SEO Crawler\'ı yeniden başlatın; aksi halde uygulamayı bir sonraki kapatışınızda otomatik olarak yüklenir.',
+  msgUpdateDownloading: '{version} sürümü arka planda indiriliyor. Hazır olduğunda yeniden başlatmanız istenecek.',
+  msgUpdateCheckFailed: 'Güncellemeler denetlenemedi.',
+  detailUpdateCheckFailed: '{error}\n\nEn son sürümü her zaman {url} adresinden indirebilirsiniz.',
 
   winLogsTitle: 'EXIT SEO Crawler — Kayıtlar ({label})',
   winLabelPrimary: 'Birincil',
