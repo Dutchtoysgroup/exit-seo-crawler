@@ -37,11 +37,13 @@ jobs:
           - os: windows-latest
             build_script: build:win
             build_args: ''
+            cli_target: win-x64
             artifact_name: windows-installer
             artifact_paths: |
               apps/desktop/release/*.exe
               apps/desktop/release/*.exe.blockmap
               apps/desktop/release/latest.yml
+              apps/cli/release/*
           # macOS is built once per architecture rather than both arches
           # in one job. The bundled Playwright browsers are arch-specific
           # (`chrome-mac-arm64` vs `chrome-mac-x64`), so a single job on
@@ -64,12 +66,14 @@ jobs:
           - os: macos-latest
             build_script: build:mac
             build_args: "-- --arm64 -c.mac.artifactName='EXIT-SEO-Crawler-${version}-macOS-Apple-Silicon.${ext}'"
+            cli_target: darwin-arm64
             artifact_name: macos-installer-arm64
             artifact_paths: |
               apps/desktop/release/*Apple-Silicon*.dmg
               apps/desktop/release/*Apple-Silicon*.dmg.blockmap
               apps/desktop/release/*Apple-Silicon*.zip
               apps/desktop/release/latest-mac.yml
+              apps/cli/release/*
           - os: macos-latest
             build_script: build:mac
             build_args: "-- --x64 -c.mac.artifactName='EXIT-SEO-Crawler-${version}-macOS-Intel.${ext}'"
@@ -77,6 +81,10 @@ jobs:
             # Playwright picks its download by host platform, so this
             # override is what makes the x64 bundle actually x64.
             playwright_host_platform: mac15
+            cli_target: darwin-x64
+            # The runner is Apple silicon: the Intel CLI is injected into an
+            # official x64 Node binary of the same version.
+            cli_node_platform: darwin-x64
             artifact_name: macos-installer-x64
             # latest-mac.yml is published by the arm64 job only — both
             # jobs would otherwise upload a same-named file describing
@@ -86,6 +94,7 @@ jobs:
               apps/desktop/release/*.dmg
               apps/desktop/release/*.dmg.blockmap
               apps/desktop/release/*.zip
+              apps/cli/release/*
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
@@ -136,6 +145,21 @@ jobs:
           # being built — the exact mismatch that shipped an arm64
           # Chromium inside the Intel .dmg.
           PLAYWRIGHT_HOST_PLATFORM_OVERRIDE: ${{ matrix.playwright_host_platform }}
+
+      - name: Build CLI (single executable, no Node needed)
+        shell: bash
+        run: |
+          npm run build:cli
+          NODE_ARG=""
+          if [ -n "${{ matrix.cli_node_platform }}" ]; then
+            V=$(node -p process.version)
+            F="node-$V-${{ matrix.cli_node_platform }}.tar.gz"
+            curl -sfLO "https://nodejs.org/dist/$V/$F"
+            curl -sfL "https://nodejs.org/dist/$V/SHASUMS256.txt" | grep " $F\$" | shasum -a 256 -c -
+            tar -xzf "$F"
+            NODE_ARG="--node node-$V-${{ matrix.cli_node_platform }}/bin/node"
+          fi
+          node apps/cli/scripts/build-sea.mjs --target ${{ matrix.cli_target }} $NODE_ARG
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4

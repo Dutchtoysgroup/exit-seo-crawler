@@ -1,6 +1,6 @@
 {
   "name": "@freecrawl/cli",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "type": "module",
   "bin": {
@@ -20,6 +20,8 @@
   },
   "devDependencies": {
     "@types/node": "^22.10.0",
+    "esbuild": "^0.25.12",
+    "postject": "^1.0.0-alpha.6",
     "rimraf": "^6.0.1",
     "typescript": "^5.7.0"
   }

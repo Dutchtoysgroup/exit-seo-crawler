@@ -17,18 +17,18 @@ import {
 import { ProjectDb } from '@freecrawl/db';
 
 function help(): void {
-  console.log(`freecrawl — headless SEO crawler
+  console.log(`exit-seo-crawler — EXIT SEO Crawler, headless
 
 Usage:
-  freecrawl <url> [options]                       Spider mode (default)
-  freecrawl --list <file> [options]               List mode (one URL per line)
-  freecrawl validate-sitemap <sitemap-url>        Fetch + validate a sitemap.xml
-  freecrawl audit-robots <url> [--user-agent UA]  Test if a URL is allowed by robots.txt
-  freecrawl compare <before.seoproject> <after.seoproject>
-                                                  Cross-project diff (added / removed / status / title / meta / h1 / canonical / indexability / response_time)
-  freecrawl analyze-logs <access.log> [more.log …] [--project file]
-                                                  Parse one or more server access logs (Apache / Nginx / IIS / custom), detect bots,
-                                                  and merge the aggregates into a project for crawl × log analysis
+  exit-seo-crawler <url> [options]                       Spider mode (default)
+  exit-seo-crawler --list <file> [options]               List mode (one URL per line)
+  exit-seo-crawler validate-sitemap <sitemap-url>        Fetch + validate a sitemap.xml
+  exit-seo-crawler audit-robots <url> [--user-agent UA]  Test if a URL is allowed by robots.txt
+  exit-seo-crawler compare <before.seoproject> <after.seoproject>
+                                                         Cross-project diff (added / removed / status / title / meta / h1 / canonical / indexability / response_time)
+  exit-seo-crawler analyze-logs <access.log> [more.log …] [--project file]
+                                                         Parse one or more server access logs (Apache / Nginx / IIS / custom), detect bots,
+                                                         and merge the aggregates into a project for crawl × log analysis
 
 Options:
   --depth <n>         Max crawl depth (default: ${DEFAULT_CRAWL_CONFIG.maxDepth})
@@ -98,7 +98,7 @@ async function main(): Promise<void> {
   // touch the project DB.
   if (positionals[0] === 'validate-sitemap') {
     if (!positionals[1]) {
-      console.error('Usage: freecrawl validate-sitemap <sitemap-url>');
+      console.error('Usage: exit-seo-crawler validate-sitemap <sitemap-url>');
       process.exit(2);
     }
     const exitCode = await runValidateSitemap(
@@ -109,7 +109,7 @@ async function main(): Promise<void> {
   }
   if (positionals[0] === 'audit-robots') {
     if (!positionals[1]) {
-      console.error('Usage: freecrawl audit-robots <url> [--user-agent UA]');
+      console.error('Usage: exit-seo-crawler audit-robots <url> [--user-agent UA]');
       process.exit(2);
     }
     const exitCode = await runAuditRobots(
@@ -121,7 +121,7 @@ async function main(): Promise<void> {
   if (positionals[0] === 'compare') {
     if (!positionals[1] || !positionals[2]) {
       console.error(
-        'Usage: freecrawl compare <before.seoproject> <after.seoproject>',
+        'Usage: exit-seo-crawler compare <before.seoproject> <after.seoproject>',
       );
       process.exit(2);
     }
@@ -133,7 +133,7 @@ async function main(): Promise<void> {
   }
   if (positionals[0] === 'analyze-logs') {
     if (!positionals[1]) {
-      console.error('Usage: freecrawl analyze-logs <access.log> [more.log …] [--project file] [--format f] [--regex p] [--verify-bots]');
+      console.error('Usage: exit-seo-crawler analyze-logs <access.log> [more.log …] [--project file] [--format f] [--regex p] [--verify-bots]');
       process.exit(2);
     }
     const exitCode = await runAnalyzeLogs(

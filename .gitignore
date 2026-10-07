@@ -95,3 +95,6 @@ crawls/
 .claude/history.jsonl
 CLAUDE.md
 .playwright-mcp
+
+# CLI single-executable build (apps/cli/scripts/build-sea.mjs)
+apps/cli/sea/

@@ -6,7 +6,7 @@ Gebaseerd op [FreeCrawl SEO Tool](https://github.com/kemalai/FreeCrawl-SEO-Tool)
 
 ## Installeren
 
-Download de installer van de [Releases-pagina](https://github.com/Dutchtoysgroup/exit-seo-crawler/releases). Daarvoor heb je toegang tot de Dutchtoysgroup-organisatie op GitHub nodig.
+Download de installer van [dashboard-exit.com/crawler](https://dashboard-exit.com/crawler) (zonder inlog) of van de [Releases-pagina](https://github.com/Dutchtoysgroup/exit-seo-crawler/releases) (met toegang tot de Dutchtoysgroup-organisatie op GitHub).
 
 | Systeem | Bestand |
 |---|---|
@@ -23,6 +23,24 @@ De installers zijn niet ondertekend, dus het besturingssysteem waarschuwt de eer
 - **Windows**: SmartScreen toont "Windows heeft uw pc beschermd". Klik op **Meer informatie** → **Toch uitvoeren**.
 
 Updates: Help → Controleren op updates opent de Releases-pagina. De app zoekt niet zelf naar updates, omdat de repo privé is.
+
+## CLI
+
+Naast de app is er een commandoregelprogramma, `exit-seo-crawler`: één bestand per platform, zonder Node-installatie. Het kan alles behalve JavaScript-rendering (dat zit alleen in de app).
+
+Installeren op een Mac:
+
+```bash
+curl -fsSL https://dashboard-exit.com/crawler/install.sh | sh
+```
+
+Op Windows, in PowerShell:
+
+```powershell
+irm https://dashboard-exit.com/crawler/install.ps1 | iex
+```
+
+Daarna bijvoorbeeld `exit-seo-crawler https://www.exittoys.nl --max 500 --out crawl.csv`. Alle opties: `exit-seo-crawler --help`. Losse downloads staan ook op [dashboard-exit.com/crawler](https://dashboard-exit.com/crawler). De release-workflow bouwt de CLI met `apps/cli/scripts/build-sea.mjs` (Node single executable application).
 
 ## Wat er anders is dan FreeCrawl
 
