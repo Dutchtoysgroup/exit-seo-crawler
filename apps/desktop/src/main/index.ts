@@ -1647,12 +1647,11 @@ interface DiagnosticDialog {
  * specific (404 / WAF block / timeout) and shouldn't pop a modal.
  */
 function categorizeDiagnostic(msg: string): DiagnosticDialog | null {
-  // Note: FreeCrawl now auto-bypasses broken DNS via a 3-tier cascade
-  // (OS → public DNS UDP → DNS-over-HTTPS on port 443). Users almost
-  // never see these dialogs in normal operation. This dialog only fires
-  // when ALL THREE tiers failed — so the diagnosis is "internet is down
-  // or the antivirus / firewall is blocking every form of outbound
-  // traffic", not "restart Windows DNS Client".
+  // Note: upstream auto-bypassed broken DNS via a 3-tier cascade (OS →
+  // public DNS UDP → DNS-over-HTTPS on port 443) and these dialog texts
+  // still describe that. The Dutch Toys Group fork resolves through the
+  // OS only, so `queryA … ECONNREFUSED` (a c-ares error from the old
+  // public-DNS tier) no longer occurs; EDESTRUCTION is Windows-only.
   if (/\bquery(A|AAAA|Soa|Srv|Mx|Txt|Ns|Cname|Any|Naptr|Ptr)\b/i.test(msg) && /ECONNREFUSED/.test(msg)) {
     return {
       key: 'dns-refused',

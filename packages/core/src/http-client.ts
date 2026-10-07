@@ -50,11 +50,10 @@ export const MOBILE_DEVICE_SCALE_FACTOR = 3;
 /**
  * Configure the global undici dispatcher and Node DNS once per process.
  *
- * - `createResilientLookup` is a 3-tier DNS cascade (OS → public UDP →
- *   DoH-over-HTTPS) with built-in caching. Replaces cacheable-lookup
- *   and adds automatic recovery on systems with broken Windows DNS
- *   Client / port-53 blocked / DNS hijacking — without asking the
- *   user to do anything. See `dns-resolver.ts` for the cascade rules.
+ * - `createResilientLookup` resolves through the OS resolver only, with
+ *   built-in caching. Replaces cacheable-lookup. No fallback to
+ *   hard-coded public DNS / DoH IPs (removed in the Dutch Toys Group
+ *   fork). See `dns-resolver.ts`.
  * - `ipv4first` avoids 1–2s stalls when a host has a dead AAAA record.
  * - `autoSelectFamily` enables Happy Eyeballs (RFC 8305) — races IPv4/IPv6
  *   and uses whichever connects first. Important for dual-stack hosts
@@ -323,16 +322,16 @@ export function formatFetchError(err: unknown): string {
   // branch they would be misattributed to HTTP-layer connect failures.
   const isDnsQuery = /\bquery(A|AAAA|Soa|Srv|Mx|Txt|Naptr|Ptr|Ns|Cname|Any)\b/i.test(chain);
   if (isDnsQuery && /ECONNREFUSED/.test(chain)) {
-    return `${chain}  (DNS server refused on port 53 — automatic DNS-over-HTTPS fallback (Cloudflare 1.1.1.1) is also failing. Likely cause: antivirus / firewall blocking ALL outbound traffic, or no internet connection. Whitelist FreeCrawl in your security software.)`;
+    return `${chain}  (DNS server refused on port 53. Likely cause: antivirus / firewall blocking outbound DNS, or no internet connection. Check your network and security software.)`;
   }
   if (isDnsQuery && /ETIMEOUT|ETIMEDOUT/.test(chain)) {
-    return `${chain}  (DNS query timed out — automatic public-DNS + DoH fallbacks also timed out. Check whether you have internet access at all, and whether antivirus / firewall is blocking FreeCrawl from reaching the network.)`;
+    return `${chain}  (DNS query timed out. Check whether you have internet access at all, and whether antivirus / firewall is blocking FreeCrawl from reaching the network.)`;
   }
   if (/EDESTRUCTION/.test(chain)) {
-    return `${chain}  (System DNS resolver crashed — FreeCrawl automatically falls back to public DNS (1.1.1.1, 8.8.8.8) and DoH-over-HTTPS, no user action needed. If this error still surfaces, all three layers failed: check internet connection and that antivirus is not blocking FreeCrawl.)`;
+    return `${chain}  (System DNS resolver crashed. Check your internet connection and that antivirus is not blocking FreeCrawl; on Windows, restarting the "DNS Client" service usually fixes it.)`;
   }
   if (/ENOTFOUND|EAI_AGAIN|ENODATA|ESERVFAIL|EREFUSED|ENOTIMP|ENONAME/.test(chain)) {
-    return `${chain}  (DNS lookup failed across all 3 layers (OS, public DNS, DoH). Most likely the host genuinely doesn't exist, or your machine has no internet at all. Check the spelling and your connection.)`;
+    return `${chain}  (DNS lookup failed. Most likely the host genuinely doesn't exist, or your machine has no internet at all. Check the spelling and your connection.)`;
   }
   if (/UNABLE_TO_GET_ISSUER_CERT_LOCALLY|SELF_SIGNED_CERT_IN_CHAIN|CERT_HAS_EXPIRED|DEPTH_ZERO_SELF_SIGNED_CERT|UNABLE_TO_VERIFY_LEAF_SIGNATURE/.test(chain)) {
     return `${chain}  (TLS certificate rejected — likely corporate proxy or antivirus HTTPS inspection; set NODE_EXTRA_CA_CERTS to your CA bundle)`;

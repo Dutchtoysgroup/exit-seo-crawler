@@ -368,43 +368,6 @@ export function isInScope(
   }
 }
 
-/**
- * True when a URL's host is a loopback / private / link-local address (or
- * the localhost name). Used to stop the external-link and image probes from
- * fetching internal addresses on the crawl host's behalf — a crawled page
- * containing `http://169.254.169.254/…` or `http://192.168.1.1/admin` would
- * otherwise be fetched and its status/response-time recorded (SSRF / internal
- * port scan). Callers skip the probe unless the START host is itself private
- * (an intranet crawl legitimately targets private space).
- */
-export function isPrivateHost(url: string): boolean {
-  let host: string;
-  try {
-    host = new URL(url).hostname.toLowerCase();
-  } catch {
-    return false;
-  }
-  if (host === 'localhost' || host.endsWith('.localhost') || host.endsWith('.local')) {
-    return true;
-  }
-  // IPv6 loopback / unique-local (fc00::/7) / link-local (fe80::/10).
-  if (host === '[::1]' || host === '::1') return true;
-  const v6 = host.replace(/^\[|\]$/g, '');
-  if (/^f[cd][0-9a-f]{2}:/i.test(v6) || /^fe[89ab][0-9a-f]:/i.test(v6)) return true;
-  // IPv4 ranges.
-  const m = /^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/.exec(host);
-  if (!m) return false;
-  const a = Number(m[1]);
-  const b = Number(m[2]);
-  if (a === 10) return true; // 10.0.0.0/8
-  if (a === 127) return true; // 127.0.0.0/8 loopback
-  if (a === 169 && b === 254) return true; // 169.254.0.0/16 link-local (cloud metadata)
-  if (a === 172 && b >= 16 && b <= 31) return true; // 172.16.0.0/12
-  if (a === 192 && b === 168) return true; // 192.168.0.0/16
-  if (a === 0) return true; // 0.0.0.0/8
-  return false;
-}
-
 export function extractExtension(url: string): string {
   try {
     const u = new URL(url);

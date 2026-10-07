@@ -17,7 +17,6 @@ import {
   isSameHost,
   extractExtension,
   isInScope,
-  isPrivateHost,
   isUrlMalformed,
   detectUrlTrap,
   resolveStartUrl,
@@ -1649,12 +1648,6 @@ export class Crawler extends EventEmitter {
         const entry = unprobed[idx];
         if (!entry) return;
         await this.probeTick(progress);
-        // SSRF guard — same as probeExternal: an image `src` can point at an
-        // internal address just as a link can.
-        if (isPrivateHost(entry.src) && !isPrivateHost(this.config.startUrl)) {
-          writes.push({ method: 'setImageSize', args: [entry.id, null, 0] });
-          continue;
-        }
         // Only send the crawl's auth/custom headers to in-scope image hosts;
         // third-party / CDN image URLs must not receive the start site's creds.
         const imgInScope = isInScope(this.config.startUrl, entry.src, this.config.scope);
@@ -2721,22 +2714,6 @@ export class Crawler extends EventEmitter {
   private async probeExternal(url: string): Promise<void> {
     if (this.stopped) return;
 
-    // SSRF guard: never fetch an internal/loopback/link-local address on
-    // behalf of a crawled page (e.g. `http://169.254.169.254/…` cloud
-    // metadata, `http://192.168.x/admin`). Skip unless the START host is
-    // itself private — an intranet crawl legitimately targets private space.
-    if (isPrivateHost(url) && !isPrivateHost(this.config.startUrl)) {
-      await this.dbCall<void>('updateExternalProbe', [
-        url,
-        {
-          statusCode: null,
-          statusText: 'Skipped: private/internal address (SSRF guard)',
-          responseTimeMs: 0,
-        },
-      ]);
-      return;
-    }
-
     // Only attach the crawl's Authorization / custom headers when the probe
     // host is within the crawl's own scope. Sending the start site's Basic
     // auth or a bypass header (`X-Vercel-Protection-Bypass`, …) to an
@@ -2963,58 +2940,22 @@ export class Crawler extends EventEmitter {
     return this.paused;
   }
 
-  private dnsAnnouncedTier2 = false;
-  private dnsAnnouncedTier3 = false;
-
   /**
-   * Wire DNS-tier escalation events from the global resilient resolver
-   * into this Crawler's event stream. Surfaces in the in-app Logs window
-   * as a one-time `warn` per tier per crawl ("DNS bypass active …"), then
-   * subsequent per-host lookups stay at debug level so the log panel
-   * isn't flooded.
+   * Wire DNS lookup events from the global resolver into this Crawler's
+   * event stream. Failures surface at debug level in the in-app Logs
+   * window; the fetch error itself already reaches the user via the
+   * URL's status, so the panel isn't flooded with one line per host.
    *
    * The hook is auto-cleared when this crawl emits `done` so a future
    * Crawler instance — or a stop()-then-restart cycle — installs a fresh
-   * announcement state and we don't leak `this` into module-level state.
+   * hook and we don't leak `this` into module-level state.
    */
   private installDnsHook(): void {
-    this.dnsAnnouncedTier2 = false;
-    this.dnsAnnouncedTier3 = false;
     setActiveDnsHook((event) => {
-      if (event.outcome === 'success' && event.tier === 'public-udp') {
-        if (!this.dnsAnnouncedTier2) {
-          this.dnsAnnouncedTier2 = true;
-          this.emit(
-            'warn',
-            `DNS bypass active: system resolver unavailable, falling back to public DNS (${event.via}) for ${event.hostname}. Crawl continues automatically — no user action required.`,
-          );
-        } else {
-          this.emit(
-            'debug',
-            `DNS via public UDP: ${event.hostname} (${event.via}) in ${event.durationMs}ms`,
-          );
-        }
-      } else if (event.outcome === 'success' && event.tier === 'doh') {
-        if (!this.dnsAnnouncedTier3) {
-          this.dnsAnnouncedTier3 = true;
-          this.emit(
-            'warn',
-            `DNS bypass active (DoH): port-53 unreachable on this network, resolving via DNS-over-HTTPS to ${event.via} for ${event.hostname}. Crawl continues automatically — no user action required.`,
-          );
-        } else {
-          this.emit(
-            'debug',
-            `DNS via DoH: ${event.hostname} (${event.via}) in ${event.durationMs}ms`,
-          );
-        }
-      } else if (event.outcome === 'failure') {
-        // Tier failures during a successful cascade are normal (Tier 1
-        // failed → Tier 2 succeeded). Keep them at debug so the panel
-        // doesn't fill with "queryA ECONNREFUSED" entries that the user
-        // can't act on.
+      if (event.outcome === 'failure') {
         this.emit(
           'debug',
-          `DNS tier '${event.tier}' failed for ${event.hostname}: ${event.error ?? 'unknown'}`,
+          `DNS lookup failed for ${event.hostname}: ${event.error ?? 'unknown'}`,
         );
       }
     });
