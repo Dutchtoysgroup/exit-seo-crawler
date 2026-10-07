@@ -1,6 +1,6 @@
 {
   "name": "freecrawl-seo",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "private": true,
   "description": "EXIT SEO Crawler — internal SEO crawler of Dutch Toys Group, based on FreeCrawl SEO Tool (MIT)",
   "license": "MIT",
