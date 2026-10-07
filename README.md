@@ -14,12 +14,8 @@ Download de installer van [dashboard-exit.com/crawler](https://dashboard-exit.co
 | Mac met Intel-chip | `EXIT-SEO-Crawler-<versie>-macOS-Intel.dmg` |
 | Windows | `EXIT-SEO-Crawler-<versie>-Windows-Setup.exe` (of `-Portable.exe` zonder installatie) |
 
-De installers zijn niet ondertekend, dus het besturingssysteem waarschuwt de eerste keer:
+De Mac-versie is vanaf 1.0.2 ondertekend en door Apple genotariseerd: hij opent zonder waarschuwing, ook de CLI. De Windows-versie is nog niet ondertekend:
 
-- **macOS**: sleep de app naar Programma's en open hem. Krijg je "kan niet worden geopend", ga dan naar Systeeminstellingen → Privacy en beveiliging en klik onderaan op **Open toch**. Zegt macOS dat de app "beschadigd" is, voer dan één keer uit:
-  ```bash
-  xattr -cr "/Applications/EXIT SEO Crawler.app"
-  ```
 - **Windows**: SmartScreen toont "Windows heeft uw pc beschermd". Klik op **Meer informatie** → **Toch uitvoeren**.
 
 Updates: Help → Controleren op updates opent de Releases-pagina. De app zoekt niet zelf naar updates, omdat de repo privé is.
@@ -50,6 +46,20 @@ Daarna bijvoorbeeld `exit-seo-crawler https://www.exittoys.nl --max 500 --out cr
 4. **Naam en updates.** "FreeCrawl" heet in de hele app (11 talen) "EXIT SEO Crawler". De update-check van upstream is vervangen door een link naar de Releases-pagina hierboven. Het Over-venster vermeldt FreeCrawl als basis.
 
 Bewust níét veranderd: de standaard User-Agent (`FreeCrawlSEO/0.1`). Daardoor ziet een site die je crawlt (ook van een concurrent) niet dat de crawler van EXIT komt. Je kunt hem per crawl aanpassen in Instellingen.
+
+## Ondertekening (macOS)
+
+De release-workflow ondertekent de Mac-app en de CLI met **Developer ID Application: Sven Dijk (VAM683M962)** (persoonlijk Apple Developer-account van Sven, geldig tot 17 september 2031) en laat ze notariseren via de App Store Connect API. Repo-secrets:
+
+| Secret | Inhoud |
+|---|---|
+| `CSC_LINK` | het certificaat met privésleutel als `.p12`, base64 |
+| `CSC_KEY_PASSWORD` | wachtwoord van die `.p12` |
+| `APPLE_API_KEY_P8` | inhoud van `AuthKey_<id>.p8` (staat ook in 1Password; Apple geeft hem maar één keer) |
+| `APPLE_API_KEY_ID` | Key ID van die sleutel |
+| `APPLE_API_ISSUER` | Issuer ID uit App Store Connect |
+
+De workflow zet het certificaat alleen op de Mac-runners in een tijdelijke sleutelhanger. Gaat Dutch Toys Group later een eigen Apple-account gebruiken, dan werken Mac-updates niet automatisch over teams heen: iedereen installeert dan één keer handmatig.
 
 ## Ontwikkelen
 

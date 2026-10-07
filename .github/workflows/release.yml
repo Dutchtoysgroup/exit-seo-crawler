@@ -125,14 +125,48 @@ jobs:
         env:
           PLAYWRIGHT_HOST_PLATFORM_OVERRIDE: ${{ matrix.playwright_host_platform }}
 
+      # Developer ID signing (macOS legs only). The .p12 from the CSC_LINK
+      # secret goes into a throwaway keychain that dies with the runner;
+      # electron-builder finds the identity there via CSC_NAME, and the CLI
+      # build signs with it too. CSC_LINK itself is never handed to
+      # electron-builder, so the Windows leg can't mistake the Apple
+      # certificate for an Authenticode one. The Developer ID G2 intermediate
+      # is imported as well so codesign can build the chain on a clean runner.
+      - name: Import signing certificate (macOS)
+        if: runner.os == 'macOS'
+        shell: bash
+        env:
+          CSC_LINK: ${{ secrets.CSC_LINK }}
+          CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
+          APPLE_API_KEY_P8: ${{ secrets.APPLE_API_KEY_P8 }}
+        run: |
+          KEYCHAIN="$RUNNER_TEMP/signing.keychain-db"
+          KEYCHAIN_PASSWORD="$(openssl rand -base64 24)"
+          security create-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN"
+          security set-keychain-settings -lut 21600 "$KEYCHAIN"
+          security unlock-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN"
+          printf '%s' "$CSC_LINK" | base64 --decode > "$RUNNER_TEMP/cert.p12"
+          security import "$RUNNER_TEMP/cert.p12" -k "$KEYCHAIN" -P "$CSC_KEY_PASSWORD" -T /usr/bin/codesign -T /usr/bin/security
+          rm "$RUNNER_TEMP/cert.p12"
+          curl -sfL https://www.apple.com/certificateauthority/DeveloperIDG2CA.cer -o "$RUNNER_TEMP/DeveloperIDG2CA.cer"
+          security import "$RUNNER_TEMP/DeveloperIDG2CA.cer" -k "$KEYCHAIN" || true
+          security set-key-partition-list -S apple-tool:,apple: -s -k "$KEYCHAIN_PASSWORD" "$KEYCHAIN" > /dev/null
+          security list-keychains -d user -s "$KEYCHAIN" $(security list-keychains -d user | tr -d '"')
+          security find-identity -v -p codesigning "$KEYCHAIN"
+          printf '%s' "$APPLE_API_KEY_P8" > "$RUNNER_TEMP/AuthKey.p8"
+          echo "APPLE_API_KEY=$RUNNER_TEMP/AuthKey.p8" >> "$GITHUB_ENV"
+
       - name: Build installer (with bundled Playwright browsers)
         run: npm --workspace apps/desktop run ${{ matrix.build_script }} ${{ matrix.build_args }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # Disable mac code-signing — we don't have an Apple Developer
-          # cert in CI yet. Users will see a Gatekeeper warning on first
-          # launch and must right-click → Open the .dmg's app once.
-          CSC_IDENTITY_AUTO_DISCOVERY: 'false'
+          # macOS: sign with the Developer ID imported above and notarize
+          # (APPLE_API_KEY is the .p8 path the import step exported).
+          # Windows: no certificate yet, so no signing at all.
+          CSC_IDENTITY_AUTO_DISCOVERY: ${{ runner.os == 'macOS' && 'true' || 'false' }}
+          CSC_NAME: ${{ runner.os == 'macOS' && 'Sven Dijk (VAM683M962)' || '' }}
+          APPLE_API_KEY_ID: ${{ runner.os == 'macOS' && secrets.APPLE_API_KEY_ID || '' }}
+          APPLE_API_ISSUER: ${{ runner.os == 'macOS' && secrets.APPLE_API_ISSUER || '' }}
           # V2 Faz 1 — Bundle the Playwright Chromium browser into the
           # installer so JS rendering works offline / on first launch
           # with zero extra download. The prepare-playwright-bundle.mjs
@@ -148,6 +182,10 @@ jobs:
 
       - name: Build CLI (single executable, no Node needed)
         shell: bash
+        env:
+          MAC_CODESIGN_IDENTITY: "${{ runner.os == 'macOS' && 'Developer ID Application: Sven Dijk (VAM683M962)' || '' }}"
+          APPLE_API_KEY_ID: ${{ runner.os == 'macOS' && secrets.APPLE_API_KEY_ID || '' }}
+          APPLE_API_ISSUER: ${{ runner.os == 'macOS' && secrets.APPLE_API_ISSUER || '' }}
         run: |
           npm run build:cli
           NODE_ARG=""

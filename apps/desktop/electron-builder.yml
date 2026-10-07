@@ -77,6 +77,13 @@ mac:
   target:
     - dmg
   category: public.app-category.business
+  # Developer ID signing + notarization (release workflow). The identity is
+  # imported into a temporary keychain by the workflow; notarization runs
+  # when APPLE_API_KEY / APPLE_API_KEY_ID / APPLE_API_ISSUER are set. A local
+  # build without that keychain identity falls back to an ad-hoc signature.
+  hardenedRuntime: true
+  entitlements: resources/entitlements.mac.plist
+  entitlementsInherit: resources/entitlements.mac.plist
 linux:
   executableName: exit-seo-crawler
   artifactName: EXIT-SEO-Crawler-${version}-Linux-${arch}.${ext}

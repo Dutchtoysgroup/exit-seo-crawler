@@ -16,7 +16,9 @@
  *      dynamic import fails with a clear error if a config turns it on.
  *   2. node --experimental-sea-config writes the blob.
  *   3. postject injects it into a copy of the Node binary (macOS: signature
- *      removed first and an ad-hoc one added after — arm64 refuses unsigned).
+ *      removed first, then Developer ID-signed and notarized when
+ *      MAC_CODESIGN_IDENTITY and the APPLE_API_* variables are set, ad-hoc
+ *      signed otherwise — arm64 refuses unsigned).
  *   4. The result is packed: .tar.gz on macOS, .zip on Windows, in apps/cli/release.
  */
 import { execFileSync } from 'node:child_process';
@@ -94,7 +96,53 @@ const postject = join(repoRoot, 'node_modules/postject/dist/cli.js');
 const postjectArgs = [postject, exe, 'NODE_SEA_BLOB', blob, '--sentinel-fuse', 'NODE_SEA_FUSE_fce680ab2cc467b6e072b8b5df1996b2'];
 if (target.os === 'mac') postjectArgs.push('--macho-segment-name', 'NODE_SEA');
 run(process.execPath, postjectArgs);
-if (target.os === 'mac') run('codesign', ['--sign', '-', '--force', exe]);
+if (target.os === 'mac') signMac(exe);
+
+// Developer ID signing when MAC_CODESIGN_IDENTITY is set (the release
+// workflow imports the certificate into a temporary keychain), ad-hoc
+// otherwise — arm64 macOS refuses to run an unsigned binary. Hardened
+// runtime needs the JIT entitlements or V8 dies with SIGTRAP.
+function signMac(file) {
+  const identity = process.env.MAC_CODESIGN_IDENTITY;
+  if (!identity) {
+    run('codesign', ['--sign', '-', '--force', file]);
+    return;
+  }
+  run('codesign', [
+    '--force',
+    '--options', 'runtime',
+    '--timestamp',
+    '--entitlements', join(cliRoot, 'entitlements.mac.plist'),
+    '--sign', identity,
+    file,
+  ]);
+  notarizeMac(file);
+}
+
+// A bare executable can't be stapled; Gatekeeper looks the ticket up online
+// the first time a quarantined copy runs. Skipped without API credentials.
+function notarizeMac(file) {
+  const { APPLE_API_KEY, APPLE_API_KEY_ID, APPLE_API_ISSUER } = process.env;
+  if (!APPLE_API_KEY || !APPLE_API_KEY_ID || !APPLE_API_ISSUER) {
+    console.log('Notarization skipped: APPLE_API_KEY / APPLE_API_KEY_ID / APPLE_API_ISSUER not set.');
+    return;
+  }
+  const zip = join(work, 'notarize.zip');
+  run('ditto', ['-c', '-k', '--keepParent', file, zip]);
+  const auth = ['--key', APPLE_API_KEY, '--key-id', APPLE_API_KEY_ID, '--issuer', APPLE_API_ISSUER];
+  const result = JSON.parse(
+    execFileSync('xcrun', ['notarytool', 'submit', zip, ...auth, '--wait', '--output-format', 'json'], {
+      encoding: 'utf8',
+    }),
+  );
+  rmSync(zip);
+  console.log(`Notarization ${result.id}: ${result.status}`);
+  if (result.status !== 'Accepted') {
+    // Apple's log says which file or signature was rejected.
+    run('xcrun', ['notarytool', 'log', result.id, ...auth]);
+    throw new Error(`Notarization failed with status ${result.status}`);
+  }
+}
 
 // 4. Pack.
 const base = `EXIT-SEO-Crawler-CLI-${version}-${target.label}`;
