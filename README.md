@@ -69,11 +69,13 @@ CSC_IDENTITY_AUTO_DISCOVERY=false npm --workspace apps/desktop run build:mac -- 
 ## Updates van FreeCrawl binnenhalen
 
 ```bash
-git remote add upstream https://github.com/kemalai/FreeCrawl-SEO-Tool.git
+git remote add --no-tags upstream https://github.com/kemalai/FreeCrawl-SEO-Tool.git
 ```
 
 ```bash
 git fetch upstream && git merge upstream/main
 ```
+
+`--no-tags` houdt de versie-tags van FreeCrawl buiten deze repo: die heeft een eigen versielijn (1.0.0 = gebaseerd op FreeCrawl 1.0.0).
 
 Conflicten verwacht je vooral in de locale-bestanden (de naam), `styles.css`, `dns-resolver.ts`, `crawler.ts` en `apps/desktop/src/main/index.ts` (update-check). Draai na een merge nog eens een zoekopdracht op `FreeCrawl` in `apps/` en `packages/`: nieuwe teksten van upstream noemen de app nog bij de oude naam.
