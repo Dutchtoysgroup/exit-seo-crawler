@@ -196,7 +196,7 @@ export function App() {
         const proceed = window.confirm(
           t('app.crashRecovery', {
             defaultValue:
-              "FreeCrawl detected a previous crawl that didn't finish cleanly:\n\n  Mode: {{mode}}\n  Start URL: {{seed}}\n  Pending URLs: {{pending}}\n\nResume the crawl from where it stopped?\n\nClick OK to resume, Cancel to discard the recovery state and start fresh.",
+              "EXIT SEO Crawler detected a previous crawl that didn't finish cleanly:\n\n  Mode: {{mode}}\n  Start URL: {{seed}}\n  Pending URLs: {{pending}}\n\nResume the crawl from where it stopped?\n\nClick OK to resume, Cancel to discard the recovery state and start fresh.",
             mode: t(`topbar.mode.${status.mode}`, { defaultValue: status.mode }),
             seed: status.seedUrl,
             pending: status.pendingCount.toLocaleString(),

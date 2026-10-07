@@ -9,7 +9,7 @@ import type { Guide } from './types.js';
 export const GUIDES_KO: Record<string, Guide> = {
   openai: {
     intro:
-      'OpenAI API를 통해 URL마다 사용자 지정 프롬프트를 실행합니다 — 콘텐츠 분석, 제목 아이디어, 요약. 사용량은 본인의 OpenAI 계정에 청구됩니다. FreeCrawl은 무료 중개 도구일 뿐이며 API 호출 비용은 사용자 부담입니다.',
+      'OpenAI API를 통해 URL마다 사용자 지정 프롬프트를 실행합니다 — 콘텐츠 분석, 제목 아이디어, 요약. 사용량은 본인의 OpenAI 계정에 청구됩니다. EXIT SEO Crawler는 무료 중개 도구일 뿐이며 API 호출 비용은 사용자 부담입니다.',
     prereqs: [
       'OpenAI 계정(https://platform.openai.com 에서 무료 가입).',
       '유효한 결제 수단 — OpenAI는 키가 작동하기 전에 최소 5달러 잔액을 요구합니다.',
@@ -34,7 +34,7 @@ export const GUIDES_KO: Record<string, Guide> = {
       {
         title: '"+ Create new secret key" 클릭(오른쪽 상단)',
         detail:
-          '대화상자에서:\n• Name: "FreeCrawl SEO Tool"(아무 메모용 이름)\n• Project: Default project 또는 원하는 프로젝트\n• Permissions: All(가장 간단; 제한된 범위도 작동)\n그다음 "Create secret key".',
+          '대화상자에서:\n• Name: "EXIT SEO Crawler"(아무 메모용 이름)\n• Project: Default project 또는 원하는 프로젝트\n• Permissions: All(가장 간단; 제한된 범위도 작동)\n그다음 "Create secret key".',
       },
       {
         title: '키를 복사하세요 — 다시는 표시되지 않습니다',
@@ -44,7 +44,7 @@ export const GUIDES_KO: Record<string, Guide> = {
       {
         title: '이 패널의 "API Key" 필드에 붙여넣기 + 저장 클릭',
         detail:
-          'FreeCrawl은 키를 OS 자격 증명 저장소(Windows DPAPI, macOS 키체인, Linux Secret Service)에 암호화해 저장합니다. 절대 평문으로 기록되지 않습니다.',
+          'EXIT SEO Crawler는 키를 OS 자격 증명 저장소(Windows DPAPI, macOS 키체인, Linux Secret Service)에 암호화해 저장합니다. 절대 평문으로 기록되지 않습니다.',
       },
       {
         title: 'AI 탭에서 테스트',
@@ -101,7 +101,7 @@ export const GUIDES_KO: Record<string, Guide> = {
       {
         title: '"+ Create Key" 클릭',
         detail:
-          '대화상자에서:\n• Name: "FreeCrawl SEO Tool"\n• Workspace: Default workspace\n• Environment: Production\n그다음 "Create Key".',
+          '대화상자에서:\n• Name: "EXIT SEO Crawler"\n• Workspace: Default workspace\n• Environment: Production\n그다음 "Create Key".',
       },
       {
         title: '키를 복사하세요 — 다시는 표시되지 않습니다',
@@ -134,7 +134,7 @@ export const GUIDES_KO: Record<string, Guide> = {
     ],
     notes: [
       '가격(2026-06): Haiku 4.5 약 0.25/1.25달러(100만 토큰당 입력/출력), Sonnet 4.6 약 3/15달러, Opus 4.8 약 15/75달러.',
-      'Anthropic은 프롬프트 캐싱을 지원합니다 — 5분 내 반복되는 긴 시스템 프롬프트는 90% 할인됩니다(FreeCrawl AI 패널은 아직 캐싱을 사용하지 않음 — 이후 릴리스에서 지원 예정).',
+      'Anthropic은 프롬프트 캐싱을 지원합니다 — 5분 내 반복되는 긴 시스템 프롬프트는 90% 할인됩니다(EXIT SEO Crawler AI 패널은 아직 캐싱을 사용하지 않음 — 이후 릴리스에서 지원 예정).',
     ],
     lastReviewed: '2026-06-01',
   },
@@ -174,7 +174,7 @@ export const GUIDES_KO: Record<string, Guide> = {
       {
         title: '받은 모델 이름 입력',
         detail:
-          '예: "llama3.2" 또는 "qwen2.5:7b". 비워 두면 FreeCrawl이 첫 번째 사용 가능한 모델을 선택합니다.',
+          '예: "llama3.2" 또는 "qwen2.5:7b". 비워 두면 EXIT SEO Crawler가 첫 번째 사용 가능한 모델을 선택합니다.',
       },
       {
         title: '저장 + 테스트',
@@ -220,7 +220,7 @@ export const GUIDES_KO: Record<string, Guide> = {
       {
         title: '프로젝트 선택 또는 생성',
         detail:
-          '왼쪽 상단 프로젝트 드롭다운 → "New Project" → 이름: "FreeCrawl SEO" → Create. 결제 계정 불필요 — PSI 무료 티어는 인증용 자격 증명만 있으면 됩니다.',
+          '왼쪽 상단 프로젝트 드롭다운 → "New Project" → 이름: "EXIT SEO Crawler" → Create. 결제 계정 불필요 — PSI 무료 티어는 인증용 자격 증명만 있으면 됩니다.',
       },
       {
         title: 'PageSpeed Insights API 사용 설정',
@@ -247,7 +247,7 @@ export const GUIDES_KO: Record<string, Guide> = {
       {
         title: '선택: API 키 제한(권장)',
         detail:
-          '"Edit API key" → "Restrict key" 클릭:\n• API restrictions: "Restrict key" → "PageSpeed Insights API"\n• Application restrictions: "None"(FreeCrawl은 데스크톱 앱이므로 리퍼러/IP 필터링이 동작하지 않음)\n제한하지 않은 키도 동작하지만 제한을 권장합니다.',
+          '"Edit API key" → "Restrict key" 클릭:\n• API restrictions: "Restrict key" → "PageSpeed Insights API"\n• Application restrictions: "None"(EXIT SEO Crawler는 데스크톱 앱이므로 리퍼러/IP 필터링이 동작하지 않음)\n제한하지 않은 키도 동작하지만 제한을 권장합니다.',
       },
       {
         title: '이 패널의 "API Key" 필드에 키 붙여넣기 + 저장',
@@ -427,7 +427,7 @@ export const GUIDES_KO: Record<string, Guide> = {
   },
   gsc: {
     intro:
-      'Google Search Console API로 URL별 Search Console 지표(클릭, 노출, CTR, 평균 순위)를 가져옵니다. URL Inspection API는 색인 범위 판정 + 마지막 크롤링 시각도 제공합니다. "자체 클라이언트 사용" 모델 — 본인의 Google Cloud OAuth 클라이언트를 만들어 붙여넣습니다. FreeCrawl은 공유 중개 앱을 사용하지 않습니다.',
+      'Google Search Console API로 URL별 Search Console 지표(클릭, 노출, CTR, 평균 순위)를 가져옵니다. URL Inspection API는 색인 범위 판정 + 마지막 크롤링 시각도 제공합니다. "자체 클라이언트 사용" 모델 — 본인의 Google Cloud OAuth 클라이언트를 만들어 붙여넣습니다. EXIT SEO Crawler는 공유 중개 앱을 사용하지 않습니다.',
     prereqs: [
       'Google 계정(연결할 GSC 속성을 소유 / 공동 소유해야 함).',
       '추가 + 확인된 Google Search Console 속성 최소 하나.',
@@ -436,7 +436,7 @@ export const GUIDES_KO: Record<string, Guide> = {
       {
         title: 'Google Cloud Console을 열고 새 프로젝트 생성',
         detail:
-          '왼쪽 상단 프로젝트 드롭다운 → "New Project" → 이름: "FreeCrawl SEO Integrations"(원하는 대로) → Create. 이 프로젝트는 OAuth 자격 증명 전용입니다 — 결제 불필요.',
+          '왼쪽 상단 프로젝트 드롭다운 → "New Project" → 이름: "EXIT SEO Crawler Integrations"(원하는 대로) → Create. 이 프로젝트는 OAuth 자격 증명 전용입니다 — 결제 불필요.',
         link: {
           label: 'console.cloud.google.com',
           url: 'https://console.cloud.google.com',
@@ -454,7 +454,7 @@ export const GUIDES_KO: Record<string, Guide> = {
       {
         title: 'OAuth 동의 화면 작성',
         detail:
-          '필수 필드만:\n• App name: "FreeCrawl Local"\n• User support email: 본인 이메일\n• Developer contact information: 본인 이메일\n나머지는 비워 두세요. Save and Continue → Save and Continue → Save and Continue → Back to Dashboard.',
+          '필수 필드만:\n• App name: "EXIT SEO Crawler Local"\n• User support email: 본인 이메일\n• Developer contact information: 본인 이메일\n나머지는 비워 두세요. Save and Continue → Save and Continue → Save and Continue → Back to Dashboard.',
       },
       {
         title: '중요: 자신을 Test User로 추가',
@@ -485,7 +485,7 @@ export const GUIDES_KO: Record<string, Guide> = {
       {
         title: 'OAuth Client 유형으로 "Desktop app" 선택(Web app 아님!)',
         detail:
-          'Application type 드롭다운 → "Desktop app". Name: "FreeCrawl SEO Tool". Create → 대화상자에 Client ID + Client Secret이 표시됩니다. 즉시 둘 다 복사하세요(Secret은 다시 표시되지 않음).\n\n왜 DESKTOP인가: FreeCrawl은 연결마다 무작위 로컬 포트(예: 127.0.0.1:63092)를 사용합니다. "Web application"은 고정된 리디렉션 URI 목록이 필요합니다 — 무작위 포트는 일치할 수 없음 → 실패. "Desktop app"은 포트에 상관없이 루프백 리디렉션을 자동으로 허용합니다.',
+          'Application type 드롭다운 → "Desktop app". Name: "EXIT SEO Crawler". Create → 대화상자에 Client ID + Client Secret이 표시됩니다. 즉시 둘 다 복사하세요(Secret은 다시 표시되지 않음).\n\n왜 DESKTOP인가: EXIT SEO Crawler는 연결마다 무작위 로컬 포트(예: 127.0.0.1:63092)를 사용합니다. "Web application"은 고정된 리디렉션 URI 목록이 필요합니다 — 무작위 포트는 일치할 수 없음 → 실패. "Desktop app"은 포트에 상관없이 루프백 리디렉션을 자동으로 허용합니다.',
       },
       {
         title: 'Client ID + Client Secret을 이 패널에 붙여넣기 + 저장',
@@ -500,10 +500,10 @@ export const GUIDES_KO: Record<string, Guide> = {
       {
         title: '테스트 사용자로 추가한 Google 계정으로 로그인',
         detail:
-          '계정 선택기에서 테스트 사용자에 추가한 이메일을 선택하세요. "Continue" → "Google hasn\'t verified this app" 경고(테스트 모드에서 정상). "Advanced" → "Go to FreeCrawl Local (unsafe)" → 권한 수락 → Allow.',
+          '계정 선택기에서 테스트 사용자에 추가한 이메일을 선택하세요. "Continue" → "Google hasn\'t verified this app" 경고(테스트 모드에서 정상). "Advanced" → "Go to EXIT SEO Crawler Local (unsafe)" → 권한 수락 → Allow.',
       },
       {
-        title: 'FreeCrawl로 돌아오면 "구성됨"이 보여야 합니다',
+        title: 'EXIT SEO Crawler로 돌아오면 "구성됨"이 보여야 합니다',
         detail:
           '설정의 Search Console 카드에 이제 녹색 "구성됨" 배지가 표시됩니다. 이제 상단 "Search Console" 탭으로 전환해 속성을 나열하고 데이터를 가져올 수 있습니다.',
       },
@@ -517,7 +517,7 @@ export const GUIDES_KO: Record<string, Guide> = {
       {
         problem: '"Request had insufficient authentication scopes"',
         solution:
-          'Search Console API가 사용 설정되지 않았거나, OAuth 동의 화면에서 "View Search Console data for your verified sites" 권한 체크박스가 해제되어 있었습니다. (1) Search Console API 사용 설정(5단계), (2) myaccount.google.com/permissions → "FreeCrawl Local" → Remove access → 연결을 다시 클릭하고 동의 화면에서 모든 권한을 체크하세요.',
+          'Search Console API가 사용 설정되지 않았거나, OAuth 동의 화면에서 "View Search Console data for your verified sites" 권한 체크박스가 해제되어 있었습니다. (1) Search Console API 사용 설정(5단계), (2) myaccount.google.com/permissions → "EXIT SEO Crawler Local" → Remove access → 연결을 다시 클릭하고 동의 화면에서 모든 권한을 체크하세요.',
       },
       {
         problem: '"redirect_uri_mismatch"',
@@ -596,7 +596,7 @@ export const GUIDES_KO: Record<string, Guide> = {
       {
         problem: '"Request had insufficient authentication scopes"',
         solution:
-          'OAuth 범위가 GA4를 포함하지 않습니다. myaccount.google.com/permissions → "FreeCrawl Local" → Remove access → 연결을 다시 클릭 → Google Analytics 권한 체크박스를 체크하세요.',
+          'OAuth 범위가 GA4를 포함하지 않습니다. myaccount.google.com/permissions → "EXIT SEO Crawler Local" → Remove access → 연결을 다시 클릭 → Google Analytics 권한 체크박스를 체크하세요.',
       },
       {
         problem: 'Property list comes back empty',
@@ -657,7 +657,7 @@ export const GUIDES_KO: Record<string, Guide> = {
     ],
     notes: [
       'Sheets 하드 리밋: 스프레드시트당 1000만 셀 — 대형 크롤링(>50만 URL)은 분할됩니다.',
-      'Drive 범위는 "drive.file"입니다 — FreeCrawl이 만든 파일만 접근 가능하며 기존 파일은 접근할 수 없습니다.',
+      'Drive 범위는 "drive.file"입니다 — EXIT SEO Crawler가 만든 파일만 접근 가능하며 기존 파일은 접근할 수 없습니다.',
     ],
     lastReviewed: '2026-06-01',
   },
@@ -702,7 +702,7 @@ export const GUIDES_KO: Record<string, Guide> = {
       {
         title: '이 패널의 "Service Account JSON" 필드에 붙여넣기',
         detail:
-          '전체 JSON(여는 `{`부터 닫는 `}`까지)을 붙여넣으세요. FreeCrawl은 JSON을 OS 자격 증명 저장소에 암호화해 저장합니다.',
+          '전체 JSON(여는 `{`부터 닫는 `}`까지)을 붙여넣으세요. EXIT SEO Crawler는 JSON을 OS 자격 증명 저장소에 암호화해 저장합니다.',
       },
       {
         title: '"GCP Project ID" 입력',
@@ -733,12 +733,12 @@ export const GUIDES_KO: Record<string, Guide> = {
       {
         problem: '"Invalid JSON"',
         solution:
-          'JSON의 일부만 붙여넣었거나 양끝에 불필요한 문자가 있습니다. 서비스 계정 JSON 파일을 제대로 된 편집기(VS Code 권장, 메모장 금지)로 열고 Ctrl+A로 전체 선택, 복사, FreeCrawl 필드를 비우고 붙여넣으세요.',
+          'JSON의 일부만 붙여넣었거나 양끝에 불필요한 문자가 있습니다. 서비스 계정 JSON 파일을 제대로 된 편집기(VS Code 권장, 메모장 금지)로 열고 Ctrl+A로 전체 선택, 복사, EXIT SEO Crawler 필드를 비우고 붙여넣으세요.',
       },
     ],
     notes: [
       '비용: BigQuery 무료 티어(10GB 저장 + 월 1TB 쿼리)로 일반 사용은 충분합니다. 100만 URL 크롤링은 약 500MB; 쿼리 비용은 SQL에 따라 다릅니다.',
-      '스키마 진화: FreeCrawl이 내보내기 테이블을 자동으로 생성/갱신합니다. CrawlUrlRow 스키마에 새 열이 생기면 내보내기 테이블이 이를 반영합니다(BigQuery DDL 유연성).',
+      '스키마 진화: EXIT SEO Crawler가 내보내기 테이블을 자동으로 생성/갱신합니다. CrawlUrlRow 스키마에 새 열이 생기면 내보내기 테이블이 이를 반영합니다(BigQuery DDL 유연성).',
     ],
     lastReviewed: '2026-06-01',
   },

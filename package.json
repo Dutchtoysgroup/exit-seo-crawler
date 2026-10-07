@@ -2,20 +2,16 @@
   "name": "freecrawl-seo",
   "version": "1.0.0",
   "private": true,
-  "description": "Open-source desktop SEO crawler â€” a free alternative to Screaming Frog",
+  "description": "EXIT SEO Crawler — internal SEO crawler of Dutch Toys Group, based on FreeCrawl SEO Tool (MIT)",
   "license": "MIT",
   "author": {
-    "name": "kemalai",
-    "email": "kemalacarofficial@gmail.com"
+    "name": "Dutch Toys Group",
+    "email": "marketing@dutchtoysgroup.com"
   },
-  "homepage": "https://github.com/kemalai/FreeCrawl-SEO-Tool",
+  "homepage": "https://github.com/Dutchtoysgroup/exit-seo-crawler",
   "repository": {
     "type": "git",
-    "url": "https://github.com/kemalai/FreeCrawl-SEO-Tool.git"
-  },
-  "funding": {
-    "type": "patreon",
-    "url": "https://www.patreon.com/kemalacar"
+    "url": "https://github.com/Dutchtoysgroup/exit-seo-crawler.git"
   },
   "type": "module",
   "engines": {

@@ -234,7 +234,7 @@ export function AssistantTab() {
                 <span>
                   <span className="block text-[11px] text-surface-100">
                     {t('assistant.builtinTools', {
-                      defaultValue: 'FreeCrawl project tools',
+                      defaultValue: 'EXIT SEO Crawler project tools',
                     })}
                   </span>
                   <span className="block text-[10px] text-surface-500">

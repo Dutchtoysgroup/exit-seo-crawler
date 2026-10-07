@@ -107,7 +107,7 @@ function closeReadSession(): void {
 async function ensureSessionsSupported(): Promise<void> {
   if (!(await hasFeature('sessions'))) {
     throw new Error(
-      `This FreeCrawl desktop build does not support headless agent sessions ` +
+      `This EXIT SEO Crawler desktop build does not support headless agent sessions ` +
         `(needs v${SESSIONS_MIN_APP_VERSION}+). Update the desktop app, or drive the ` +
         `desktop window's project directly with start_crawl (no session).`,
     );

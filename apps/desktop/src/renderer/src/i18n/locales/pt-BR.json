@@ -6,7 +6,7 @@
   },
   "integrations": {
     "intro": "Conecte serviços externos com suas próprias credenciais. As chaves de API e os segredos são criptografados em repouso pelo armazenamento seguro do seu sistema operacional e nunca saem desta máquina.",
-    "byocNote": "As integrações do Google usam um modelo de \"traga seu próprio cliente\" — você cria seu próprio cliente OAuth do Google Cloud e cola o ID e o segredo dele, então nenhum aplicativo compartilhado do FreeCrawl nem verificação alguma está envolvido.",
+    "byocNote": "As integrações do Google usam um modelo de \"traga seu próprio cliente\" — você cria seu próprio cliente OAuth do Google Cloud e cola o ID e o segredo dele, então nenhum aplicativo compartilhado do EXIT SEO Crawler nem verificação alguma está envolvido.",
     "connected": "Configurada",
     "notConfigured": "Não definida",
     "savedPlaceholder": "Salvo — digite para substituir",
@@ -195,7 +195,7 @@
     "deleteDomainData": "Excluir dados de um domínio…",
     "clearAllData": "Limpar todos os dados…",
     "checkForUpdates": "Verificar atualizações…",
-    "about": "Sobre o FreeCrawl SEO"
+    "about": "Sobre o EXIT SEO Crawler"
   },
   "passwordPrompt": {
     "passwordLabel": "Senha",
@@ -293,7 +293,7 @@
     "dropFailedProject": "Falha ao abrir o projeto: {{name}}",
     "dropNoUrls": "Nenhuma URL encontrada em {{name}}.",
     "dropLoadedUrls": "{{count}} URLs de {{name}} carregadas no modo Lista.",
-    "crashRecovery": "O FreeCrawl detectou um rastreamento anterior que não terminou corretamente:\n\n  Modo: {{mode}}\n  URL inicial: {{seed}}\n  URLs pendentes: {{pending}}\n\nRetomar o rastreamento de onde parou?\n\nClique em OK para retomar ou Cancelar para descartar o estado de recuperação e começar de novo.",
+    "crashRecovery": "O EXIT SEO Crawler detectou um rastreamento anterior que não terminou corretamente:\n\n  Modo: {{mode}}\n  URL inicial: {{seed}}\n  URLs pendentes: {{pending}}\n\nRetomar o rastreamento de onde parou?\n\nClique em OK para retomar ou Cancelar para descartar o estado de recuperação e começar de novo.",
     "deleteDomainPrompt": "Limpeza de domínio (LGPD/GDPR) — informe o host a excluir (sem diferenciar maiúsculas, correspondência exata).\n\nExemplos: exemplo.com  ·  blog.exemplo.com\n\nIsso não pode ser desfeito. Use antes Salvar projeto como… para manter um backup.",
     "deleteDomainConfirm": "Excluir todas as URLs hospedadas em \"{{host}}\", junto com seus links, cabeçalhos, imagens e snapshots do código-fonte?\n\nEsta ação não pode ser desfeita.",
     "clearAllConfirm": "Limpar TODOS os dados do projeto ativo?\n\nCada URL, link, imagem, cabeçalho, snapshot do código-fonte, sitemap e problema será apagado. Isso não pode ser desfeito — use antes Salvar projeto como… se quiser um backup.",
@@ -834,7 +834,7 @@
       "removeRule": "Remover regra"
     },
     "reports": {
-      "intro": "Personalize os relatórios HTML e PDF (Arquivo → Exportar relatório HTML / PDF). As alterações valem para a próxima exportação; deixe tudo vazio para o cabeçalho FreeCrawl padrão.",
+      "intro": "Personalize os relatórios HTML e PDF (Arquivo → Exportar relatório HTML / PDF). As alterações valem para a próxima exportação; deixe tudo vazio para o cabeçalho EXIT SEO Crawler padrão.",
       "brandName": "Nome da marca",
       "brandNamePlaceholder": "Agência SEO Acme",
       "preparedBy": "Preparado por",
@@ -874,7 +874,7 @@
   "scheduled": {
     "title": "Rastreamento agendado",
     "closeEsc": "Fechar (Esc)",
-    "warningPrefix": "O agendamento só dispara enquanto o FreeCrawl estiver aberto neste projeto. Para gatilhos que sobrevivam a uma reinicialização do aplicativo, execute",
+    "warningPrefix": "O agendamento só dispara enquanto o EXIT SEO Crawler estiver aberto neste projeto. Para gatilhos que sobrevivam a uma reinicialização do aplicativo, execute",
     "warningSuffix": "(a CLI) pelo Agendador de Tarefas do Windows, launchd do macOS ou cron.",
     "enabled": "Ativado",
     "cadence": "Cadência",
@@ -897,7 +897,7 @@
     "lastFired": "Última execução",
     "lastStatus": "Último status",
     "hintDisabled": "Desativado — marque \"Ativado\" e salve para armar o agendamento.",
-    "hintEnabled": "Salve para calcular a próxima execução. O agendamento só dispara enquanto o FreeCrawl estiver aberto.",
+    "hintEnabled": "Salve para calcular a próxima execução. O agendamento só dispara enquanto o EXIT SEO Crawler estiver aberto.",
     "confirmRemove": "Remover o rastreamento agendado deste projeto?",
     "saving": "Salvando…",
     "afterTitle": "Após cada rastreamento agendado",
@@ -1705,7 +1705,7 @@
       "modeLabel": "Modo de armazenamento",
       "modeDisk": "Disco (arquivo SQLite) — persistente, retomável, usa pools de workers",
       "modeRam": "Só RAM (em memória) — o mais rápido, nada é gravado em disco até Salvar como",
-      "modeRestart": "Aplica-se na próxima vez que o FreeCrawl iniciar (agora rodando em modo {{active}}).",
+      "modeRestart": "Aplica-se na próxima vez que o EXIT SEO Crawler iniciar (agora rodando em modo {{active}}).",
       "modeActiveNote": "Agora rodando em modo {{active}}.",
       "modeRamWarning": "Projetos em memória são perdidos ao sair — e quando você abre ou troca para outro projeto — a menos que use Salvar como primeiro. A recuperação após falha fica desligada e rastreamentos muito grandes ficam limitados pela RAM disponível.",
       "defaultSaveFolder": "Pasta de salvamento padrão",
@@ -1726,7 +1726,7 @@
     },
     "privacy": {
       "title": "Privacidade",
-      "intro": "O FreeCrawl é local-first — os resultados do rastreamento, os arquivos de projeto e as URLs que você visita nunca saem da sua máquina.",
+      "intro": "O EXIT SEO Crawler é local-first — os resultados do rastreamento, os arquivos de projeto e as URLs que você visita nunca saem da sua máquina.",
       "telemetryHeading": "Telemetria anônima",
       "telemetryLabel": "Enviar telemetria de uso anônima (opcional)",
       "telemetryHelp": "Desligada por padrão. Quando ligada, contagens agregadas de uso de recursos (por exemplo, \"uma exportação foi executada\", \"um relatório foi aberto\") podem ser enviadas — nunca URLs, conteúdo de projetos ou resultados de rastreamento.",
@@ -1772,7 +1772,7 @@
       "customCssNote": "Um arquivo custom-theme.css na pasta de dados do usuário do aplicativo continua sendo injetado sobre qualquer um dos temas."
     },
     "system": {
-      "intro": "Visão ao vivo do que o FreeCrawl está usando agora e do ambiente em que roda. Atualiza a cada dois segundos.",
+      "intro": "Visão ao vivo do que o EXIT SEO Crawler está usando agora e do ambiente em que roda. Atualiza a cada dois segundos.",
       "memory": "Memória",
       "rss": "Processo (RSS)",
       "heap": "Heap JS (usado / reservado)",
@@ -1782,7 +1782,7 @@
       "projected": "Projeção para 1M de URLs",
       "limitNote": "O limite flexível de memória que pausa o rastreamento fica em Hardware.",
       "environment": "Ambiente",
-      "version": "FreeCrawl",
+      "version": "EXIT SEO Crawler",
       "platform": "Plataforma",
       "cpus": "Núcleos de CPU",
       "uptime": "Tempo ativo",
@@ -1951,7 +1951,7 @@
   "assistant": {
     "modelPlaceholder": "Modelo (o padrão do provedor)",
     "tools": "Ferramentas",
-    "builtinTools": "Ferramentas de projeto do FreeCrawl",
+    "builtinTools": "Ferramentas de projeto do EXIT SEO Crawler",
     "builtinToolsHint": "Consultas somente leitura no rastreamento aberto. Executam sem perguntar.",
     "mcpServers": "Servidores MCP",
     "noServers": "Nenhum servidor MCP configurado ainda. Adicione um em Configurações → Servidores MCP.",

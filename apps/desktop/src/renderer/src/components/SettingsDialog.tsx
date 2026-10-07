@@ -5062,7 +5062,7 @@ function IntegrationPage({ id }: { id: string }) {
       </p>
       {def.authType === 'oauth-byoc' && (
         <div className="mb-3 rounded border border-blue-700/40 bg-blue-900/15 px-3 py-2 text-[11px] text-blue-200">
-          {t('integrations.byocNote', { defaultValue: 'Google integrations use a "bring your own client" model — you create your own Google Cloud OAuth client and paste its ID/secret, so no shared FreeCrawl app or verification is involved.' })}
+          {t('integrations.byocNote', { defaultValue: 'Google integrations use a "bring your own client" model — you create your own Google Cloud OAuth client and paste its ID/secret, so no shared EXIT SEO Crawler app or verification is involved.' })}
         </div>
       )}
 
@@ -5407,7 +5407,7 @@ function SpellingPanel() {
         </p>
         <textarea
           className="h-32 w-full resize-y rounded border border-surface-700 bg-surface-950 px-2 py-1 font-mono text-[11px] text-surface-100 focus:border-blue-500 focus:outline-none"
-          placeholder={"FreeCrawl\nhreflang\ncanonicalisation"}
+          placeholder={"EXIT SEO Crawler\nhreflang\ncanonicalisation"}
           value={ignoreWords}
           onChange={(e) => saveIgnoreWords(e.target.value)}
           spellCheck={false}
@@ -5529,7 +5529,7 @@ function ReportsPanel() {
       <p className="mb-3 text-[11px] text-surface-400">
         {t('settingsPanels.reports.intro', {
           defaultValue:
-            'Brand the HTML and PDF reports (File → Export HTML / PDF Report). Changes apply to the next export; leave everything empty for the plain FreeCrawl header.',
+            'Brand the HTML and PDF reports (File → Export HTML / PDF Report). Changes apply to the next export; leave everything empty for the plain EXIT SEO Crawler header.',
         })}
       </p>
       <div className="mb-4 rounded border border-surface-800 bg-surface-950/40 p-3 space-y-3">
@@ -5556,7 +5556,7 @@ function ReportsPanel() {
           <span className="text-[11px] text-surface-300">{t('settingsPanels.reports.accentColor', { defaultValue: 'Accent colour' })}</span>
           <input
             type="color"
-            value={branding.accentColor && /^#[0-9a-fA-F]{6}$/.test(branding.accentColor) ? branding.accentColor : '#2563eb'}
+            value={branding.accentColor && /^#[0-9a-fA-F]{6}$/.test(branding.accentColor) ? branding.accentColor : '#658d1b'}
             onChange={(e) => write({ ...branding, accentColor: e.target.value })}
             className="h-6 w-10 cursor-pointer rounded border border-surface-700 bg-surface-950"
           />
@@ -5717,7 +5717,7 @@ function StoragePanel() {
         <p className="mt-2 text-[10px] text-surface-500">
           {activeMode && activeMode !== mode
             ? t('settings.storage.modeRestart', {
-                defaultValue: "Applies the next time FreeCrawl starts (currently running in {{active}} mode).",
+                defaultValue: "Applies the next time EXIT SEO Crawler starts (currently running in {{active}} mode).",
                 active: activeMode.toUpperCase(),
               })
             : t('settings.storage.modeActiveNote', {
@@ -5833,7 +5833,7 @@ function SystemPanel() {
   return (
     <>
       <p className="mb-3 text-[11px] text-surface-400">
-        {t('settings.system.intro', { defaultValue: 'Live view of what FreeCrawl is using right now, plus the runtime it is running on. Refreshes every two seconds.' })}
+        {t('settings.system.intro', { defaultValue: 'Live view of what EXIT SEO Crawler is using right now, plus the runtime it is running on. Refreshes every two seconds.' })}
       </p>
 
       <div className="mb-4 rounded border border-surface-800 bg-surface-950/40 p-3">
@@ -5870,7 +5870,7 @@ function SystemPanel() {
         <div className="mb-2 text-[10px] font-semibold uppercase tracking-wider text-surface-400">
           {t('settings.system.environment', { defaultValue: 'Environment' })}
         </div>
-        <SystemRow label={t('settings.system.version', { defaultValue: 'FreeCrawl' })} value={info ? `v${info.appVersion}` : null} />
+        <SystemRow label={t('settings.system.version', { defaultValue: 'EXIT SEO Crawler' })} value={info ? `v${info.appVersion}` : null} />
         <SystemRow label="Electron" value={info?.electron ?? null} />
         <SystemRow label="Chromium" value={info?.chromium ?? null} />
         <SystemRow label="Node.js" value={info?.node ?? null} />

@@ -9,7 +9,7 @@ import type { Guide } from './types.js';
 export const GUIDES_ES: Record<string, Guide> = {
   openai: {
     intro:
-      'Ejecuta un prompt personalizado por URL a través de la API de OpenAI — análisis de contenido, ideas de títulos, resúmenes. El uso se factura a tu propia cuenta de OpenAI; FreeCrawl es un intermediario gratuito, las llamadas a la API salen de tu bolsillo.',
+      'Ejecuta un prompt personalizado por URL a través de la API de OpenAI — análisis de contenido, ideas de títulos, resúmenes. El uso se factura a tu propia cuenta de OpenAI; EXIT SEO Crawler es un intermediario gratuito, las llamadas a la API salen de tu bolsillo.',
     prereqs: [
       'Cuenta de OpenAI (regístrate gratis en https://platform.openai.com).',
       'Método de pago válido — OpenAI exige un saldo mínimo de 5 $ antes de que las claves funcionen.',
@@ -35,7 +35,7 @@ export const GUIDES_ES: Record<string, Guide> = {
       {
         title: 'Haz clic en "+ Create new secret key" (arriba a la derecha)',
         detail:
-          'En el diálogo:\n• Name: "FreeCrawl SEO Tool" (cualquier etiqueta recordatoria)\n• Project: Default project o el que prefieras\n• Permissions: All (lo más fácil; los ámbitos restringidos también funcionan)\ndespués "Create secret key".',
+          'En el diálogo:\n• Name: "EXIT SEO Crawler" (cualquier etiqueta recordatoria)\n• Project: Default project o el que prefieras\n• Permissions: All (lo más fácil; los ámbitos restringidos también funcionan)\ndespués "Create secret key".',
       },
       {
         title: 'COPIA la clave — no se volverá a mostrar',
@@ -45,7 +45,7 @@ export const GUIDES_ES: Record<string, Guide> = {
       {
         title: 'Pégala en el campo "API Key" de este panel + haz clic en Guardar',
         detail:
-          'FreeCrawl guarda la clave cifrada en el almacén de credenciales del sistema (Windows DPAPI, Keychain de macOS, Secret Service de Linux). Nunca se escribe en texto plano.',
+          'EXIT SEO Crawler guarda la clave cifrada en el almacén de credenciales del sistema (Windows DPAPI, Keychain de macOS, Secret Service de Linux). Nunca se escribe en texto plano.',
       },
       {
         title: 'Prueba en la pestaña AI',
@@ -102,7 +102,7 @@ export const GUIDES_ES: Record<string, Guide> = {
       {
         title: 'Haz clic en "+ Create Key"',
         detail:
-          'En el diálogo:\n• Name: "FreeCrawl SEO Tool"\n• Workspace: Default workspace\n• Environment: Production\ndespués "Create Key".',
+          'En el diálogo:\n• Name: "EXIT SEO Crawler"\n• Workspace: Default workspace\n• Environment: Production\ndespués "Create Key".',
       },
       {
         title: 'COPIA la clave — no se volverá a mostrar',
@@ -135,7 +135,7 @@ export const GUIDES_ES: Record<string, Guide> = {
     ],
     notes: [
       'Precios (2026-06): Haiku 4.5 ~0,25 $/1,25 $ (entrada/salida por 1M tokens), Sonnet 4.6 ~3 $/15 $, Opus 4.8 ~15 $/75 $.',
-      'Anthropic admite caché de prompts — los system prompts largos repetidos en 5 min tienen un 90 % de descuento (el panel AI de FreeCrawl aún no usa caché — llegará en una versión posterior).',
+      'Anthropic admite caché de prompts — los system prompts largos repetidos en 5 min tienen un 90 % de descuento (el panel AI de EXIT SEO Crawler aún no usa caché — llegará en una versión posterior).',
     ],
     lastReviewed: '2026-06-01',
   },
@@ -175,7 +175,7 @@ export const GUIDES_ES: Record<string, Guide> = {
       {
         title: 'Introduce el nombre del modelo que descargaste',
         detail:
-          'P. ej. "llama3.2" o "qwen2.5:7b". Déjalo en blanco para que FreeCrawl elija el primer modelo disponible.',
+          'P. ej. "llama3.2" o "qwen2.5:7b". Déjalo en blanco para que EXIT SEO Crawler elija el primer modelo disponible.',
       },
       {
         title: 'Guarda y prueba',
@@ -224,7 +224,7 @@ export const GUIDES_ES: Record<string, Guide> = {
       {
         title: 'Elige o crea un proyecto',
         detail:
-          'Desplegable de proyecto arriba a la izquierda → "New Project" → nombre: "FreeCrawl SEO" → Create. NO hace falta cuenta de facturación — el nivel gratuito de PSI solo necesita credenciales para autenticarse.',
+          'Desplegable de proyecto arriba a la izquierda → "New Project" → nombre: "EXIT SEO Crawler" → Create. NO hace falta cuenta de facturación — el nivel gratuito de PSI solo necesita credenciales para autenticarse.',
       },
       {
         title: 'Habilita la PageSpeed Insights API',
@@ -251,7 +251,7 @@ export const GUIDES_ES: Record<string, Guide> = {
       {
         title: 'Opcional: restringe la clave de API (recomendado)',
         detail:
-          'Haz clic en "Edit API key" → "Restrict key":\n• API restrictions: "Restrict key" → "PageSpeed Insights API"\n• Application restrictions: "None" (FreeCrawl es una app de escritorio, así que el filtrado por referrer/IP no funcionará)\nLas claves sin restringir también funcionan, pero te recomendamos restringirla.',
+          'Haz clic en "Edit API key" → "Restrict key":\n• API restrictions: "Restrict key" → "PageSpeed Insights API"\n• Application restrictions: "None" (EXIT SEO Crawler es una app de escritorio, así que el filtrado por referrer/IP no funcionará)\nLas claves sin restringir también funcionan, pero te recomendamos restringirla.',
       },
       {
         title: 'Pega la clave en el campo "API Key" de este panel + Guardar',
@@ -444,7 +444,7 @@ export const GUIDES_ES: Record<string, Guide> = {
   },
   gsc: {
     intro:
-      'Obtén métricas de Search Console por URL (clics, impresiones, CTR, posición media) a través de la API de Google Search Console. La API URL Inspection también te da el veredicto de cobertura + hora del último rastreo. Modelo "trae tu propio cliente" — creas tu propio cliente OAuth de Google Cloud y lo pegas; FreeCrawl no usa una app intermediaria compartida.',
+      'Obtén métricas de Search Console por URL (clics, impresiones, CTR, posición media) a través de la API de Google Search Console. La API URL Inspection también te da el veredicto de cobertura + hora del último rastreo. Modelo "trae tu propio cliente" — creas tu propio cliente OAuth de Google Cloud y lo pegas; EXIT SEO Crawler no usa una app intermediaria compartida.',
     prereqs: [
       'Cuenta de Google (debe ser propietaria / copropietaria de la propiedad de GSC que quieres conectar).',
       'Al menos una propiedad de Google Search Console añadida + verificada.',
@@ -453,7 +453,7 @@ export const GUIDES_ES: Record<string, Guide> = {
       {
         title: 'Abre Google Cloud Console y crea un proyecto nuevo',
         detail:
-          'Desplegable de proyecto arriba a la izquierda → "New Project" → nombre: "FreeCrawl SEO Integrations" (el que quieras) → Create. Este proyecto es solo para credenciales OAuth — no hace falta facturación.',
+          'Desplegable de proyecto arriba a la izquierda → "New Project" → nombre: "EXIT SEO Crawler Integrations" (el que quieras) → Create. Este proyecto es solo para credenciales OAuth — no hace falta facturación.',
         link: {
           label: 'console.cloud.google.com',
           url: 'https://console.cloud.google.com',
@@ -471,7 +471,7 @@ export const GUIDES_ES: Record<string, Guide> = {
       {
         title: 'Rellena la pantalla de consentimiento OAuth',
         detail:
-          'Solo los campos obligatorios:\n• App name: "FreeCrawl Local"\n• User support email: tu correo\n• Developer contact information: tu correo\nDeja el resto en blanco. Save and Continue → Save and Continue → Save and Continue → Back to Dashboard.',
+          'Solo los campos obligatorios:\n• App name: "EXIT SEO Crawler Local"\n• User support email: tu correo\n• Developer contact information: tu correo\nDeja el resto en blanco. Save and Continue → Save and Continue → Save and Continue → Back to Dashboard.',
       },
       {
         title: 'CRÍTICO: añádete como Test User',
@@ -503,7 +503,7 @@ export const GUIDES_ES: Record<string, Guide> = {
       {
         title: 'Elige "Desktop app" como tipo de OAuth Client (¡NO Web app!)',
         detail:
-          'Desplegable Application type → "Desktop app". Name: "FreeCrawl SEO Tool". Create → el diálogo muestra Client ID + Client Secret. Copia ambos de inmediato (el Secret no se vuelve a mostrar).\n\nPOR QUÉ DESKTOP: FreeCrawl usa un puerto local aleatorio (p. ej. 127.0.0.1:63092) por conexión. "Web application" necesita una lista fija de redirect URI — ese puerto aleatorio no puede coincidir → falla. "Desktop app" acepta automáticamente redirecciones loopback, sin importar el puerto.',
+          'Desplegable Application type → "Desktop app". Name: "EXIT SEO Crawler". Create → el diálogo muestra Client ID + Client Secret. Copia ambos de inmediato (el Secret no se vuelve a mostrar).\n\nPOR QUÉ DESKTOP: EXIT SEO Crawler usa un puerto local aleatorio (p. ej. 127.0.0.1:63092) por conexión. "Web application" necesita una lista fija de redirect URI — ese puerto aleatorio no puede coincidir → falla. "Desktop app" acepta automáticamente redirecciones loopback, sin importar el puerto.',
       },
       {
         title: 'Pega Client ID + Client Secret en este panel + Guardar',
@@ -518,10 +518,10 @@ export const GUIDES_ES: Record<string, Guide> = {
       {
         title: 'Inicia sesión con la cuenta de Google que añadiste como usuario de prueba',
         detail:
-          'En el selector de cuentas elige el correo que añadiste a los usuarios de prueba. "Continue" → aviso "Google hasn\'t verified this app" (esperado en modo de pruebas). "Advanced" → "Go to FreeCrawl Local (unsafe)" → acepta los permisos → Allow.',
+          'En el selector de cuentas elige el correo que añadiste a los usuarios de prueba. "Continue" → aviso "Google hasn\'t verified this app" (esperado en modo de pruebas). "Advanced" → "Go to EXIT SEO Crawler Local (unsafe)" → acepta los permisos → Allow.',
       },
       {
-        title: 'De vuelta en FreeCrawl — deberías ver "Configurado"',
+        title: 'De vuelta en EXIT SEO Crawler — deberías ver "Configurado"',
         detail:
           'La tarjeta de Search Console en Ajustes muestra ahora una insignia verde "Configurado". Ya puedes pasar a la pestaña superior "Search Console" para listar propiedades + obtener datos.',
       },
@@ -535,7 +535,7 @@ export const GUIDES_ES: Record<string, Guide> = {
       {
         problem: '"Request had insufficient authentication scopes"',
         solution:
-          'O bien la Search Console API no estaba habilitada O la casilla de permiso "View Search Console data for your verified sites" de la pantalla de consentimiento OAuth estaba desmarcada. (1) Habilita la Search Console API (paso 5), (2) myaccount.google.com/permissions → "FreeCrawl Local" → Remove access → haz clic en Conectar de nuevo y marca todos los permisos en la pantalla de consentimiento.',
+          'O bien la Search Console API no estaba habilitada O la casilla de permiso "View Search Console data for your verified sites" de la pantalla de consentimiento OAuth estaba desmarcada. (1) Habilita la Search Console API (paso 5), (2) myaccount.google.com/permissions → "EXIT SEO Crawler Local" → Remove access → haz clic en Conectar de nuevo y marca todos los permisos en la pantalla de consentimiento.',
       },
       {
         problem: '"redirect_uri_mismatch"',
@@ -614,7 +614,7 @@ export const GUIDES_ES: Record<string, Guide> = {
       {
         problem: '"Request had insufficient authentication scopes"',
         solution:
-          'El ámbito OAuth no cubre GA4. Ve a myaccount.google.com/permissions → "FreeCrawl Local" → Remove access → haz clic en Conectar de nuevo → marca la casilla del permiso de Google Analytics.',
+          'El ámbito OAuth no cubre GA4. Ve a myaccount.google.com/permissions → "EXIT SEO Crawler Local" → Remove access → haz clic en Conectar de nuevo → marca la casilla del permiso de Google Analytics.',
       },
       {
         problem: 'Property list comes back empty',
@@ -679,7 +679,7 @@ export const GUIDES_ES: Record<string, Guide> = {
     ],
     notes: [
       'Límite duro de Sheets: 10M de celdas por hoja de cálculo — los rastreos grandes (>500K URL) se dividen.',
-      'El ámbito de Drive es "drive.file" — solo son accesibles los archivos que crea FreeCrawl, no tus archivos existentes.',
+      'El ámbito de Drive es "drive.file" — solo son accesibles los archivos que crea EXIT SEO Crawler, no tus archivos existentes.',
     ],
     lastReviewed: '2026-06-01',
   },
@@ -724,7 +724,7 @@ export const GUIDES_ES: Record<string, Guide> = {
       {
         title: 'Pégalo en el campo "Service Account JSON" de este panel',
         detail:
-          'Pega el JSON completo (desde la llave de apertura `{` hasta la de cierre `}`). FreeCrawl guarda el JSON cifrado en el almacén de credenciales del sistema.',
+          'Pega el JSON completo (desde la llave de apertura `{` hasta la de cierre `}`). EXIT SEO Crawler guarda el JSON cifrado en el almacén de credenciales del sistema.',
       },
       {
         title: 'Rellena "GCP Project ID"',
@@ -756,12 +756,12 @@ export const GUIDES_ES: Record<string, Guide> = {
       {
         problem: '"Invalid JSON"',
         solution:
-          'Pegaste solo parte del JSON o hay un carácter suelto en los extremos. Abre el archivo JSON de la cuenta de servicio con un editor de verdad (VS Code recomendado, NO el Bloc de notas), Ctrl+A para seleccionar todo, copia, vacía el campo de FreeCrawl y pega.',
+          'Pegaste solo parte del JSON o hay un carácter suelto en los extremos. Abre el archivo JSON de la cuenta de servicio con un editor de verdad (VS Code recomendado, NO el Bloc de notas), Ctrl+A para seleccionar todo, copia, vacía el campo de EXIT SEO Crawler y pega.',
       },
     ],
     notes: [
       'Coste: el nivel gratuito de BigQuery (10GB de almacenamiento + 1TB de consultas/mes) cubre un uso normal. Un rastreo de 1M de URL ocupa ~500MB; el coste de las consultas depende de tu SQL.',
-      'Evolución del esquema: FreeCrawl crea/actualiza la tabla de exportación automáticamente. Si el esquema CrawlUrlRow gana columnas nuevas, la tabla de exportación las incorpora (flexibilidad DDL de BigQuery).',
+      'Evolución del esquema: EXIT SEO Crawler crea/actualiza la tabla de exportación automáticamente. Si el esquema CrawlUrlRow gana columnas nuevas, la tabla de exportación las incorpora (flexibilidad DDL de BigQuery).',
     ],
     lastReviewed: '2026-06-01',
   },

@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import type { CrawlScope, CrawlMode } from '@freecrawl/shared-types';
 import { useAppStore } from '../store.js';
 import { clearCrawlWithConfirm } from '../utils/clearCrawl.js';
+import exitLogo from '../assets/exit-logo.svg';
 
 export function TopBar() {
   const { t } = useTranslation();
@@ -197,8 +198,18 @@ export function TopBar() {
 
   return (
     <div className="flex items-center gap-2 border-b border-surface-800 bg-surface-900 px-3 py-2">
-      <div className="text-xs font-semibold uppercase tracking-wide text-surface-400">
-        FreeCrawl
+      {/* EXIT house style: the logo keeps its white rim and gets a drop
+          shadow, as the brand book asks for on light backgrounds. */}
+      <div className="flex shrink-0 items-center gap-2">
+        <img
+          src={exitLogo}
+          alt="EXIT Toys"
+          draggable={false}
+          className="h-6 w-auto select-none drop-shadow-[0_1px_1.5px_rgba(0,0,0,0.28)]"
+        />
+        <span className="whitespace-nowrap text-xs font-semibold uppercase tracking-wide text-surface-400">
+          SEO Crawler
+        </span>
       </div>
       <div className="mx-2 h-5 w-px bg-surface-800" />
 

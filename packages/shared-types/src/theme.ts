@@ -3,20 +3,21 @@
  *
  * Lives in shared-types so the main process (native menu radio, window
  * background, `nativeTheme`) and the renderer (`<html data-theme>`, the
- * canvas grid palette) resolve the pref exactly the same way. Dark is the
+ * canvas grid palette) resolve the pref exactly the same way. Light is the
  * default and the fallback for any unknown stored value, so a pref written
  * by a future version never leaves a window unthemed.
  */
 export const UI_THEMES = ['dark', 'light'] as const;
 export type UiTheme = (typeof UI_THEMES)[number];
 
-export const DEFAULT_UI_THEME: UiTheme = 'dark';
+// EXIT SEO Crawler opens light, like the marketing dashboard.
+export const DEFAULT_UI_THEME: UiTheme = 'light';
 
 export function isUiTheme(v: unknown): v is UiTheme {
   return typeof v === 'string' && (UI_THEMES as readonly string[]).includes(v);
 }
 
-/** Stored pref value → theme, with dark as the floor for anything else. */
+/** Stored pref value → theme, with the default as the floor for anything else. */
 export function normalizeUiTheme(v: unknown): UiTheme {
   return isUiTheme(v) ? v : DEFAULT_UI_THEME;
 }
@@ -27,8 +28,8 @@ export function normalizeUiTheme(v: unknown): UiTheme {
  * flash the opposite shade before the renderer paints.
  */
 export const UI_THEME_BACKGROUND: Record<UiTheme, string> = {
-  dark: '#0a0a0a',
-  light: '#fafafa',
+  dark: '#0f110f',
+  light: '#f9fbf8',
 };
 
 /**

@@ -6,7 +6,7 @@
   },
   "integrations": {
     "intro": "Harici servisleri kendi kimlik bilgilerinle bağla. API anahtarları ve secret'lar işletim sisteminin güvenli depolaması ile şifreli saklanır ve bu makineden asla çıkmaz.",
-    "byocNote": "Google entegrasyonları \"kendi client'ını getir\" modeli kullanır — kendi Google Cloud OAuth client'ını oluşturup ID/secret'ını yapıştırırsın; ortak bir FreeCrawl uygulaması veya doğrulama gerekmez.",
+    "byocNote": "Google entegrasyonları \"kendi client'ını getir\" modeli kullanır — kendi Google Cloud OAuth client'ını oluşturup ID/secret'ını yapıştırırsın; ortak bir EXIT SEO Crawler uygulaması veya doğrulama gerekmez.",
     "connected": "Yapılandırıldı",
     "notConfigured": "Ayarlanmadı",
     "savedPlaceholder": "Kayıtlı — değiştirmek için yaz",
@@ -193,7 +193,7 @@
     "deleteDomainData": "Alan Verilerini Sil…",
     "clearAllData": "Tüm Veriyi Temizle…",
     "checkForUpdates": "Güncellemeleri Kontrol Et…",
-    "about": "FreeCrawl SEO Hakkında"
+    "about": "EXIT SEO Crawler Hakkında"
   },
   "passwordPrompt": {
     "passwordLabel": "Parola",
@@ -288,7 +288,7 @@
     "dropFailedProject": "Proje açılamadı: {{name}}",
     "dropNoUrls": "{{name}} içinde URL bulunamadı.",
     "dropLoadedUrls": "{{name}} dosyasından {{count}} URL List moduna yüklendi.",
-    "crashRecovery": "FreeCrawl, temiz bitmemiş bir önceki crawl tespit etti:\n\n  Mod: {{mode}}\n  Başlangıç URL: {{seed}}\n  Bekleyen URL: {{pending}}\n\nCrawl kaldığı yerden devam etsin mi?\n\nDevam etmek için Tamam, recovery durumunu iptal edip baştan başlamak için İptal'e tıkla.",
+    "crashRecovery": "EXIT SEO Crawler, temiz bitmemiş bir önceki crawl tespit etti:\n\n  Mod: {{mode}}\n  Başlangıç URL: {{seed}}\n  Bekleyen URL: {{pending}}\n\nCrawl kaldığı yerden devam etsin mi?\n\nDevam etmek için Tamam, recovery durumunu iptal edip baştan başlamak için İptal'e tıkla.",
     "deleteDomainPrompt": "GDPR Alan Temizleme — silinecek host'u gir (büyük/küçük harf duyarsız, tam eşleşme).\n\nÖrnek: example.com  ·  blog.example.com\n\nGeri alınamaz. Yedek istiyorsan önce Projeyi Farklı Kaydet.",
     "deleteDomainConfirm": "\"{{host}}\" üzerindeki tüm URL'leri, linklerini, başlıklarını, görsellerini ve kaynak snapshot'larını sil?\n\nBu işlem geri alınamaz.",
     "deleteDomainResult_one": "{{host}} adresinden {{formatted}} URL satırı silindi.",
@@ -821,7 +821,7 @@
       "removeRule": "Kuralı kaldır"
     },
     "reports": {
-      "intro": "HTML ve PDF raporlarını markalayın (Dosya → HTML / PDF Rapor Dışa Aktar). Değişiklikler bir sonraki dışa aktarmada geçerli olur; sade FreeCrawl başlığı için her şeyi boş bırakın.",
+      "intro": "HTML ve PDF raporlarını markalayın (Dosya → HTML / PDF Rapor Dışa Aktar). Değişiklikler bir sonraki dışa aktarmada geçerli olur; sade EXIT SEO Crawler başlığı için her şeyi boş bırakın.",
       "brandName": "Marka adı",
       "brandNamePlaceholder": "Acme SEO Ajansı",
       "preparedBy": "Hazırlayan",
@@ -861,7 +861,7 @@
   "scheduled": {
     "title": "Zamanlanmış Crawl",
     "closeEsc": "Kapat (Esc)",
-    "warningPrefix": "Zamanlama yalnızca bu projede FreeCrawl açıkken çalışır. Yeniden başlatmaya dayanan tetikler için",
+    "warningPrefix": "Zamanlama yalnızca bu projede EXIT SEO Crawler açıkken çalışır. Yeniden başlatmaya dayanan tetikler için",
     "warningSuffix": "(CLI) Windows Task Scheduler / macOS launchd / cron üzerinden çalıştır.",
     "enabled": "Etkin",
     "cadence": "Sıklık",
@@ -884,7 +884,7 @@
     "lastFired": "Son çalışma",
     "lastStatus": "Son durum",
     "hintDisabled": "Devre dışı — zamanlamayı kurmak için \"Etkin\"i işaretle ve Kaydet.",
-    "hintEnabled": "Bir sonraki çalışma zamanını hesaplamak için Kaydet. Zamanlama yalnızca FreeCrawl açıkken çalışır.",
+    "hintEnabled": "Bir sonraki çalışma zamanını hesaplamak için Kaydet. Zamanlama yalnızca EXIT SEO Crawler açıkken çalışır.",
     "confirmRemove": "Bu projenin zamanlanmış crawl'ı kaldırılsın mı?",
     "saving": "Kaydediliyor…",
     "afterTitle": "Her zamanlanmış taramadan sonra",
@@ -1680,7 +1680,7 @@
       "modeLabel": "Depolama Modu",
       "modeDisk": "Disk (SQLite dosyası) — kalıcı, sürdürülebilir, worker havuzlarını kullanır",
       "modeRam": "Yalnızca RAM (bellek içi) — en hızlı, Farklı Kaydet'e kadar diske hiçbir şey yazılmaz",
-      "modeRestart": "FreeCrawl'ı bir sonraki açışınızda uygulanır (şu an {{active}} modunda çalışıyor).",
+      "modeRestart": "EXIT SEO Crawler'ı bir sonraki açışınızda uygulanır (şu an {{active}} modunda çalışıyor).",
       "modeActiveNote": "Şu an {{active}} modunda çalışıyor.",
       "modeRamWarning": "Bellek içi projeler — çıkışta ve başka bir proje açtığınızda/geçtiğinizde — önce Farklı Kaydet yapmazsanız kaybolur. Çökme kurtarma kapalıdır ve çok büyük crawl'lar mevcut RAM ile sınırlıdır.",
       "defaultSaveFolder": "Varsayılan Kayıt Klasörü",
@@ -1701,7 +1701,7 @@
     },
     "privacy": {
       "title": "Gizlilik",
-      "intro": "FreeCrawl yerel önceliklidir — crawl sonuçları, proje dosyaları ve ziyaret ettiğiniz URL'ler makinenizden hiç çıkmaz.",
+      "intro": "EXIT SEO Crawler yerel önceliklidir — crawl sonuçları, proje dosyaları ve ziyaret ettiğiniz URL'ler makinenizden hiç çıkmaz.",
       "telemetryHeading": "Anonim Telemetri",
       "telemetryLabel": "Anonim kullanım telemetrisi gönder (opt-in)",
       "telemetryHelp": "Varsayılan olarak kapalı. Açıkken, özellik kullanımının toplulaştırılmış sayıları (örn. \"dışa aktarım çalıştı\", \"rapor açıldı\") gönderilebilir — URL, proje içeriği veya crawl sonuçları asla gönderilmez.",
@@ -1746,7 +1746,7 @@
       "customCssNote": "Uygulamanın kullanıcı-veri klasöründeki custom-theme.css dosyası her iki temanın üzerine yine enjekte edilir."
     },
     "system": {
-      "intro": "FreeCrawl'ın şu an kullandığı kaynaklar ve üzerinde çalıştığı ortam. İki saniyede bir yenilenir.",
+      "intro": "EXIT SEO Crawler'ın şu an kullandığı kaynaklar ve üzerinde çalıştığı ortam. İki saniyede bir yenilenir.",
       "memory": "Bellek",
       "rss": "Süreç (RSS)",
       "heap": "JS heap (kullanılan / ayrılan)",
@@ -1756,7 +1756,7 @@
       "projected": "1M URL için öngörü",
       "limitNote": "Taramayı duraklatan yumuşak bellek sınırı Donanım altında.",
       "environment": "Ortam",
-      "version": "FreeCrawl",
+      "version": "EXIT SEO Crawler",
       "platform": "Platform",
       "cpus": "CPU çekirdeği",
       "uptime": "Çalışma süresi",
@@ -1919,7 +1919,7 @@
   "assistant": {
     "modelPlaceholder": "Model (sağlayıcı varsayılanı)",
     "tools": "Araçlar",
-    "builtinTools": "FreeCrawl proje araçları",
+    "builtinTools": "EXIT SEO Crawler proje araçları",
     "builtinToolsHint": "Açık crawl üzerinde salt-okunur sorgular. Onay istemeden çalışır.",
     "mcpServers": "MCP sunucuları",
     "noServers": "Henüz MCP sunucusu tanımlı değil. Ayarlar → MCP Sunucuları'ndan ekleyin.",

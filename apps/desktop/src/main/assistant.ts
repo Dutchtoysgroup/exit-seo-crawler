@@ -54,7 +54,7 @@ const APPROVAL_TIMEOUT_MS = 10 * 60_000;
 const MAX_BUILTIN_RESULT_CHARS = 24_000;
 
 const SYSTEM_PROMPT = [
-  'You are the FreeCrawl SEO assistant, embedded in a desktop SEO crawler.',
+  'You are the EXIT SEO Crawler assistant, embedded in a desktop SEO crawler.',
   'The user has an open project containing the results of a site crawl.',
   'Use the builtin__* tools to read that crawl before answering questions',
   'about the site — never guess numbers, look them up. Prefer',
@@ -426,11 +426,11 @@ async function executeCall(
 
   // Built-in: read-only against the already-open project, so no prompt.
   if (call.name.startsWith(BUILTIN_TOOL_PREFIX)) {
-    if (!includeBuiltins) return fail('FreeCrawl project tools are disabled for this chat.');
+    if (!includeBuiltins) return fail('EXIT SEO Crawler project tools are disabled for this chat.');
     const tool = BUILTIN_TOOLS.find(
       (t) => `${BUILTIN_TOOL_PREFIX}${t.name}` === call.name,
     );
-    if (!tool) return fail(`Unknown FreeCrawl tool "${call.name}".`);
+    if (!tool) return fail(`Unknown EXIT SEO Crawler tool "${call.name}".`);
     ctx.emit({ type: 'tool-start', call });
     try {
       const value = tool.run(call.arguments ?? {}, ctx.db());

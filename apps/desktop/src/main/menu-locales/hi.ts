@@ -32,7 +32,7 @@ export const MENU_HI: MenuLabels = {
   compareWith: 'प्रोजेक्ट से तुलना करें…',
   scheduledCrawl: 'निर्धारित क्रॉल…',
   scheduledCrawlTooltip:
-    'खुले हुए प्रोजेक्ट के लिए ऐप के भीतर दोहराया जाने वाला क्रॉल सेट करें। यह केवल तब चलता है जब FreeCrawl खुला हो; ऐसे ट्रिगर के लिए जो पुनरारंभ के बाद भी बने रहें, CLI और ऑपरेटिंग सिस्टम के शेड्यूलर का उपयोग करें।',
+    'खुले हुए प्रोजेक्ट के लिए ऐप के भीतर दोहराया जाने वाला क्रॉल सेट करें। यह केवल तब चलता है जब EXIT SEO Crawler खुला हो; ऐसे ट्रिगर के लिए जो पुनरारंभ के बाद भी बने रहें, CLI और ऑपरेटिंग सिस्टम के शेड्यूलर का उपयोग करें।',
   saveProject: 'प्रोजेक्ट सहेजें',
   saveProjectAs: 'प्रोजेक्ट इस रूप में सहेजें…',
   titleUntitledProject: 'बिना शीर्षक प्रोजेक्ट',
@@ -75,10 +75,10 @@ export const MENU_HI: MenuLabels = {
   help: 'सहायता',
   documentation: 'दस्तावेज़ीकरण',
   showLogs: 'लॉग दिखाएँ…',
-  trayShow: 'FreeCrawl दिखाएँ',
+  trayShow: 'EXIT SEO Crawler दिखाएँ',
   trayHide: 'ट्रे में छिपाएँ',
   trayStopCrawl: 'क्रॉल रोकें',
-  trayQuit: 'FreeCrawl से बाहर निकलें',
+  trayQuit: 'EXIT SEO Crawler से बाहर निकलें',
   openLogsFolder: 'लॉग फ़ोल्डर खोलें',
   openLogsFolderTooltip:
     'वह डायरेक्टरी खोलता है जहाँ घुमाई गई लॉग फ़ाइलें डिस्क पर रखी जाती हैं',
@@ -96,7 +96,7 @@ export const MENU_HI: MenuLabels = {
   checkForUpdates: 'अपडेट देखें…',
   checkForUpdatesTooltip:
     'GitHub पर प्रकाशित नवीनतम रिलीज़ लाकर उसकी तुलना आपके स्थापित संस्करण से करता है। पृष्ठभूमि में कोई जाँच नहीं — यह केवल क्लिक करने पर चलता है।',
-  about: 'FreeCrawl SEO के बारे में',
+  about: 'EXIT SEO Crawler के बारे में',
 
   ctxCopy: 'कॉपी करें',
   ctxOpenInBrowser: 'ब्राउज़र में खोलें',
@@ -172,20 +172,20 @@ export const MENU_HI: MenuLabels = {
 
   diagDnsRefusedTitle: 'कोई नेटवर्क कनेक्टिविटी नहीं',
   diagDnsRefusedMsg:
-    'FreeCrawl ने DNS लुकअप की तीन परतें आज़माईं (सिस्टम, पोर्ट 53 पर सार्वजनिक सर्वर, और पोर्ट 443 पर DNS-over-HTTPS) — हर एक अस्वीकार हो गई। ऐसा लगता है कि आपकी मशीन पर कोई चालू इंटरनेट कनेक्शन नहीं है।',
+    'EXIT SEO Crawler ने DNS लुकअप की तीन परतें आज़माईं (सिस्टम, पोर्ट 53 पर सार्वजनिक सर्वर, और पोर्ट 443 पर DNS-over-HTTPS) — हर एक अस्वीकार हो गई। ऐसा लगता है कि आपकी मशीन पर कोई चालू इंटरनेट कनेक्शन नहीं है।',
   diagDnsRefusedDetail:
-    'FreeCrawl खराब सिस्टम DNS को स्वतः बायपास करने की कोशिश पहले से करता है — यह डायलॉग दिख रहा है, तो पोर्ट 443 पर DNS-over-HTTPS भी विफल रहा।\n\n' +
+    'EXIT SEO Crawler खराब सिस्टम DNS को स्वतः बायपास करने की कोशिश पहले से करता है — यह डायलॉग दिख रहा है, तो पोर्ट 443 पर DNS-over-HTTPS भी विफल रहा।\n\n' +
     'सबसे संभावित कारण (क्रम में):\n' +
-    '  1. एंटीवायरस / एंडपॉइंट सुरक्षा FreeCrawl को कोई भी आउटबाउंड कनेक्शन बनाने से रोक रही है। अपने सुरक्षा सॉफ़्टवेयर में FreeCrawl को अनुमति दें।\n' +
+    '  1. एंटीवायरस / एंडपॉइंट सुरक्षा EXIT SEO Crawler को कोई भी आउटबाउंड कनेक्शन बनाने से रोक रही है। अपने सुरक्षा सॉफ़्टवेयर में EXIT SEO Crawler को अनुमति दें।\n' +
     '  2. आप इंटरनेट से जुड़े नहीं हैं — Wi-Fi / ईथरनेट जाँचें।\n' +
     '  3. कोई कॉर्पोरेट फ़ायरवॉल सारा आउटबाउंड ट्रैफ़िक रोक रहा है — सेटिंग्स → नेटवर्क में HTTPS_PROXY सेट करें।\n' +
     '  4. चालू VPN खराब स्थिति में है — उसे डिस्कनेक्ट करके फिर कोशिश करें।\n\n' +
     'पूरी त्रुटि श्रृंखला देखने के लिए "लॉग खोलें" पर क्लिक करें।',
   diagDnsDestroyedTitle: 'नेटवर्क स्टैक जवाब नहीं दे रहा',
   diagDnsDestroyedMsg:
-    'आपके सिस्टम का DNS रिज़ॉल्वर क्रैश हो गया और FreeCrawl का स्वचालित DNS-over-HTTPS बायपास भी विफल रहा। इसका मतलब है कि केवल DNS नहीं, पूरा नेटवर्क स्टैक खराब स्थिति में है।',
+    'आपके सिस्टम का DNS रिज़ॉल्वर क्रैश हो गया और EXIT SEO Crawler का स्वचालित DNS-over-HTTPS बायपास भी विफल रहा। इसका मतलब है कि केवल DNS नहीं, पूरा नेटवर्क स्टैक खराब स्थिति में है।',
   diagDnsDestroyedDetail:
-    'आम तौर पर FreeCrawl क्रैश हुए Windows DNS Client से उबरने के लिए लुकअप को Cloudflare/Google के ज़रिए HTTPS:443 पर भेज देता है। यह डायलॉग दिख रहा है, तो वह विकल्प भी विफल रहा — आम तौर पर इसलिए कि ऑपरेटिंग सिस्टम के नेटवर्क स्टैक को ही रीसेट करने की ज़रूरत है।\n\n' +
+    'आम तौर पर EXIT SEO Crawler क्रैश हुए Windows DNS Client से उबरने के लिए लुकअप को Cloudflare/Google के ज़रिए HTTPS:443 पर भेज देता है। यह डायलॉग दिख रहा है, तो वह विकल्प भी विफल रहा — आम तौर पर इसलिए कि ऑपरेटिंग सिस्टम के नेटवर्क स्टैक को ही रीसेट करने की ज़रूरत है।\n\n' +
     'इनमें से कोई एक आज़माएँ (आसान से कठिन क्रम में):\n' +
     '  1. एयरप्लेन मोड चालू-बंद करें, या Wi-Fi डिस्कनेक्ट करके फिर जोड़ें।\n' +
     '  2. नेटवर्क अडैप्टर पुनः आरंभ करें (सेटिंग्स → नेटवर्क → अडैप्टर विकल्प बदलें)।\n' +
@@ -198,13 +198,13 @@ export const MENU_HI: MenuLabels = {
   diagTlsDetail:
     'आम वजहें: Kaspersky, ESET, Bitdefender, Zscaler, BlueCoat, Fortigate।\n\n' +
     'इनमें से कोई एक आज़माएँ:\n' +
-    '  1. अपने एंटीवायरस में FreeCrawl को अनुमति दें।\n' +
+    '  1. अपने एंटीवायरस में EXIT SEO Crawler को अनुमति दें।\n' +
     '  2. एंटीवायरस / प्रॉक्सी की रूट CA को PEM के रूप में एक्सपोर्ट करें और ऐप शुरू करने से पहले NODE_EXTRA_CA_CERTS एनवायरनमेंट वेरिएबल उसी फ़ाइल पर सेट करें।\n' +
     '  3. अपने एंटीवायरस में HTTPS स्कैनिंग अस्थायी रूप से बंद करें।\n\n' +
     'पूरी त्रुटि श्रृंखला देखने के लिए "लॉग खोलें" पर क्लिक करें।',
   diagSeedTitle: 'प्रारंभिक URL तक पहुँच नहीं',
   diagSeedMsg:
-    'FreeCrawl आपके दर्ज किए URL तक नहीं पहुँच सका — 5 सेकंड में न HTTPS ने जवाब दिया, न HTTP ने।',
+    'EXIT SEO Crawler आपके दर्ज किए URL तक नहीं पहुँच सका — 5 सेकंड में न HTTPS ने जवाब दिया, न HTTP ने।',
   diagSeedDetail:
     'इनमें से कोई एक आज़माएँ:\n' +
     '  1. साइट चालू है या नहीं, इसकी पुष्टि के लिए URL को ब्राउज़र में खोलें।\n' +
@@ -238,17 +238,17 @@ export const MENU_HI: MenuLabels = {
   detailSeeReleasePage: 'बदलावों की सूची के लिए रिलीज़ पृष्ठ देखें।',
   dlgDontShowVersionAgain: 'यह संस्करण दोबारा न दिखाएँ',
 
-  winLogsTitle: 'FreeCrawl — लॉग ({label})',
+  winLogsTitle: 'EXIT SEO Crawler — लॉग ({label})',
   winLabelPrimary: 'मुख्य',
-  winVisualizationTitle: 'FreeCrawl — विज़ुअलाइज़ेशन',
-  winLogAnalyzerTitle: 'FreeCrawl — लॉग विश्लेषक',
+  winVisualizationTitle: 'EXIT SEO Crawler — विज़ुअलाइज़ेशन',
+  winLogAnalyzerTitle: 'EXIT SEO Crawler — लॉग विश्लेषक',
 
   dlgPlaywrightDetail:
     'यह लगभग 250 MB का एक-बार का डाउनलोड है, जो ऐप के भीतर ही चलता है — टर्मिनल की ज़रूरत नहीं। ब्राउज़र आपके यूज़र फ़ोल्डर में रखा जाता है; केवल बाइनरी, cdn.playwright.dev से डाउनलोड होती है।\n\nअब डाउनलोड करें?',
   msgBrowserInstallFailed:
     'Chromium का डाउनलोड पूरा नहीं हो सका।\n\n' +
     'अपना इंटरनेट कनेक्शन (या प्रॉक्सी सेटिंग्स) जाँचें और क्रॉल दोबारा शुरू करें — ' +
-    'FreeCrawl डाउनलोड स्वतः फिर कोशिश करेगा। सफल होने तक JavaScript रेंडरिंग ' +
+    'EXIT SEO Crawler डाउनलोड स्वतः फिर कोशिश करेगा। सफल होने तक JavaScript रेंडरिंग ' +
     'बंद रहेगी; टेक्स्ट-मोड क्रॉलिंग पर कोई असर नहीं पड़ता।',
 
   notifCrawlFinished: 'क्रॉल पूरा: {urls} URL · औसत {ms} ms',
@@ -279,8 +279,8 @@ export const MENU_HI: MenuLabels = {
   msgDiagResetDone:
     'पुनः सक्रिय की गई चेतावनियाँ: {n}। मूल समस्या दोबारा होने पर वे फिर दिखेंगी।',
 
-  filterFreeCrawlProject: 'FreeCrawl प्रोजेक्ट',
-  filterFreeCrawlEncProject: 'FreeCrawl एन्क्रिप्टेड प्रोजेक्ट',
+  filterFreeCrawlProject: 'EXIT SEO Crawler प्रोजेक्ट',
+  filterFreeCrawlEncProject: 'EXIT SEO Crawler एन्क्रिप्टेड प्रोजेक्ट',
   filterAllFiles: 'सभी फ़ाइलें',
   filterLogFiles: 'लॉग फ़ाइलें',
   filterExcelWorkbook: 'Excel वर्कबुक',

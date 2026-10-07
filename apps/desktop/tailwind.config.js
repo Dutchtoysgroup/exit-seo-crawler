@@ -4,10 +4,17 @@ export default {
   darkMode: 'class',
   theme: {
     extend: {
+      // The marketing dashboard's softer corners, one step down for this
+      // denser UI (dashboard --radius is 0.75rem).
+      borderRadius: {
+        DEFAULT: '0.375rem',
+        md: '0.5rem',
+        lg: '0.75rem',
+      },
       fontFamily: {
         // Resolves through the per-script stack defined in styles.css so
         // `font-sans` picks up CJK / Devanagari coverage with the UI language.
-        sans: ['var(--fc-font-ui)', 'Inter', 'system-ui', 'sans-serif'],
+        sans: ['var(--fc-font-ui)', 'Inter Variable', 'Inter', 'system-ui', 'sans-serif'],
         mono: ['JetBrains Mono', 'ui-monospace', 'SFMono-Regular', 'monospace'],
       },
       colors: {
@@ -29,9 +36,10 @@ export default {
           900: 'rgb(var(--sf-900) / <alpha-value>)',
           950: 'rgb(var(--sf-950) / <alpha-value>)',
         },
+        // EXIT green — the marketing dashboard's primary (see styles.css).
         accent: {
-          500: '#2563eb',
-          600: '#1d4ed8',
+          500: '#568100',
+          600: '#496e00',
         },
         // The chromatic hues follow the same variable scheme (see the
         // `--c-*` block in styles.css); the light theme remaps each shade

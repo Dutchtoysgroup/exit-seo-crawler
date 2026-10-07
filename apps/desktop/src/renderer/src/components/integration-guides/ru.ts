@@ -9,7 +9,7 @@ import type { Guide } from './types.js';
 export const GUIDES_RU: Record<string, Guide> = {
   openai: {
     intro:
-      'Запускайте свой промпт для каждого URL через API OpenAI — анализ контента, идеи заголовков, резюме. Использование оплачивается с вашего собственного аккаунта OpenAI; FreeCrawl — бесплатный посредник, вызовы API оплачиваете вы.',
+      'Запускайте свой промпт для каждого URL через API OpenAI — анализ контента, идеи заголовков, резюме. Использование оплачивается с вашего собственного аккаунта OpenAI; EXIT SEO Crawler — бесплатный посредник, вызовы API оплачиваете вы.',
     prereqs: [
       'Аккаунт OpenAI (бесплатная регистрация на https://platform.openai.com).',
       'Действующий способ оплаты — OpenAI требует минимальный баланс 5 $, прежде чем ключи заработают.',
@@ -34,7 +34,7 @@ export const GUIDES_RU: Record<string, Guide> = {
       {
         title: 'Нажмите "+ Create new secret key" (справа вверху)',
         detail:
-          'В диалоге:\n• Name: "FreeCrawl SEO Tool" (любая метка-напоминание)\n• Project: Default project или на ваш выбор\n• Permissions: All (проще всего; ограниченные области тоже работают)\nзатем "Create secret key".',
+          'В диалоге:\n• Name: "EXIT SEO Crawler" (любая метка-напоминание)\n• Project: Default project или на ваш выбор\n• Permissions: All (проще всего; ограниченные области тоже работают)\nзатем "Create secret key".',
       },
       {
         title: 'СКОПИРУЙТЕ ключ — он больше не будет показан',
@@ -44,7 +44,7 @@ export const GUIDES_RU: Record<string, Guide> = {
       {
         title: 'Вставьте его в поле "API Key" этой панели + нажмите Сохранить',
         detail:
-          'FreeCrawl хранит ключ в зашифрованном виде в хранилище учётных данных ОС (Windows DPAPI, Связка ключей macOS, Secret Service Linux). Никогда не записывается открытым текстом.',
+          'EXIT SEO Crawler хранит ключ в зашифрованном виде в хранилище учётных данных ОС (Windows DPAPI, Связка ключей macOS, Secret Service Linux). Никогда не записывается открытым текстом.',
       },
       {
         title: 'Проверьте во вкладке AI',
@@ -101,7 +101,7 @@ export const GUIDES_RU: Record<string, Guide> = {
       {
         title: 'Нажмите "+ Create Key"',
         detail:
-          'В диалоге:\n• Name: "FreeCrawl SEO Tool"\n• Workspace: Default workspace\n• Environment: Production\nзатем "Create Key".',
+          'В диалоге:\n• Name: "EXIT SEO Crawler"\n• Workspace: Default workspace\n• Environment: Production\nзатем "Create Key".',
       },
       {
         title: 'СКОПИРУЙТЕ ключ — он больше не будет показан',
@@ -134,7 +134,7 @@ export const GUIDES_RU: Record<string, Guide> = {
     ],
     notes: [
       'Цены (2026-06): Haiku 4.5 ~0,25 $/1,25 $ (вход/выход за 1M токенов), Sonnet 4.6 ~3 $/15 $, Opus 4.8 ~15 $/75 $.',
-      'Anthropic поддерживает кэширование промптов — повторяющиеся длинные системные промпты в течение 5 мин идут со скидкой 90 % (панель AI FreeCrawl пока не использует кэш — появится в следующих версиях).',
+      'Anthropic поддерживает кэширование промптов — повторяющиеся длинные системные промпты в течение 5 мин идут со скидкой 90 % (панель AI EXIT SEO Crawler пока не использует кэш — появится в следующих версиях).',
     ],
     lastReviewed: '2026-06-01',
   },
@@ -174,7 +174,7 @@ export const GUIDES_RU: Record<string, Guide> = {
       {
         title: 'Укажите имя загруженной модели',
         detail:
-          'Например "llama3.2" или "qwen2.5:7b". Оставьте пустым, чтобы FreeCrawl взял первую доступную модель.',
+          'Например "llama3.2" или "qwen2.5:7b". Оставьте пустым, чтобы EXIT SEO Crawler взял первую доступную модель.',
       },
       {
         title: 'Сохраните + проверьте',
@@ -220,7 +220,7 @@ export const GUIDES_RU: Record<string, Guide> = {
       {
         title: 'Выберите или создайте проект',
         detail:
-          'Выпадающий список проектов слева вверху → "New Project" → имя: "FreeCrawl SEO" → Create. Платёжный аккаунт НЕ нужен — бесплатному уровню PSI учётные данные нужны только для аутентификации.',
+          'Выпадающий список проектов слева вверху → "New Project" → имя: "EXIT SEO Crawler" → Create. Платёжный аккаунт НЕ нужен — бесплатному уровню PSI учётные данные нужны только для аутентификации.',
       },
       {
         title: 'Включите PageSpeed Insights API',
@@ -247,7 +247,7 @@ export const GUIDES_RU: Record<string, Guide> = {
       {
         title: 'Необязательно: ограничьте ключ API (рекомендуется)',
         detail:
-          'Нажмите "Edit API key" → "Restrict key":\n• API restrictions: "Restrict key" → "PageSpeed Insights API"\n• Application restrictions: "None" (FreeCrawl — настольное приложение, фильтрация по referrer/IP не сработает)\nНеограниченные ключи тоже работают, но мы рекомендуем ограничить.',
+          'Нажмите "Edit API key" → "Restrict key":\n• API restrictions: "Restrict key" → "PageSpeed Insights API"\n• Application restrictions: "None" (EXIT SEO Crawler — настольное приложение, фильтрация по referrer/IP не сработает)\nНеограниченные ключи тоже работают, но мы рекомендуем ограничить.',
       },
       {
         title: 'Вставьте ключ в поле "API Key" этой панели + Сохранить',
@@ -433,7 +433,7 @@ export const GUIDES_RU: Record<string, Guide> = {
   },
   gsc: {
     intro:
-      'Получайте метрики Search Console по URL (клики, показы, CTR, средняя позиция) через Google Search Console API. URL Inspection API также даёт вердикт покрытия + время последнего сканирования. Модель «принесите свой клиент» — вы создаёте собственный OAuth-клиент в Google Cloud и вставляете его; FreeCrawl не использует общее приложение-посредник.',
+      'Получайте метрики Search Console по URL (клики, показы, CTR, средняя позиция) через Google Search Console API. URL Inspection API также даёт вердикт покрытия + время последнего сканирования. Модель «принесите свой клиент» — вы создаёте собственный OAuth-клиент в Google Cloud и вставляете его; EXIT SEO Crawler не использует общее приложение-посредник.',
     prereqs: [
       'Аккаунт Google (должен быть владельцем / совладельцем ресурса GSC, который вы подключаете).',
       'Хотя бы один ресурс Google Search Console добавлен + подтверждён.',
@@ -442,7 +442,7 @@ export const GUIDES_RU: Record<string, Guide> = {
       {
         title: 'Откройте Google Cloud Console и создайте новый проект',
         detail:
-          'Выпадающий список проектов слева вверху → "New Project" → имя: "FreeCrawl SEO Integrations" (любое) → Create. Этот проект нужен только для учётных данных OAuth — оплата не требуется.',
+          'Выпадающий список проектов слева вверху → "New Project" → имя: "EXIT SEO Crawler Integrations" (любое) → Create. Этот проект нужен только для учётных данных OAuth — оплата не требуется.',
         link: {
           label: 'console.cloud.google.com',
           url: 'https://console.cloud.google.com',
@@ -460,7 +460,7 @@ export const GUIDES_RU: Record<string, Guide> = {
       {
         title: 'Заполните экран согласия OAuth',
         detail:
-          'Только обязательные поля:\n• App name: "FreeCrawl Local"\n• User support email: ваш e-mail\n• Developer contact information: ваш e-mail\nОстальное оставьте пустым. Save and Continue → Save and Continue → Save and Continue → Back to Dashboard.',
+          'Только обязательные поля:\n• App name: "EXIT SEO Crawler Local"\n• User support email: ваш e-mail\n• Developer contact information: ваш e-mail\nОстальное оставьте пустым. Save and Continue → Save and Continue → Save and Continue → Back to Dashboard.',
       },
       {
         title: 'КРИТИЧНО: добавьте себя как Test User',
@@ -492,7 +492,7 @@ export const GUIDES_RU: Record<string, Guide> = {
       {
         title: 'Выберите тип OAuth-клиента "Desktop app" (НЕ Web app!)',
         detail:
-          'Выпадающий список Application type → "Desktop app". Name: "FreeCrawl SEO Tool". Create → диалог покажет Client ID + Client Secret. Сразу скопируйте оба (Secret больше не показывается).\n\nПОЧЕМУ DESKTOP: FreeCrawl использует случайный локальный порт (например 127.0.0.1:63092) для каждого подключения. "Web application" требует фиксированный список redirect URI — случайный порт не совпадёт → ошибка. "Desktop app" автоматически принимает loopback-перенаправления независимо от порта.',
+          'Выпадающий список Application type → "Desktop app". Name: "EXIT SEO Crawler". Create → диалог покажет Client ID + Client Secret. Сразу скопируйте оба (Secret больше не показывается).\n\nПОЧЕМУ DESKTOP: EXIT SEO Crawler использует случайный локальный порт (например 127.0.0.1:63092) для каждого подключения. "Web application" требует фиксированный список redirect URI — случайный порт не совпадёт → ошибка. "Desktop app" автоматически принимает loopback-перенаправления независимо от порта.',
       },
       {
         title: 'Вставьте Client ID + Client Secret в эту панель + Сохранить',
@@ -507,10 +507,10 @@ export const GUIDES_RU: Record<string, Guide> = {
       {
         title: 'Войдите с аккаунтом Google, добавленным как тестовый пользователь',
         detail:
-          'В выборе аккаунта укажите e-mail, добавленный в тестовые пользователи. "Continue" → предупреждение "Google hasn\'t verified this app" (ожидаемо в режиме тестирования). "Advanced" → "Go to FreeCrawl Local (unsafe)" → примите разрешения → Allow.',
+          'В выборе аккаунта укажите e-mail, добавленный в тестовые пользователи. "Continue" → предупреждение "Google hasn\'t verified this app" (ожидаемо в режиме тестирования). "Advanced" → "Go to EXIT SEO Crawler Local (unsafe)" → примите разрешения → Allow.',
       },
       {
-        title: 'Вернитесь в FreeCrawl — должно появиться «Настроено»',
+        title: 'Вернитесь в EXIT SEO Crawler — должно появиться «Настроено»',
         detail:
           'Карточка Search Console в Настройках теперь показывает зелёный значок «Настроено». Можно перейти на верхнюю вкладку "Search Console", чтобы получить список ресурсов + данные.',
       },
@@ -524,7 +524,7 @@ export const GUIDES_RU: Record<string, Guide> = {
       {
         problem: '"Request had insufficient authentication scopes"',
         solution:
-          'Либо не был включён Search Console API, ЛИБО на экране согласия OAuth была снята галочка разрешения "View Search Console data for your verified sites". (1) Включите Search Console API (шаг 5), (2) myaccount.google.com/permissions → "FreeCrawl Local" → Remove access → снова нажмите «Подключить» и отметьте все разрешения на экране согласия.',
+          'Либо не был включён Search Console API, ЛИБО на экране согласия OAuth была снята галочка разрешения "View Search Console data for your verified sites". (1) Включите Search Console API (шаг 5), (2) myaccount.google.com/permissions → "EXIT SEO Crawler Local" → Remove access → снова нажмите «Подключить» и отметьте все разрешения на экране согласия.',
       },
       {
         problem: '"redirect_uri_mismatch"',
@@ -603,7 +603,7 @@ export const GUIDES_RU: Record<string, Guide> = {
       {
         problem: '"Request had insufficient authentication scopes"',
         solution:
-          'Область OAuth не покрывает GA4. Перейдите на myaccount.google.com/permissions → "FreeCrawl Local" → Remove access → снова нажмите «Подключить» → отметьте галочку разрешения Google Analytics.',
+          'Область OAuth не покрывает GA4. Перейдите на myaccount.google.com/permissions → "EXIT SEO Crawler Local" → Remove access → снова нажмите «Подключить» → отметьте галочку разрешения Google Analytics.',
       },
       {
         problem: 'Property list comes back empty',
@@ -664,7 +664,7 @@ export const GUIDES_RU: Record<string, Guide> = {
     ],
     notes: [
       'Жёсткий лимит Sheets: 10M ячеек на таблицу — крупные сканирования (>500K URL) разбиваются.',
-      'Область Drive — "drive.file": доступны только файлы, созданные FreeCrawl, а не ваши существующие файлы.',
+      'Область Drive — "drive.file": доступны только файлы, созданные EXIT SEO Crawler, а не ваши существующие файлы.',
     ],
     lastReviewed: '2026-06-01',
   },
@@ -709,7 +709,7 @@ export const GUIDES_RU: Record<string, Guide> = {
       {
         title: 'Вставьте его в поле "Service Account JSON" этой панели',
         detail:
-          'Вставьте JSON целиком (от открывающей `{` до закрывающей `}`). FreeCrawl хранит JSON в зашифрованном виде в хранилище учётных данных ОС.',
+          'Вставьте JSON целиком (от открывающей `{` до закрывающей `}`). EXIT SEO Crawler хранит JSON в зашифрованном виде в хранилище учётных данных ОС.',
       },
       {
         title: 'Заполните "GCP Project ID"',
@@ -740,12 +740,12 @@ export const GUIDES_RU: Record<string, Guide> = {
       {
         problem: '"Invalid JSON"',
         solution:
-          'Вы вставили только часть JSON или по краям попал лишний символ. Откройте JSON-файл сервисного аккаунта в настоящем редакторе (рекомендуется VS Code, НЕ Блокнот), Ctrl+A для выделения всего, скопируйте, очистите поле FreeCrawl, вставьте.',
+          'Вы вставили только часть JSON или по краям попал лишний символ. Откройте JSON-файл сервисного аккаунта в настоящем редакторе (рекомендуется VS Code, НЕ Блокнот), Ctrl+A для выделения всего, скопируйте, очистите поле EXIT SEO Crawler, вставьте.',
       },
     ],
     notes: [
       'Стоимость: бесплатный уровень BigQuery (10 ГБ хранилища + 1 ТБ запросов/мес) покрывает обычное использование. Сканирование на 1M URL — это ~500 МБ; стоимость запросов зависит от вашего SQL.',
-      'Эволюция схемы: FreeCrawl создаёт/обновляет таблицу экспорта автоматически. Если в схеме CrawlUrlRow появятся новые столбцы, таблица экспорта их подхватит (гибкость DDL BigQuery).',
+      'Эволюция схемы: EXIT SEO Crawler создаёт/обновляет таблицу экспорта автоматически. Если в схеме CrawlUrlRow появятся новые столбцы, таблица экспорта их подхватит (гибкость DDL BigQuery).',
     ],
     lastReviewed: '2026-06-01',
   },

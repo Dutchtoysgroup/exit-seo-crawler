@@ -32,7 +32,7 @@ export const MENU_TR: MenuLabels = {
   compareWith: 'Projeyle Karşılaştır…',
   scheduledCrawl: 'Zamanlanmış Crawl…',
   scheduledCrawlTooltip:
-    'Şu an açık olan proje için uygulama içi tekrarlayan crawl kur. Yalnızca FreeCrawl açıkken çalışır; yeniden başlatmaya dayanan tetikler için CLI + OS zamanlayıcısını kullan.',
+    'Şu an açık olan proje için uygulama içi tekrarlayan crawl kur. Yalnızca EXIT SEO Crawler açıkken çalışır; yeniden başlatmaya dayanan tetikler için CLI + OS zamanlayıcısını kullan.',
   saveProject: 'Projeyi Kaydet',
   saveProjectAs: 'Projeyi Farklı Kaydet…',
   titleUntitledProject: 'Adsız proje',
@@ -74,10 +74,10 @@ export const MENU_TR: MenuLabels = {
   help: 'Yardım',
   documentation: 'Dokümantasyon',
   showLogs: 'Logları Göster…',
-  trayShow: 'FreeCrawl\'i Göster',
+  trayShow: 'EXIT SEO Crawler\'i Göster',
   trayHide: 'Tepsiye Gizle',
   trayStopCrawl: 'Taramayı Durdur',
-  trayQuit: 'FreeCrawl\'ten Çık',
+  trayQuit: 'EXIT SEO Crawler\'ten Çık',
   openLogsFolder: 'Log Klasörünü Aç',
   openLogsFolderTooltip:
     'Diske kayıtlı, dönen log dosyalarının olduğu dizini aç',
@@ -95,7 +95,7 @@ export const MENU_TR: MenuLabels = {
   checkForUpdates: 'Güncellemeleri Kontrol Et…',
   checkForUpdatesTooltip:
     'En son GitHub release\'ini çek ve kurulu sürümünüzle karşılaştır. Arka planda yoklama yok — yalnızca tıkladığınızda çalışır.',
-  about: 'FreeCrawl SEO Hakkında',
+  about: 'EXIT SEO Crawler Hakkında',
 
   ctxCopy: 'Kopyala',
   ctxOpenInBrowser: 'Tarayıcıda Aç',
@@ -170,20 +170,20 @@ export const MENU_TR: MenuLabels = {
 
   diagDnsRefusedTitle: 'Ağ Bağlantısı Yok',
   diagDnsRefusedMsg:
-    'FreeCrawl DNS aramasını 3 katmanda denedi (sistem, 53 portundaki genel sunucular ve 443 portundaki DNS-over-HTTPS) — hepsi reddedildi. Makinenizde çalışan bir internet bağlantısı yok gibi görünüyor.',
+    'EXIT SEO Crawler DNS aramasını 3 katmanda denedi (sistem, 53 portundaki genel sunucular ve 443 portundaki DNS-over-HTTPS) — hepsi reddedildi. Makinenizde çalışan bir internet bağlantısı yok gibi görünüyor.',
   diagDnsRefusedDetail:
-    'FreeCrawl bozuk sistem DNS\'ini otomatik olarak atlamayı zaten deniyor — bu pencereyi görüyorsanız 443 portu üzerinden DNS-over-HTTPS bile başarısız oldu.\n\n' +
+    'EXIT SEO Crawler bozuk sistem DNS\'ini otomatik olarak atlamayı zaten deniyor — bu pencereyi görüyorsanız 443 portu üzerinden DNS-over-HTTPS bile başarısız oldu.\n\n' +
     'En olası nedenler (sırayla):\n' +
-    '  1. Antivirüs / uç nokta güvenliği FreeCrawl\'ın HİÇBİR dışa bağlantı kurmasına izin vermiyor. Güvenlik yazılımınızda FreeCrawl\'a izin verin.\n' +
+    '  1. Antivirüs / uç nokta güvenliği EXIT SEO Crawler\'ın HİÇBİR dışa bağlantı kurmasına izin vermiyor. Güvenlik yazılımınızda EXIT SEO Crawler\'a izin verin.\n' +
     '  2. İnternete bağlı değilsiniz — Wi-Fi / Ethernet bağlantınızı kontrol edin.\n' +
     '  3. Kurumsal bir güvenlik duvarı tüm dışa trafiği engelliyor — Ayarlar → Ağ bölümünde HTTPS_PROXY tanımlayın.\n' +
     '  4. Etkin VPN bozuk durumda — bağlantıyı kesip yeniden deneyin.\n\n' +
     'Hata zincirinin tamamını görmek için "Kayıtları Aç"a tıklayın.',
   diagDnsDestroyedTitle: 'Ağ Yığını Yanıt Vermiyor',
   diagDnsDestroyedMsg:
-    'Sisteminizin DNS çözümleyicisi çöktü VE FreeCrawl\'ın otomatik DNS-over-HTTPS atlaması da başarısız oldu. Bu, yalnızca DNS\'in değil, ağ yığınının bozuk durumda olduğu anlamına gelir.',
+    'Sisteminizin DNS çözümleyicisi çöktü VE EXIT SEO Crawler\'ın otomatik DNS-over-HTTPS atlaması da başarısız oldu. Bu, yalnızca DNS\'in değil, ağ yığınının bozuk durumda olduğu anlamına gelir.',
   diagDnsDestroyedDetail:
-    'FreeCrawl normalde çöken Windows DNS İstemcisini, aramaları Cloudflare/Google üzerinden HTTPS:443 ile yönlendirerek telafi eder. Bu pencereyi görüyorsanız o yedek yol da başarısız olmuştur — genellikle işletim sisteminin ağ yığınının kendisi sıfırlanmaya ihtiyaç duyduğu için.\n\n' +
+    'EXIT SEO Crawler normalde çöken Windows DNS İstemcisini, aramaları Cloudflare/Google üzerinden HTTPS:443 ile yönlendirerek telafi eder. Bu pencereyi görüyorsanız o yedek yol da başarısız olmuştur — genellikle işletim sisteminin ağ yığınının kendisi sıfırlanmaya ihtiyaç duyduğu için.\n\n' +
     'Şunlardan birini deneyin (kolaydan zora):\n' +
     '  1. Uçak modunu aç/kapat veya Wi-Fi bağlantısını kesip yeniden kurun.\n' +
     '  2. Ağ bağdaştırıcısını yeniden başlatın (Ayarlar → Ağ → Bağdaştırıcı seçeneklerini değiştir).\n' +
@@ -196,13 +196,13 @@ export const MENU_TR: MenuLabels = {
   diagTlsDetail:
     'Sık görülen nedenler: Kaspersky, ESET, Bitdefender, Zscaler, BlueCoat, Fortigate.\n\n' +
     'Şunlardan birini deneyin:\n' +
-    '  1. Antivirüsünüzde FreeCrawl\'a izin verin.\n' +
+    '  1. Antivirüsünüzde EXIT SEO Crawler\'a izin verin.\n' +
     '  2. Antivirüs / proxy kök CA\'sını PEM olarak dışa aktarın ve uygulamayı başlatmadan önce NODE_EXTRA_CA_CERTS ortam değişkenini bu dosyaya ayarlayın.\n' +
     '  3. Antivirüsünüzde HTTPS taramasını geçici olarak devre dışı bırakın.\n\n' +
     'Hata zincirinin tamamını görmek için "Kayıtları Aç"a tıklayın.',
   diagSeedTitle: 'Başlangıç URL\'sine Ulaşılamıyor',
   diagSeedMsg:
-    'FreeCrawl girdiğiniz URL\'ye ulaşamadı — 5 saniye içinde ne HTTPS ne de HTTP yanıt verdi.',
+    'EXIT SEO Crawler girdiğiniz URL\'ye ulaşamadı — 5 saniye içinde ne HTTPS ne de HTTP yanıt verdi.',
   diagSeedDetail:
     'Şunlardan birini deneyin:\n' +
     '  1. Sitenin ayakta olduğunu doğrulamak için URL\'yi bir tarayıcıda açın.\n' +
@@ -236,17 +236,17 @@ export const MENU_TR: MenuLabels = {
   detailSeeReleasePage: 'Değişiklik listesi için sürüm sayfasına bakın.',
   dlgDontShowVersionAgain: 'Bu sürümü bir daha gösterme',
 
-  winLogsTitle: 'FreeCrawl — Kayıtlar ({label})',
+  winLogsTitle: 'EXIT SEO Crawler — Kayıtlar ({label})',
   winLabelPrimary: 'Birincil',
-  winVisualizationTitle: 'FreeCrawl — Görselleştirme',
-  winLogAnalyzerTitle: 'FreeCrawl — Kayıt Analizcisi',
+  winVisualizationTitle: 'EXIT SEO Crawler — Görselleştirme',
+  winLogAnalyzerTitle: 'EXIT SEO Crawler — Kayıt Analizcisi',
 
   dlgPlaywrightDetail:
     'Bu, uygulamanın içinde çalışan tek seferlik ~250 MB\'lık bir indirmedir — terminale gerek yok. Tarayıcı kullanıcı klasörünüzde saklanır; yalnızca ikili dosya, cdn.playwright.dev adresinden indirilir.\n\nŞimdi indirilsin mi?',
   msgBrowserInstallFailed:
     'Chromium indirmesi tamamlanamadı.\n\n' +
     'İnternet bağlantınızı (veya proxy ayarlarınızı) kontrol edip taramayı yeniden başlatın — ' +
-    'FreeCrawl indirmeyi otomatik olarak yeniden dener. Başarılı olana kadar JavaScript ' +
+    'EXIT SEO Crawler indirmeyi otomatik olarak yeniden dener. Başarılı olana kadar JavaScript ' +
     'render\'ı devre dışı kalır; metin modunda tarama bundan etkilenmez.',
 
   notifCrawlFinished: 'Tarama bitti: {urls} URL · ortalama {ms} ms',
@@ -277,8 +277,8 @@ export const MENU_TR: MenuLabels = {
   msgDiagResetDone:
     'Yeniden etkinleştirilen uyarı: {n}. Altta yatan sorun bir daha oluştuğunda tekrar görünecekler.',
 
-  filterFreeCrawlProject: 'FreeCrawl Projesi',
-  filterFreeCrawlEncProject: 'FreeCrawl Şifreli Projesi',
+  filterFreeCrawlProject: 'EXIT SEO Crawler Projesi',
+  filterFreeCrawlEncProject: 'EXIT SEO Crawler Şifreli Projesi',
   filterAllFiles: 'Tüm Dosyalar',
   filterLogFiles: 'Kayıt Dosyaları',
   filterExcelWorkbook: 'Excel Çalışma Kitabı',

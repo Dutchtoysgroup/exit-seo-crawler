@@ -1,10 +1,10 @@
-appId: com.kemalai.freecrawl
-productName: FreeCrawl SEO Tool
+appId: com.dutchtoysgroup.exitseocrawler
+productName: EXIT SEO Crawler
 electronVersion: 41.2.2
 publish:
   provider: github
-  owner: kemalai
-  repo: FreeCrawl-SEO-Tool
+  owner: Dutchtoysgroup
+  repo: exit-seo-crawler
   releaseType: release
 directories:
   buildResources: resources
@@ -56,15 +56,16 @@ win:
       arch:
         - x64
 nsis:
-  artifactName: FreeCrawl-SEO-Tool-${version}-Windows-Setup.${ext}
+  artifactName: EXIT-SEO-Crawler-${version}-Windows-Setup.${ext}
   oneClick: false
   allowToChangeInstallationDirectory: true
   createDesktopShortcut: true
   createStartMenuShortcut: true
+  shortcutName: EXIT SEO Crawler
 portable:
-  artifactName: FreeCrawl-SEO-Tool-${version}-Windows-Portable.${ext}
+  artifactName: EXIT-SEO-Crawler-${version}-Windows-Portable.${ext}
 mac:
-  artifactName: FreeCrawl-SEO-Tool-${version}-macOS-${arch}.${ext}
+  artifactName: EXIT-SEO-Crawler-${version}-macOS-${arch}.${ext}
   # No `arch` list here on purpose. electron-builder lets a config-side
   # arch list override the CLI's `--arm64` / `--x64` unless a target type
   # is also given on the CLI (computeArchToTargetNamesMap), so with
@@ -75,10 +76,10 @@ mac:
   # `npm run build:mac -- --arm64 --x64` builds both.
   target:
     - dmg
-  category: public.app-category.developer-tools
+  category: public.app-category.business
 linux:
-  executableName: freecrawl-seo
-  artifactName: FreeCrawl-SEO-Tool-${version}-Linux-${arch}.${ext}
+  executableName: exit-seo-crawler
+  artifactName: EXIT-SEO-Crawler-${version}-Linux-${arch}.${ext}
   target:
     - AppImage
     - deb
@@ -87,9 +88,9 @@ linux:
 rpm:
   fpm:
     - "--name"
-    - "freecrawl-seo"
+    - "exit-seo-crawler"
 fileAssociations:
   - ext: seoproject
-    name: FreeCrawl SEO Project
-    description: FreeCrawl SEO crawl project
+    name: EXIT SEO Crawler Project
+    description: EXIT SEO Crawler crawl project
     role: Editor

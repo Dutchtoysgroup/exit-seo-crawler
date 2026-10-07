@@ -45,7 +45,7 @@ function fmtNum(n: number): string {
 const STYLE = `
 body { font: 13px/1.5 -apple-system, "Segoe UI", system-ui, sans-serif;
   color: #1f2937; background: #f9fafb; margin: 0; padding: 24px; }
-h1 { font-size: 20px; margin: 0 0 4px; color: var(--accent, #111827); }
+h1 { font-size: 20px; margin: 0 0 4px; color: var(--accent, #658d1b); }
 .hdr { display: flex; align-items: center; gap: 14px; }
 .hdr .logo { max-height: 44px; max-width: 160px; object-fit: contain; }
 .recs { padding-left: 20px; margin: 0; }
@@ -57,7 +57,7 @@ h1 { font-size: 20px; margin: 0 0 4px; color: var(--accent, #111827); }
 .card .value { font-size: 22px; font-weight: 600; margin-top: 4px; color: #111827; }
 section { margin: 28px 0 0; }
 section > h2 { font-size: 14px; margin: 0 0 8px; color: #111827;
-  border-bottom: 2px solid var(--accent, #e5e7eb); padding-bottom: 4px; }
+  border-bottom: 2px solid var(--accent, #78be20); padding-bottom: 4px; }
 table { width: 100%; border-collapse: collapse; background: white;
   border: 1px solid #e5e7eb; border-radius: 6px; overflow: hidden; }
 th, td { text-align: left; padding: 6px 10px; border-bottom: 1px solid #f3f4f6;
@@ -278,7 +278,7 @@ function renderHeader(options: HtmlReportOptions, generatedAt: Date): string {
   const logo = b.logoDataUrl && /^data:image\//.test(b.logoDataUrl)
     ? `<img class="logo" src="${b.logoDataUrl}" alt="" />`
     : '';
-  const title = brand ? `${escape(brand)} — SEO Report` : 'FreeCrawl SEO Report';
+  const title = brand ? `${escape(brand)} — SEO Report` : 'EXIT SEO Report';
   const preparedBy = (b.preparedBy ?? '').trim();
   return (
     `<header class="hdr">${logo}<div><h1>${title}</h1>` +
@@ -379,7 +379,7 @@ async function* htmlReportChunks(
 
   const gen = async function* (): AsyncGenerator<string> {
     const brand = (options.branding?.brandName ?? '').trim();
-    yield `<!doctype html><html lang="en"><head><meta charset="utf-8" /><title>${escape(brand || 'FreeCrawl')} SEO Report — ${escape(options.startUrl)}</title><style>${STYLE}${accentStyle(options)}</style></head><body>`;
+    yield `<!doctype html><html lang="en"><head><meta charset="utf-8" /><title>${escape(brand || 'EXIT')} SEO Report — ${escape(options.startUrl)}</title><style>${STYLE}${accentStyle(options)}</style></head><body>`;
     yield renderHeader(options, generatedAt);
 
     yield `<div class="grid">

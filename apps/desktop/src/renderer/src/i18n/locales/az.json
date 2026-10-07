@@ -6,7 +6,7 @@
   },
   "integrations": {
     "intro": "Xarici xidmətləri öz giriş məlumatlarınızla qoşun. API açarları və sirlər əməliyyat sisteminizin təhlükəsiz anbarı ilə şifrələnərək saxlanılır və heç vaxt bu maşından kənara çıxmır.",
-    "byocNote": "Google inteqrasiyaları «öz müştərinizi gətirin» modeli ilə işləyir — siz öz Google Cloud OAuth müştərinizi yaradıb onun ID və sirrini buraya yerləşdirirsiniz, deməli heç bir paylaşılan FreeCrawl tətbiqi və ya yoxlama prosesi iştirak etmir.",
+    "byocNote": "Google inteqrasiyaları «öz müştərinizi gətirin» modeli ilə işləyir — siz öz Google Cloud OAuth müştərinizi yaradıb onun ID və sirrini buraya yerləşdirirsiniz, deməli heç bir paylaşılan EXIT SEO Crawler tətbiqi və ya yoxlama prosesi iştirak etmir.",
     "connected": "Quraşdırılıb",
     "notConfigured": "Təyin edilməyib",
     "savedPlaceholder": "Saxlanıldı — dəyişmək üçün yazın",
@@ -193,7 +193,7 @@
     "deleteDomainData": "Domen məlumatlarını sil…",
     "clearAllData": "Bütün məlumatları təmizlə…",
     "checkForUpdates": "Yeniləmələri yoxla…",
-    "about": "FreeCrawl SEO haqqında"
+    "about": "EXIT SEO Crawler haqqında"
   },
   "passwordPrompt": {
     "passwordLabel": "Parol",
@@ -288,7 +288,7 @@
     "dropFailedProject": "Layihə açıla bilmədi: {{name}}",
     "dropNoUrls": "{{name}} faylında heç bir URL tapılmadı.",
     "dropLoadedUrls": "{{name}} faylından {{count}} URL Siyahı rejiminə yükləndi.",
-    "crashRecovery": "FreeCrawl düzgün tamamlanmayan əvvəlki bir tarama tapdı:\n\n  Rejim: {{mode}}\n  Başlanğıc URL: {{seed}}\n  Gözləyən URL-lər: {{pending}}\n\nTarama dayandığı yerdən davam etdirilsin?\n\nDavam etmək üçün Oldu, bərpa vəziyyətini atıb yenidən başlamaq üçün Ləğv et seçin.",
+    "crashRecovery": "EXIT SEO Crawler düzgün tamamlanmayan əvvəlki bir tarama tapdı:\n\n  Rejim: {{mode}}\n  Başlanğıc URL: {{seed}}\n  Gözləyən URL-lər: {{pending}}\n\nTarama dayandığı yerdən davam etdirilsin?\n\nDavam etmək üçün Oldu, bərpa vəziyyətini atıb yenidən başlamaq üçün Ləğv et seçin.",
     "deleteDomainPrompt": "GDPR-a uyğun domen təmizləməsi — silinəcək hostu daxil edin (böyük-kiçik hərf fərqi yoxdur, dəqiq uyğunluq).\n\nNümunələr: example.com  ·  blog.example.com\n\nBu geri qaytarıla bilməz. Ehtiyat nüsxə üçün əvvəlcə Layihəni fərqli saxla… seçin.",
     "deleteDomainConfirm": "«{{host}}» üzərindəki bütün URL-lər, onların keçidləri, başlıqları, şəkilləri və mənbə görüntüləri silinsin?\n\nBu əməliyyat geri qaytarıla bilməz.",
     "clearAllConfirm": "Aktiv layihədəki BÜTÜN məlumatlar təmizlənsin?\n\nHər URL, keçid, şəkil, başlıq, mənbə görüntüsü, sitemap və problem silinəcək. Geri qaytarıla bilməz — ehtiyat nüsxə istəyirsinizsə, əvvəlcə Layihəni fərqli saxla… seçin.",
@@ -821,7 +821,7 @@
       "removeRule": "Qaydanı sil"
     },
     "reports": {
-      "intro": "HTML və PDF hesabatlarını brendləşdirin (Fayl → HTML / PDF hesabatı ixrac et). Dəyişikliklər növbəti ixracda tətbiq olunur; sadə FreeCrawl başlığı üçün hər şeyi boş buraxın.",
+      "intro": "HTML və PDF hesabatlarını brendləşdirin (Fayl → HTML / PDF hesabatı ixrac et). Dəyişikliklər növbəti ixracda tətbiq olunur; sadə EXIT SEO Crawler başlığı üçün hər şeyi boş buraxın.",
       "brandName": "Brend adı",
       "brandNamePlaceholder": "Acme SEO Agentliyi",
       "preparedBy": "Hazırlayan",
@@ -861,7 +861,7 @@
   "scheduled": {
     "title": "Cədvəlli tarama",
     "closeEsc": "Bağla (Esc)",
-    "warningPrefix": "Cədvəl yalnız FreeCrawl bu layihədə açıq olduğu müddətdə işə düşür. Tətbiqin yenidən başlamasından sonra da qalan tətikləyicilər üçün Windows Tapşırıq Planlayıcısı, macOS launchd ya da cron-dan bunu işə salın:",
+    "warningPrefix": "Cədvəl yalnız EXIT SEO Crawler bu layihədə açıq olduğu müddətdə işə düşür. Tətbiqin yenidən başlamasından sonra da qalan tətikləyicilər üçün Windows Tapşırıq Planlayıcısı, macOS launchd ya da cron-dan bunu işə salın:",
     "warningSuffix": "(əmr sətri aləti).",
     "enabled": "Aktiv",
     "cadence": "Təkrarlanma",
@@ -884,7 +884,7 @@
     "lastFired": "Son işləmə",
     "lastStatus": "Son status",
     "hintDisabled": "Sönülüdür — cədvəli işə salmaq üçün «Aktiv» seçin və saxlayın.",
-    "hintEnabled": "Növbəti işləmə vaxtını hesablamaq üçün saxlayın. Cədvəl yalnız FreeCrawl açıq olduqda işə düşür.",
+    "hintEnabled": "Növbəti işləmə vaxtını hesablamaq üçün saxlayın. Cədvəl yalnız EXIT SEO Crawler açıq olduqda işə düşür.",
     "confirmRemove": "Bu layihənin cədvəlli taraması silinsin?",
     "saving": "Saxlanılır…",
     "afterTitle": "Hər planlaşdırılmış taramadan sonra",
@@ -1680,7 +1680,7 @@
       "modeLabel": "Saxlama rejimi",
       "modeDisk": "Disk (SQLite faylı) — davamlı, davam etdirilə bilən, işçi hovuzlarından istifadə edir",
       "modeRam": "Yalnız RAM (yaddaşda) — ən sürətli, Fərqli saxla edilənə qədər diskə heç nə yazılmır",
-      "modeRestart": "FreeCrawl növbəti dəfə başlayanda tətbiq olunacaq (hazırda {{active}} rejimində işləyir).",
+      "modeRestart": "EXIT SEO Crawler növbəti dəfə başlayanda tətbiq olunacaq (hazırda {{active}} rejimində işləyir).",
       "modeActiveNote": "Hazırda {{active}} rejimində işləyir.",
       "modeRamWarning": "Yaddaşdaki layihələr çıxdıqda — və başqa layihə açdıqda ya ona keçdikdə — itir, əgər əvvəlcə Fərqli saxla etməmişsinizsə. Çökmə bərpası sönülüdür və çox böyük taramalar mövcud RAM ilə məhdudlaşır.",
       "defaultSaveFolder": "Susmaya görə saxlama qovluğu",
@@ -1701,7 +1701,7 @@
     },
     "privacy": {
       "title": "Məxfilik",
-      "intro": "FreeCrawl əvvəlcə yerlidir — tarama nəticələri, layihə faylları və ziyarət etdiyiniz URL-lər heç vaxt bu maşından kənara çıxmır.",
+      "intro": "EXIT SEO Crawler əvvəlcə yerlidir — tarama nəticələri, layihə faylları və ziyarət etdiyiniz URL-lər heç vaxt bu maşından kənara çıxmır.",
       "telemetryHeading": "Anonim telemetriya",
       "telemetryLabel": "Anonim istifadə telemetriyası göndər (könüllü)",
       "telemetryHelp": "Susmaya görə sönülüdür. Yandırıldıqda funksiyaların istifadəsinə dair ümumi saylar göndərilə bilər (məsələn «ixrac işə salındı», «hesabat açıldı») — heç vaxt URL, layihə məzmunu ya tarama nəticələri yox.",
@@ -1746,7 +1746,7 @@
       "customCssNote": "Tətbiqin istifadəçi-məlumat qovluğundakı custom-theme.css faylı hər iki mövzunun üzərinə yenə də tətbiq olunur."
     },
     "system": {
-      "intro": "FreeCrawl-ın hazırda istifadə etdiyi resurslar və işlədiyi mühitin canlı görünüşü. Hər iki saniyədə yenilənir.",
+      "intro": "EXIT SEO Crawler-ın hazırda istifadə etdiyi resurslar və işlədiyi mühitin canlı görünüşü. Hər iki saniyədə yenilənir.",
       "memory": "Yaddaş",
       "rss": "Proses (RSS)",
       "heap": "JS heap (istifadə olunan / ayrılan)",
@@ -1756,7 +1756,7 @@
       "projected": "1M URL üçün proqnoz",
       "limitNote": "Taramanı dayandıran yumşaq yaddaş limiti Avadanlıq bölməsindədir.",
       "environment": "Mühit",
-      "version": "FreeCrawl",
+      "version": "EXIT SEO Crawler",
       "platform": "Platforma",
       "cpus": "CPU nüvələri",
       "uptime": "İş müddəti",
@@ -1919,7 +1919,7 @@
   "assistant": {
     "modelPlaceholder": "Model (təchizatçının susmaya görə modeli)",
     "tools": "Alətlər",
-    "builtinTools": "FreeCrawl layihə alətləri",
+    "builtinTools": "EXIT SEO Crawler layihə alətləri",
     "builtinToolsHint": "Açıq tarama üzərində yalnız oxuma sorğuları. Soruşmadan işləyir.",
     "mcpServers": "MCP serverləri",
     "noServers": "Hələ MCP serveri qurulmayıb. Parametrlər → MCP serverləri bölməsində birini əlavə edin.",

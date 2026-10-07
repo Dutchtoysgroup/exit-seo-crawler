@@ -18,6 +18,11 @@ permissions:
   contents: write
 
 jobs:
+  # Dutch Toys Group: macOS (Apple Silicon + Intel) and Windows only — the
+  # upstream Linux leg is dropped. Release assets land on this private
+  # repo's Releases page; downloading them needs access to the
+  # Dutchtoysgroup organisation.
+  #
   # Each platform is its own job because electron-builder needs the
   # native toolchain (NSIS for .exe, hdiutil for .dmg, etc.) of the
   # runner OS — cross-compiling is not supported. The matrix wires both
@@ -55,11 +60,10 @@ jobs:
           # electron-builder's artifactName template cannot branch on
           # arch, so the override rides on the CLI; single quotes keep
           # ${version} / ${ext} away from the shell so electron-builder
-          # expands them. Keep in sync with pickInstallerAsset() in
-          # apps/desktop/src/main/index.ts.
+          # expands them.
           - os: macos-latest
             build_script: build:mac
-            build_args: "-- --arm64 -c.mac.artifactName='FreeCrawl-SEO-Tool-${version}-macOS-Apple-Silicon.${ext}'"
+            build_args: "-- --arm64 -c.mac.artifactName='EXIT-SEO-Crawler-${version}-macOS-Apple-Silicon.${ext}'"
             artifact_name: macos-installer-arm64
             artifact_paths: |
               apps/desktop/release/*Apple-Silicon*.dmg
@@ -68,7 +72,7 @@ jobs:
               apps/desktop/release/latest-mac.yml
           - os: macos-latest
             build_script: build:mac
-            build_args: "-- --x64 -c.mac.artifactName='FreeCrawl-SEO-Tool-${version}-macOS-Intel.${ext}'"
+            build_args: "-- --x64 -c.mac.artifactName='EXIT-SEO-Crawler-${version}-macOS-Intel.${ext}'"
             # Cross-download the Intel browsers on the arm64 runner.
             # Playwright picks its download by host platform, so this
             # override is what makes the x64 bundle actually x64.
@@ -82,15 +86,6 @@ jobs:
               apps/desktop/release/*.dmg
               apps/desktop/release/*.dmg.blockmap
               apps/desktop/release/*.zip
-          - os: ubuntu-latest
-            build_script: build:linux
-            build_args: ''
-            artifact_name: linux-installer
-            artifact_paths: |
-              apps/desktop/release/*.AppImage
-              apps/desktop/release/*.deb
-              apps/desktop/release/*.rpm
-              apps/desktop/release/latest-linux.yml
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4

@@ -377,16 +377,16 @@ export async function startAuth(integrationId: string): Promise<GoogleAuthState>
         res.statusCode = 200;
         res.setHeader('Content-Type', 'text/html; charset=utf-8');
         if (error || !code) {
-          res.end(resultPage('FreeCrawl — sign-in cancelled', false));
+          res.end(resultPage('EXIT SEO Crawler — sign-in cancelled', false));
           reject(new Error(error ? consentError(error) : 'No authorization code returned'));
           return;
         }
         if (returnedState !== stateToken) {
-          res.end(resultPage('FreeCrawl — sign-in failed', false));
+          res.end(resultPage('EXIT SEO Crawler — sign-in failed', false));
           reject(new Error('OAuth state mismatch — sign-in rejected for safety.'));
           return;
         }
-        res.end(resultPage('FreeCrawl — connected', true));
+        res.end(resultPage('EXIT SEO Crawler — connected', true));
         const addr = server?.address();
         const port = addr && typeof addr === 'object' ? addr.port : 0;
         resolve({ code, redirectUri: `http://127.0.0.1:${port}` });
@@ -461,7 +461,7 @@ export async function startAuth(integrationId: string): Promise<GoogleAuthState>
     const accessToken = tokenJson['access_token'];
     if (typeof refreshToken !== 'string' || !refreshToken) {
       throw new Error(
-        'Google did not return a refresh token — revoke FreeCrawl access in your Google account and reconnect.',
+        'Google did not return a refresh token — revoke EXIT SEO Crawler access in your Google account and reconnect.',
       );
     }
 
@@ -633,6 +633,6 @@ function resultPage(title: string, ok: boolean): string {
 <div style="text-align:center;color:#e5e5e5">
 <div style="font-size:42px;color:${accent}">${ok ? '✓' : '✕'}</div>
 <h2 style="font-weight:600">${title}</h2>
-<p style="color:#a3a3a3">You can close this tab and return to FreeCrawl.</p>
+<p style="color:#a3a3a3">You can close this tab and return to EXIT SEO Crawler.</p>
 </div></body></html>`;
 }

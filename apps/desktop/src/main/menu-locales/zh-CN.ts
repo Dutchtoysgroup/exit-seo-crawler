@@ -32,7 +32,7 @@ export const MENU_ZH_CN: MenuLabels = {
   compareWith: '与项目比较…',
   scheduledCrawl: '定时抓取…',
   scheduledCrawlTooltip:
-    '为当前打开的项目设置应用内的周期性抓取。仅在 FreeCrawl 运行时触发；若需要在重启后依然生效的触发方式，请配合命令行工具与操作系统的计划任务。',
+    '为当前打开的项目设置应用内的周期性抓取。仅在 EXIT SEO Crawler 运行时触发；若需要在重启后依然生效的触发方式，请配合命令行工具与操作系统的计划任务。',
   saveProject: '保存项目',
   saveProjectAs: '项目另存为…',
   titleUntitledProject: '未命名项目',
@@ -73,10 +73,10 @@ export const MENU_ZH_CN: MenuLabels = {
   help: '帮助',
   documentation: '文档',
   showLogs: '显示日志…',
-  trayShow: '显示 FreeCrawl',
+  trayShow: '显示 EXIT SEO Crawler',
   trayHide: '最小化到托盘',
   trayStopCrawl: '停止抓取',
-  trayQuit: '退出 FreeCrawl',
+  trayQuit: '退出 EXIT SEO Crawler',
   openLogsFolder: '打开日志文件夹',
   openLogsFolderTooltip: '打开磁盘上保存轮转日志文件的目录',
   robotsTester: 'robots.txt 测试器…',
@@ -92,7 +92,7 @@ export const MENU_ZH_CN: MenuLabels = {
   checkForUpdates: '检查更新…',
   checkForUpdatesTooltip:
     '获取 GitHub 上的最新发布版本，并与已安装的版本比较。不做后台轮询：仅在你点击时运行。',
-  about: '关于 FreeCrawl SEO',
+  about: '关于 EXIT SEO Crawler',
 
   ctxCopy: '复制',
   ctxOpenInBrowser: '在浏览器中打开',
@@ -167,20 +167,20 @@ export const MENU_ZH_CN: MenuLabels = {
 
   diagDnsRefusedTitle: '无网络连接',
   diagDnsRefusedMsg:
-    'FreeCrawl 尝试了三层 DNS 查询（系统解析、53 端口的公共 DNS 服务器、443 端口的 DNS-over-HTTPS），全部被拒绝。您的设备似乎没有可用的互联网连接。',
+    'EXIT SEO Crawler 尝试了三层 DNS 查询（系统解析、53 端口的公共 DNS 服务器、443 端口的 DNS-over-HTTPS），全部被拒绝。您的设备似乎没有可用的互联网连接。',
   diagDnsRefusedDetail:
-    'FreeCrawl 本来就会自动绕过失效的系统 DNS——如果您看到此对话框，说明连 443 端口上的 DNS-over-HTTPS 也失败了。\n\n' +
+    'EXIT SEO Crawler 本来就会自动绕过失效的系统 DNS——如果您看到此对话框，说明连 443 端口上的 DNS-over-HTTPS 也失败了。\n\n' +
     '最可能的原因（按可能性排序）：\n' +
-    '  1. 杀毒软件或终端安全软件阻止 FreeCrawl 建立任何出站连接。请在安全软件中将 FreeCrawl 加入白名单。\n' +
+    '  1. 杀毒软件或终端安全软件阻止 EXIT SEO Crawler 建立任何出站连接。请在安全软件中将 EXIT SEO Crawler 加入白名单。\n' +
     '  2. 设备未联网——请检查 Wi-Fi 或以太网连接。\n' +
     '  3. 企业防火墙拦截了全部出站流量——请在“设置 → 网络”中配置 HTTPS_PROXY。\n' +
     '  4. 已启用的 VPN 处于异常状态——请断开后重试。\n\n' +
     '点击“打开日志”查看完整的错误链。',
   diagDnsDestroyedTitle: '网络堆栈无响应',
   diagDnsDestroyedMsg:
-    '系统的 DNS 解析器已崩溃，并且 FreeCrawl 自动改用 DNS-over-HTTPS 的备用方案同样失败。这说明出问题的是整个网络堆栈，而不只是 DNS。',
+    '系统的 DNS 解析器已崩溃，并且 EXIT SEO Crawler 自动改用 DNS-over-HTTPS 的备用方案同样失败。这说明出问题的是整个网络堆栈，而不只是 DNS。',
   diagDnsDestroyedDetail:
-    '通常 FreeCrawl 会在 Windows DNS Client 服务崩溃后，把查询改由 Cloudflare/Google 经 HTTPS:443 转发来自动恢复。如果您看到此对话框，说明该备用方案也失败了——一般是因为操作系统的网络堆栈本身需要重置。\n\n' +
+    '通常 EXIT SEO Crawler 会在 Windows DNS Client 服务崩溃后，把查询改由 Cloudflare/Google 经 HTTPS:443 转发来自动恢复。如果您看到此对话框，说明该备用方案也失败了——一般是因为操作系统的网络堆栈本身需要重置。\n\n' +
     '请按以下顺序尝试（由易到难）：\n' +
     '  1. 开启再关闭飞行模式，或断开后重新连接 Wi-Fi。\n' +
     '  2. 重启网络适配器（设置 → 网络 → 更改适配器选项）。\n' +
@@ -193,13 +193,13 @@ export const MENU_ZH_CN: MenuLabels = {
   diagTlsDetail:
     '常见原因：Kaspersky、ESET、Bitdefender、Zscaler、BlueCoat、Fortigate。\n\n' +
     '请尝试以下方法之一：\n' +
-    '  1. 在杀毒软件中将 FreeCrawl 加入白名单。\n' +
+    '  1. 在杀毒软件中将 EXIT SEO Crawler 加入白名单。\n' +
     '  2. 将杀毒软件或代理的根 CA 导出为 PEM 格式，并在启动前把环境变量 NODE_EXTRA_CA_CERTS 指向该文件。\n' +
     '  3. 暂时关闭杀毒软件的 HTTPS 扫描。\n\n' +
     '点击“打开日志”查看完整的错误链。',
   diagSeedTitle: '无法访问起始网址',
   diagSeedMsg:
-    'FreeCrawl 无法访问您输入的网址——HTTPS 和 HTTP 在 5 秒内均无响应。',
+    'EXIT SEO Crawler 无法访问您输入的网址——HTTPS 和 HTTP 在 5 秒内均无响应。',
   diagSeedDetail:
     '请尝试以下方法之一：\n' +
     '  1. 在浏览器中打开该网址，确认网站可以访问。\n' +
@@ -233,17 +233,17 @@ export const MENU_ZH_CN: MenuLabels = {
   detailSeeReleasePage: '更新日志请查看发布页面。',
   dlgDontShowVersionAgain: '不再提示此版本',
 
-  winLogsTitle: 'FreeCrawl — 日志（{label}）',
+  winLogsTitle: 'EXIT SEO Crawler — 日志（{label}）',
   winLabelPrimary: '主窗口',
-  winVisualizationTitle: 'FreeCrawl — 可视化',
-  winLogAnalyzerTitle: 'FreeCrawl — 日志分析器',
+  winVisualizationTitle: 'EXIT SEO Crawler — 可视化',
+  winLogAnalyzerTitle: 'EXIT SEO Crawler — 日志分析器',
 
   dlgPlaywrightDetail:
     '这是一次性的约 250 MB 下载，在应用内完成——无需使用终端。浏览器保存在您的用户文件夹中；只会从 cdn.playwright.dev 下载二进制文件。\n\n现在下载吗？',
   msgBrowserInstallFailed:
     'Chromium 下载未能完成。\n\n' +
     '请检查您的互联网连接（或代理设置）后重新开始抓取——' +
-    'FreeCrawl 会自动重试下载。在下载成功之前，JavaScript 渲染将保持' +
+    'EXIT SEO Crawler 会自动重试下载。在下载成功之前，JavaScript 渲染将保持' +
     '禁用状态；文本模式抓取不受影响。',
 
   notifCrawlFinished: '抓取完成：{urls} 个网址 · 平均 {ms} 毫秒',
@@ -274,8 +274,8 @@ export const MENU_ZH_CN: MenuLabels = {
   msgDiagResetDone:
     '已重新启用的警告数：{n}。当相关问题再次发生时，它们会重新弹出。',
 
-  filterFreeCrawlProject: 'FreeCrawl 项目',
-  filterFreeCrawlEncProject: 'FreeCrawl 加密项目',
+  filterFreeCrawlProject: 'EXIT SEO Crawler 项目',
+  filterFreeCrawlEncProject: 'EXIT SEO Crawler 加密项目',
   filterAllFiles: '所有文件',
   filterLogFiles: '日志文件',
   filterExcelWorkbook: 'Excel 工作簿',

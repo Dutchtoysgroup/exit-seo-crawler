@@ -32,7 +32,7 @@ export const MENU_KO: MenuLabels = {
   compareWith: '프로젝트와 비교…',
   scheduledCrawl: '예약 크롤…',
   scheduledCrawlTooltip:
-    '현재 열려 있는 프로젝트에 대해 앱 내에서 반복 크롤을 설정합니다. FreeCrawl이 실행 중일 때만 동작하므로, 재시작 후에도 유지되는 트리거가 필요하면 CLI와 운영체제의 작업 스케줄러를 사용하십시오.',
+    '현재 열려 있는 프로젝트에 대해 앱 내에서 반복 크롤을 설정합니다. EXIT SEO Crawler가 실행 중일 때만 동작하므로, 재시작 후에도 유지되는 트리거가 필요하면 CLI와 운영체제의 작업 스케줄러를 사용하십시오.',
   saveProject: '프로젝트 저장',
   saveProjectAs: '다른 이름으로 프로젝트 저장…',
   titleUntitledProject: '제목 없는 프로젝트',
@@ -74,10 +74,10 @@ export const MENU_KO: MenuLabels = {
   help: '도움말',
   documentation: '문서',
   showLogs: '로그 보기…',
-  trayShow: 'FreeCrawl 표시',
+  trayShow: 'EXIT SEO Crawler 표시',
   trayHide: '트레이로 숨기기',
   trayStopCrawl: '크롤 중지',
-  trayQuit: 'FreeCrawl 종료',
+  trayQuit: 'EXIT SEO Crawler 종료',
   openLogsFolder: '로그 폴더 열기',
   openLogsFolderTooltip: '순환 저장된 로그 파일이 디스크에 보관되는 디렉터리를 엽니다',
   robotsTester: 'robots.txt 테스터…',
@@ -94,7 +94,7 @@ export const MENU_KO: MenuLabels = {
   checkForUpdates: '업데이트 확인…',
   checkForUpdatesTooltip:
     'GitHub의 최신 릴리스를 가져와 설치된 버전과 비교합니다. 백그라운드 조회는 없으며 클릭할 때만 실행됩니다.',
-  about: 'FreeCrawl SEO 정보',
+  about: 'EXIT SEO Crawler 정보',
 
   ctxCopy: '복사',
   ctxOpenInBrowser: '브라우저에서 열기',
@@ -169,20 +169,20 @@ export const MENU_KO: MenuLabels = {
 
   diagDnsRefusedTitle: '네트워크 연결 없음',
   diagDnsRefusedMsg:
-    'FreeCrawl이 DNS 조회를 3단계(시스템, 53번 포트의 공용 서버, 443번 포트의 DNS-over-HTTPS)로 시도했지만 모두 거부되었습니다. 이 컴퓨터에 작동하는 인터넷 연결이 없는 것으로 보입니다.',
+    'EXIT SEO Crawler가 DNS 조회를 3단계(시스템, 53번 포트의 공용 서버, 443번 포트의 DNS-over-HTTPS)로 시도했지만 모두 거부되었습니다. 이 컴퓨터에 작동하는 인터넷 연결이 없는 것으로 보입니다.',
   diagDnsRefusedDetail:
-    'FreeCrawl은 고장 난 시스템 DNS를 자동으로 우회하려고 이미 시도합니다. 이 대화 상자가 보인다면 443번 포트의 DNS-over-HTTPS까지 실패한 것입니다.\n\n' +
+    'EXIT SEO Crawler는 고장 난 시스템 DNS를 자동으로 우회하려고 이미 시도합니다. 이 대화 상자가 보인다면 443번 포트의 DNS-over-HTTPS까지 실패한 것입니다.\n\n' +
     '가장 가능성이 높은 원인(순서대로):\n' +
-    '  1. 백신 또는 엔드포인트 보안이 FreeCrawl의 모든 외부 연결을 차단하고 있습니다. 보안 소프트웨어에서 FreeCrawl을 허용 목록에 추가하세요.\n' +
+    '  1. 백신 또는 엔드포인트 보안이 EXIT SEO Crawler의 모든 외부 연결을 차단하고 있습니다. 보안 소프트웨어에서 EXIT SEO Crawler를 허용 목록에 추가하세요.\n' +
     '  2. 인터넷에 연결되어 있지 않습니다. Wi-Fi 또는 이더넷을 확인하세요.\n' +
     '  3. 회사 방화벽이 모든 외부 트래픽을 차단하고 있습니다. 설정 → 네트워크에서 HTTPS_PROXY를 지정하세요.\n' +
     '  4. 사용 중인 VPN이 비정상 상태입니다. 연결을 끊고 다시 시도하세요.\n\n' +
     '전체 오류 사슬을 보려면 "로그 열기"를 클릭하세요.',
   diagDnsDestroyedTitle: '네트워크 스택이 응답하지 않음',
   diagDnsDestroyedMsg:
-    '시스템의 DNS 확인자가 중단되었고, FreeCrawl의 자동 DNS-over-HTTPS 우회도 실패했습니다. DNS만이 아니라 네트워크 스택 전체가 비정상 상태라는 뜻입니다.',
+    '시스템의 DNS 확인자가 중단되었고, EXIT SEO Crawler의 자동 DNS-over-HTTPS 우회도 실패했습니다. DNS만이 아니라 네트워크 스택 전체가 비정상 상태라는 뜻입니다.',
   diagDnsDestroyedDetail:
-    'FreeCrawl은 보통 Windows DNS Client가 중단되면 조회를 Cloudflare/Google의 HTTPS:443으로 우회해 스스로 복구합니다. 이 대화 상자가 보인다면 그 대체 경로까지 실패한 것으로, 대개 운영체제의 네트워크 스택 자체를 초기화해야 하는 경우입니다.\n\n' +
+    'EXIT SEO Crawler는 보통 Windows DNS Client가 중단되면 조회를 Cloudflare/Google의 HTTPS:443으로 우회해 스스로 복구합니다. 이 대화 상자가 보인다면 그 대체 경로까지 실패한 것으로, 대개 운영체제의 네트워크 스택 자체를 초기화해야 하는 경우입니다.\n\n' +
     '다음 중 하나를 시도하세요(쉬운 것부터):\n' +
     '  1. 비행기 모드를 켜고 끄거나, Wi-Fi를 끊고 다시 연결합니다.\n' +
     '  2. 네트워크 어댑터를 다시 시작합니다(설정 → 네트워크 → 어댑터 옵션 변경).\n' +
@@ -195,13 +195,13 @@ export const MENU_KO: MenuLabels = {
   diagTlsDetail:
     '흔한 원인: Kaspersky, ESET, Bitdefender, Zscaler, BlueCoat, Fortigate.\n\n' +
     '다음 중 하나를 시도하세요:\n' +
-    '  1. 백신에서 FreeCrawl을 허용 목록에 추가합니다.\n' +
+    '  1. 백신에서 EXIT SEO Crawler를 허용 목록에 추가합니다.\n' +
     '  2. 백신 또는 프록시의 루트 CA를 PEM으로 내보내고, 실행하기 전에 환경 변수 NODE_EXTRA_CA_CERTS가 그 파일을 가리키도록 설정합니다.\n' +
     '  3. 백신의 HTTPS 검사를 일시적으로 끕니다.\n\n' +
     '전체 오류 사슬을 보려면 "로그 열기"를 클릭하세요.',
   diagSeedTitle: '시작 URL에 연결할 수 없음',
   diagSeedMsg:
-    'FreeCrawl이 입력한 URL에 연결하지 못했습니다. HTTPS와 HTTP 모두 5초 안에 응답하지 않았습니다.',
+    'EXIT SEO Crawler가 입력한 URL에 연결하지 못했습니다. HTTPS와 HTTP 모두 5초 안에 응답하지 않았습니다.',
   diagSeedDetail:
     '다음 중 하나를 시도하세요:\n' +
     '  1. 브라우저에서 URL을 열어 사이트가 정상인지 확인합니다.\n' +
@@ -235,17 +235,17 @@ export const MENU_KO: MenuLabels = {
   detailSeeReleasePage: '변경 내역은 릴리스 페이지를 확인하세요.',
   dlgDontShowVersionAgain: '이 버전 다시 표시 안 함',
 
-  winLogsTitle: 'FreeCrawl — 로그 ({label})',
+  winLogsTitle: 'EXIT SEO Crawler — 로그 ({label})',
   winLabelPrimary: '기본',
-  winVisualizationTitle: 'FreeCrawl — 시각화',
-  winLogAnalyzerTitle: 'FreeCrawl — 로그 분석기',
+  winVisualizationTitle: 'EXIT SEO Crawler — 시각화',
+  winLogAnalyzerTitle: 'EXIT SEO Crawler — 로그 분석기',
 
   dlgPlaywrightDetail:
     '앱 안에서 진행되는 약 250 MB의 일회성 다운로드이며 터미널은 필요하지 않습니다. 브라우저는 사용자 폴더에 저장되고, cdn.playwright.dev에서 바이너리만 받아옵니다.\n\n지금 다운로드하시겠습니까?',
   msgBrowserInstallFailed:
     'Chromium 다운로드를 완료할 수 없습니다.\n\n' +
     '인터넷 연결(또는 프록시 설정)을 확인하고 크롤을 다시 시작하세요. ' +
-    'FreeCrawl이 다운로드를 자동으로 재시도합니다. 성공할 때까지 JavaScript ' +
+    'EXIT SEO Crawler가 다운로드를 자동으로 재시도합니다. 성공할 때까지 JavaScript ' +
     '렌더링은 꺼진 상태로 유지되며, 텍스트 모드 크롤링에는 영향이 없습니다.',
 
   notifCrawlFinished: '크롤 완료: URL {urls}개 · 평균 {ms} ms',
@@ -276,8 +276,8 @@ export const MENU_KO: MenuLabels = {
   msgDiagResetDone:
     '다시 활성화된 경고: {n}개. 원인이 되는 문제가 다시 발생하면 또 표시됩니다.',
 
-  filterFreeCrawlProject: 'FreeCrawl 프로젝트',
-  filterFreeCrawlEncProject: 'FreeCrawl 암호화 프로젝트',
+  filterFreeCrawlProject: 'EXIT SEO Crawler 프로젝트',
+  filterFreeCrawlEncProject: 'EXIT SEO Crawler 암호화 프로젝트',
   filterAllFiles: '모든 파일',
   filterLogFiles: '로그 파일',
   filterExcelWorkbook: 'Excel 통합 문서',

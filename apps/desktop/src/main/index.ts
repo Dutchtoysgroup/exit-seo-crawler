@@ -8,12 +8,10 @@ import {
   Notification,
   powerMonitor,
   powerSaveBlocker,
-  session,
   shell,
   Tray,
   nativeImage,
   nativeTheme,
-  type DownloadItem,
   type MenuItemConstructorOptions,
   type IpcMainInvokeEvent,
   type WebContents,
@@ -297,7 +295,6 @@ import {
   type LogExportTables,
 } from '@freecrawl/core';
 import { fetch as undiciFetch } from 'undici';
-import { apiFetch } from './api-fetch.js';
 import { ProjectDb, EXPENSIVE_ISSUE_DEFINITIONS } from '@freecrawl/db';
 import { buildAppMenu } from './menu.js';
 import {
@@ -2525,7 +2522,7 @@ async function openProjectAtPath(documentPath: string): Promise<void> {
   const format = detectProjectFormat(documentPath);
   if (format === 'unknown') {
     throw new Error(
-      'This file is not a FreeCrawl project (unrecognised format). It may be corrupt or a different file type.',
+      'This file is not a EXIT SEO Crawler project (unrecognised format). It may be corrupt or a different file type.',
     );
   }
 
@@ -2647,7 +2644,7 @@ function updateWindowTitle(s: ProjectSession): void {
     : L().titleUntitledProject;
   const mark = s.dirty ? '● ' : '';
   const saving = s.savingSnapshot ? `${L().titleSaving} ` : '';
-  win.setTitle(`FreeCrawl SEO Tool v${app.getVersion()} — ${saving}${mark}${name}`);
+  win.setTitle(`EXIT SEO Crawler v${app.getVersion()} — ${saving}${mark}${name}`);
 }
 
 /**
@@ -3042,7 +3039,7 @@ function getMenuLang(): MenuLang {
   return pickUiLanguage(prefsCache['uiLanguage'], app.getPreferredSystemLanguages());
 }
 
-/** The `uiTheme` pref, dark when unset or unknown. */
+/** The `uiTheme` pref, the default (light) when unset or unknown. */
 function getUiTheme(): UiTheme {
   return normalizeUiTheme(prefsCache['uiTheme']);
 }
@@ -3192,459 +3189,18 @@ function resetDiagnosticDialogs(): void {
 }
 
 /**
- * Compare two semver strings (X.Y.Z, optional `v` prefix). Returns
- *   -1 if `a < b`,  0 if equal,  +1 if `a > b`.
- * Pre-release suffixes are ignored — the user's installed build is
- * compared against the release tag's release-line only. Sufficient for
- * a "should I show an update prompt?" decision; full semver semantics
- * would need a dependency we'd rather not pull in for one menu item.
+ * Dutch Toys Group: releases live in the private
+ * Dutchtoysgroup/exit-seo-crawler repo, which the anonymous GitHub API
+ * cannot read, so there is no background version check (upstream's
+ * checked kemalai/FreeCrawl-SEO-Tool and would have offered the upstream
+ * installer). Help → Check for Updates opens the releases page in the
+ * browser, where the user is signed in to GitHub.
  */
-function compareSemver(a: string, b: string): number {
-  const norm = (s: string) =>
-    s
-      .trim()
-      .replace(/^v/, '')
-      .split('-')[0]!
-      .split('.')
-      .map((p) => parseInt(p, 10) || 0);
-  const pa = norm(a);
-  const pb = norm(b);
-  for (let i = 0; i < 3; i++) {
-    const av = pa[i] ?? 0;
-    const bv = pb[i] ?? 0;
-    if (av < bv) return -1;
-    if (av > bv) return 1;
-  }
-  return 0;
-}
-
-interface GitHubReleaseAsset {
-  name: string;
-  browser_download_url: string;
-  size?: number;
-}
-
-interface GitHubLatestRelease {
-  tag_name?: string;
-  name?: string;
-  html_url?: string;
-  body?: string;
-  draft?: boolean;
-  prerelease?: boolean;
-  published_at?: string;
-  assets?: GitHubReleaseAsset[];
-}
-
-/**
- * Pick the installer asset for the current host platform/arch from a
- * GitHub Release's asset list. Returns null if no matching asset is
- * found — caller falls back to "open release page" so the user can
- * pick manually. Excludes electron-builder's `.blockmap` siblings; we
- * only want the user-runnable installer.
- */
-function pickInstallerAsset(assets: GitHubReleaseAsset[]): GitHubReleaseAsset | null {
-  const list = (assets ?? []).filter(
-    (a) => a && typeof a.name === 'string' && !a.name.endsWith('.blockmap'),
-  );
-  if (process.platform === 'win32') {
-    // The Windows release ships two `.exe` assets — the NSIS installer
-    // (`…-Windows-Setup.exe`) and the standalone portable build
-    // (`…-Windows-Portable.exe`). "Check for Updates" must offer the installer:
-    // prefer the `Setup` asset, fall back to any non-portable `.exe`,
-    // and only as a last resort take whatever `.exe` exists.
-    const exes = list.filter((a) => /\.exe$/i.test(a.name));
-    return (
-      exes.find((a) => /setup/i.test(a.name)) ??
-      exes.find((a) => !/portable/i.test(a.name)) ??
-      exes[0] ??
-      null
-    );
-  }
-  if (process.platform === 'darwin') {
-    // `process.arch` names the arch of the *binary*: an Apple Silicon Mac
-    // running the Intel build under Rosetta reports 'x64' and would be
-    // offered Intel builds forever, never able to self-heal onto the
-    // native one. `app.runningUnderARM64Translation` is Electron's answer
-    // to exactly that case, so together they name the real CPU.
-    const isArm = process.arch === 'arm64' || app.runningUnderARM64Translation === true;
-    // Since 1.0.0 the assets are `…-macOS-Apple-Silicon.dmg` and
-    // `…-macOS-Intel.dmg` (release.yml); `…-arm64.dmg` / `…-x64.dmg` is
-    // what a local `npm run build:mac` and every earlier release produced.
-    const isArmDmg = (name: string) => /(apple-silicon|arm64)\.dmg$/i.test(name);
-    if (isArm) {
-      return list.find((a) => isArmDmg(a.name)) ?? null;
-    }
-    return list.find((a) => /\.dmg$/i.test(a.name) && !isArmDmg(a.name)) ?? null;
-  }
-  // Linux ships three package formats (AppImage / deb / rpm) and which one
-  // fits is a distro question, so the caller opens the release page and
-  // lets the user choose.
-  return null;
-}
-
-/**
- * Strip a subset of GitHub-flavoured Markdown so it renders cleanly in
- * Electron's plain-text `dialog.showMessageBox` `detail` field. The
- * native dialog doesn't support markdown; this turns `**bold**`,
- * `[text](url)`, headings, code fences, and bullets into readable
- * plain text instead of leaving the raw `**` / `[…](…)` punctuation
- * in the user's face. Lossy by design — full notes are one click away
- * via "Open Release Page".
- */
-function stripMarkdownToPlain(md: string): string {
-  if (!md) return '';
-  return md
-    // Code fences: keep the inner code lines, drop the ``` markers.
-    .replace(/```[^\n]*\n([\s\S]*?)```/g, (_m, code: string) => code.trimEnd())
-    // Inline code: drop the backticks.
-    .replace(/`([^`]+)`/g, '$1')
-    // Images: ![alt](url) -> alt (drop URL since alt is the human-readable bit)
-    .replace(/!\[([^\]]*)\]\([^)]+\)/g, '$1')
-    // Links: [text](url) -> text (url) so the URL is still visible.
-    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '$1 ($2)')
-    // Bold: **x** / __x__
-    .replace(/\*\*([^*]+)\*\*/g, '$1')
-    .replace(/__([^_]+)__/g, '$1')
-    // Italic: *x* / _x_ (single delimiter)
-    .replace(/(^|[^*])\*([^*\n]+)\*(?!\*)/g, '$1$2')
-    .replace(/(^|[^_])_([^_\n]+)_(?!_)/g, '$1$2')
-    // Strikethrough
-    .replace(/~~([^~]+)~~/g, '$1')
-    // Headings: drop the leading #'s, keep the text.
-    .replace(/^#{1,6}\s+/gm, '')
-    // Bullet list markers -> "• "
-    .replace(/^\s*[-*+]\s+/gm, '• ')
-    // Collapse runs of blank lines to at most one.
-    .replace(/\n{3,}/g, '\n\n')
-    .trim();
-}
-
-/**
- * Pref-key namespace for "Don't show again — version X.Y.Z" — re-uses
- * the existing `skipDiag:` prefix so the Help → Reset Diagnostic
- * Warnings menu also clears these. Keying is per-version so a NEW
- * release surfaces a fresh prompt even if the user dismissed the
- * previous one.
- */
-function dismissedUpdatePrefKey(tag: string): string {
-  return `skipDiag:update-${tag}`;
-}
-
-function isUpdateVersionDismissed(tag: string): boolean {
-  loadPrefs();
-  return prefsCache[dismissedUpdatePrefKey(tag)] === true;
-}
-
-function dismissUpdateVersion(tag: string): void {
-  loadPrefs();
-  prefsCache[dismissedUpdatePrefKey(tag)] = true;
-  schedulePrefsWrite();
-}
-
-/**
- * Download an installer asset to the user's Downloads folder via
- * Electron's session download infrastructure (Chromium handles
- * redirects + connection management; we get progress + cancel events).
- * On success reveals the file in the OS file manager so the user can
- * double-click to install. Progress is surfaced through the main
- * window's taskbar/dock progress bar — no extra UI needed.
- *
- * No code-signing, so we cannot auto-execute the installer for the
- * user. Reveal-in-folder is the safest middle ground: kullanıcı one
- * click yapıyor, OS uyarısını bilinçli olarak geçiyor.
- */
-async function downloadAndRevealInstaller(asset: GitHubReleaseAsset): Promise<void> {
-  const win = mainWindow;
-  if (!win) return;
-  const downloadsDir = app.getPath('downloads');
-  try {
-    mkdirSync(downloadsDir, { recursive: true });
-  } catch {
-    /* getPath('downloads') always exists on Win/macOS but be defensive */
-  }
-  // `asset.name` comes from the GitHub Releases API — basename it so a
-  // crafted name can't traverse out of the downloads directory. (The feed
-  // URL is hardcoded + TLS, so this is defence in depth.)
-  const savePath = join(downloadsDir, basename(asset.name));
-
-  await new Promise<void>((resolve) => {
-    const handler = (
-      _e: { preventDefault: () => void; readonly defaultPrevented: boolean },
-      item: DownloadItem,
-    ) => {
-      const url = item.getURL();
-      // GitHub redirects browser_download_url → S3; both share the asset
-      // filename, so we match on filename rather than exact URL.
-      if (!url.includes(asset.name)) return;
-      session.defaultSession.removeListener('will-download', handler);
-      item.setSavePath(savePath);
-
-      item.on('updated', (_evt, state) => {
-        if (state === 'progressing' && !item.isPaused()) {
-          const total = item.getTotalBytes();
-          const received = item.getReceivedBytes();
-          if (total > 0) {
-            try {
-              win.setProgressBar(received / total);
-            } catch {
-              /* window may be destroyed mid-download */
-            }
-          }
-        }
-      });
-
-      item.once('done', (_evt, state) => {
-        try {
-          win.setProgressBar(-1);
-        } catch {
-          /* ignore */
-        }
-        if (state === 'completed') {
-          try {
-            shell.showItemInFolder(savePath);
-          } catch {
-            /* ignore — user can navigate manually */
-          }
-          void dialog.showMessageBox(win, {
-            type: 'info',
-            title: L().dlgDownloadCompleteTitle,
-            message: L().msgDownloadComplete.replace('{name}', asset.name),
-            detail:
-              `${L().detailDownloadSaved.replace('{path}', savePath)}\n\n` +
-              (process.platform === 'win32'
-                ? L().detailDownloadSmartScreen
-                : process.platform === 'darwin'
-                  ? L().detailDownloadGatekeeper
-                  : ''),
-            buttons: [L().btnOk],
-            noLink: true,
-          });
-        } else {
-          void dialog.showMessageBox(win, {
-            type: 'error',
-            title: L().dlgDownloadFailedTitle,
-            message: L().msgDownloadFailed.replace('{name}', asset.name),
-            detail: L().detailDownloadFailed.replace('{state}', state),
-            buttons: [L().btnOk],
-            noLink: true,
-          });
-        }
-        resolve();
-      });
-    };
-    session.defaultSession.on('will-download', handler);
-    try {
-      session.defaultSession.downloadURL(asset.browser_download_url);
-    } catch (err) {
-      session.defaultSession.removeListener('will-download', handler);
-      void dialog.showMessageBox(win, {
-        type: 'error',
-        title: L().dlgDownloadFailedTitle,
-        message: L().dlgDownloadStartFailedMsg,
-        detail: err instanceof Error ? err.message : String(err),
-        buttons: [L().btnOk],
-        noLink: true,
-      });
-      resolve();
-    }
-  });
-}
-
-/**
- * Update check. Hits the GitHub Releases API for the latest non-draft,
- * non-prerelease tag, compares it with `app.getVersion()`, and surfaces
- * a native dialog. Three outcomes:
- *   - up-to-date           → "You're on the latest version (vX.Y.Z)"
- *   - update available     → "v0.X.Y is available" + Download / Open Release Page / Later
- *   - network error / rate → "Couldn't check" with the underlying error
- *
- * `silent: true` is used by the one-shot startup auto-check — only the
- * "update available AND not dismissed by the user" outcome surfaces a
- * dialog; up-to-date / network errors / dismissed-versions stay quiet.
- * The manual menu invocation passes `silent: false` and always shows.
- *
- * No `electron-updater` dependency, no auto-install (that would need
- * macOS notarisation + Windows code-signing first). The Download
- * Installer button fetches the platform-matched asset to the user's
- * Downloads folder and reveals it in Explorer / Finder; user double-
- * clicks to upgrade.
- */
-/**
- * Re-entrancy guard for `checkForUpdates`. Prevents stacked dialogs
- * when (a) the user clicks Help → Check for Updates while the silent
- * startup auto-check is still resolving its GitHub API request, or
- * (b) the user double-clicks the menu item before the first dialog
- * paints. Cleared in the `finally` block of `checkForUpdates`.
- */
-let updateCheckInFlight = false;
+const RELEASES_URL = 'https://github.com/Dutchtoysgroup/exit-seo-crawler/releases';
 
 async function checkForUpdates(opts: { silent?: boolean } = {}): Promise<void> {
-  const silent = opts.silent === true;
-  if (updateCheckInFlight) {
-    logger.log(
-      'debug',
-      'main',
-      `checkForUpdates skipped — another check is in progress (silent=${silent}).`,
-    );
-    return;
-  }
-  updateCheckInFlight = true;
-  try {
-    await runUpdateCheck(silent);
-  } finally {
-    updateCheckInFlight = false;
-  }
-}
-
-async function runUpdateCheck(silent: boolean): Promise<void> {
-  const win = mainWindow;
-  if (!win) return;
-  const installed = app.getVersion();
-  const apiUrl =
-    'https://api.github.com/repos/kemalai/FreeCrawl-SEO-Tool/releases/latest';
-
-  let release: GitHubLatestRelease | null = null;
-  let fetchError: string | null = null;
-  try {
-    const ac = new AbortController();
-    const timeout = setTimeout(() => ac.abort(), 10_000);
-    try {
-      const res = await apiFetch(apiUrl, {
-        headers: {
-          Accept: 'application/vnd.github+json',
-          'User-Agent': `FreeCrawl-SEO-Tool/${installed}`,
-        },
-        signal: ac.signal,
-      });
-      if (!res.ok) {
-        fetchError = `GitHub API returned ${res.status} ${res.statusText}`;
-      } else {
-        release = (await res.json()) as GitHubLatestRelease;
-      }
-    } finally {
-      clearTimeout(timeout);
-    }
-  } catch (err) {
-    fetchError =
-      err instanceof Error ? err.message : L().msgUnknownErrorGitHub;
-  }
-
-  if (fetchError || !release || !release.tag_name) {
-    if (silent) {
-      logger.log(
-        'debug',
-        'main',
-        `Startup update check skipped: ${fetchError ?? 'no tag in response'}`,
-      );
-      return;
-    }
-    void dialog.showMessageBox(win, {
-      type: 'warning',
-      title: L().dlgUpdateCheckFailedTitle,
-      message: L().dlgUpdateCheckFailedMsg,
-      detail:
-        (fetchError ?? L().msgNoReleaseTag) +
-        '\n\n' +
-        L().detailBrowseReleases.replace(
-          '{url}',
-          'https://github.com/kemalai/FreeCrawl-SEO-Tool/releases',
-        ),
-      buttons: [L().btnOpenReleasesPage, L().btnClose],
-      defaultId: 0,
-      cancelId: 1,
-      noLink: true,
-    }).then((r) => {
-      if (r.response === 0) {
-        void shell.openExternal(
-          'https://github.com/kemalai/FreeCrawl-SEO-Tool/releases',
-        );
-      }
-    });
-    return;
-  }
-
-  const latest = release.tag_name;
-  const cmp = compareSemver(installed, latest);
-  if (cmp >= 0) {
-    if (silent) return;
-    void dialog.showMessageBox(win, {
-      type: 'info',
-      title: L().dlgUpToDateTitle,
-      message: L().msgUpToDate.replace('{version}', installed),
-      detail: release.published_at
-        ? `${L().detailLatestRelease.replace('{tag}', latest)}\n${L().detailPublished.replace(
-            '{date}',
-            new Date(release.published_at).toLocaleString(),
-          )}`
-        : L().detailLatestRelease.replace('{tag}', latest),
-      buttons: [L().btnOk],
-      noLink: true,
-    });
-    return;
-  }
-
-  // User-suppressed this version via "Don't show this version again".
-  // Startup auto-check honours the dismissal silently. Manual click
-  // still shows so the user can re-decide / hit Download anyway.
-  if (silent && isUpdateVersionDismissed(latest)) {
-    logger.log('debug', 'main', `Startup update check: ${latest} dismissed by user.`);
-    return;
-  }
-
-  // Newer version available. Strip raw markdown for a readable plain-
-  // text preview in the native dialog (which doesn't support markdown);
-  // the dialog stays roomy for ~1500 chars now that the user can stay
-  // in-app to download instead of jumping to a browser.
-  const notes = stripMarkdownToPlain(release.body ?? '');
-  const notesPreview =
-    notes.length > 1500 ? notes.slice(0, 1500).trimEnd() + '\n…' : notes;
-  const installerAsset = pickInstallerAsset(release.assets ?? []);
-  const detail =
-    `${L()
-      .detailInstalledLatest.replace('{installed}', installed)
-      .replace('{latest}', latest)}\n\n` +
-    (notesPreview
-      ? `${L().detailReleaseNotes}\n${notesPreview}`
-      : L().detailSeeReleasePage);
-
-  // Three-way choice: in-app download (primary, when an asset matches the
-  // host platform), open release page (always available — fallback for
-  // Linux / unmatched arch), Later. Plus a "Don't show this version
-  // again" checkbox keyed by tag so a NEW release re-prompts.
-  const buttons = installerAsset
-    ? [L().btnDownloadInstaller, L().btnOpenReleasePage, L().btnLater]
-    : [L().btnOpenReleasePage, L().btnLater];
-  const downloadBtn = installerAsset ? 0 : -1;
-  const releasePageBtn = installerAsset ? 1 : 0;
-  const laterBtn = installerAsset ? 2 : 1;
-
-  const result = await dialog.showMessageBox(win, {
-    type: 'info',
-    title: L().dlgUpdateAvailableTitle,
-    message: L().msgUpdateAvailable.replace('{version}', latest),
-    detail,
-    buttons,
-    defaultId: downloadBtn >= 0 ? downloadBtn : releasePageBtn,
-    cancelId: laterBtn,
-    checkboxLabel: L().dlgDontShowVersionAgain,
-    checkboxChecked: false,
-    noLink: true,
-  });
-
-  if (result.checkboxChecked) {
-    dismissUpdateVersion(latest);
-  }
-
-  if (result.response === downloadBtn && installerAsset) {
-    await downloadAndRevealInstaller(installerAsset);
-    return;
-  }
-  if (result.response === releasePageBtn) {
-    const url =
-      release?.html_url ??
-      'https://github.com/kemalai/FreeCrawl-SEO-Tool/releases/latest';
-    void shell.openExternal(url);
-  }
+  if (opts.silent === true) return;
+  await shell.openExternal(RELEASES_URL);
 }
 
 async function promptOpenProject(): Promise<void> {
@@ -3673,11 +3229,11 @@ async function promptOpenProject(): Promise<void> {
  *  the app bundle's .icns instead (BrowserWindow `icon` is a no-op there). */
 const WINDOW_ICON = process.platform === 'darwin' ? {} : { icon: appIcon };
 
-/** Tray icon — the FreeCrawl logo as a 32×32 white silhouette on a
+/** Tray icon — the EXIT Toys logo as a 32×32 white silhouette on a
  *  transparent background. White reads on Windows' dark tray; on macOS
  *  it's a template image (only the alpha channel matters there). */
 const TRAY_ICON_PNG_BASE64 =
-  'iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsTAAALEwEAmpwYAAACoUlEQVRYhe2WW4iNURTHz2Bm3NK4NWUayrVIpryQZJRhhHJ5onjRhKZhJpEXESGTmtwLkxIJDxjyIl5MTWIU5VbGvIyEMS45KJef1un/Nbtv9neOy3Gevn99ndbea+3/3mv/19onkYgRI0aOABQDq4CTwJr/SVQEzALmAIuB3UAr8JNufAMmZpu4ENgGJOmJT0ATsA5Yrs1czSb5bOCJyH7o9xmwHZgL9JXfAKBR82+yQTwCOOOk105ZHZw65FsGPHay8vFfiEcBB4HPWuwFsExzAzW3WnYesB74CnwHdgHPgc6/Ia4ALkpEhi/AXmBQhP8wZcXQAZRrfCNw5U+I5wEtTvreAfVASQZdGKnhMjDUmZsBLPod4n7AMYe4DagyMaWJ6QPsVLotQ3XAWuAAUAsMVsXkZSIvAe6LuFPBBZrrnUYbzYp5CMwEHoVK0vQyJhP5cCfwATBS45OBo8B+T8wSXQ3KWn/gCH5cS0deCNyV43UTmL5Gie94cJ8mMieuSzF7nLHw6QMko7KYUJkY7qlxjFb92n0udPy2Aicce6lKzRZfoLHbERt4HUVeplMmRVysjmaCqgz5nlbKi5yxcuC91rCHZ0PEBhqiNnBBDltkX5Jd7/Gt1Jz55IcO8VLdcbOakvsQnTd9+MhLtfMudbOA4K3Z8ikAaoA7emACtKpJpUrLVK7MGfaZiIH5wFhVSs/7BzYpIKVw4IYrKmBIqBl1qC8Eyjc81Ys4XtdnOjKcCrIkEU/wbaBJzhUKDl61qZo/K/smMMmJ6wVMAXZoQ25WrCG1y75lV6t1p/k28Mojlg96TMbJbvPeX/ca5jsdOGRKJxqlvuAG1b37HXb6utnVUeSe9fKtHPVch/+kpMo0Z5CoVwLngBU5JY8RI5EBvwAD+Q6gT36I9wAAAABJRU5ErkJggg==';
+  'iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAGYktHRAD/AP8A/6C9p5MAAAAHdElNRQfqCgcHBgNmcFLlAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDI2LTEwLTA3VDA3OjA1OjUyKzAwOjAwotYtEAAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyNi0xMC0wN1QwNzowNTo1MiswMDowMNOLlawAAAAodEVYdGRhdGU6dGltZXN0YW1wADIwMjYtMTAtMDdUMDc6MDY6MDMrMDA6MDCBPgqgAAAD50lEQVRYw+2XXYhVVRTHf+fce22aMWeamVIcyg+oUJFUBKGhLHop6MG+xrcUoyAIn3wJimCEoKcQeyiCJHuQPigqInqyKHspsoSUkQILDCTGMjBn5s69/x7Of89dnjnOXKO3WrDZe+299lr/vdba6+wD/3XK/m2FkroznGXdA1hAaVbRV+mU5wW0FvVAhcEMyIO83Nr/wElRR8EsYrCVhCuoBlwHDAEDwDJgObACGDR/LbAEmAI+AT4MNpSVjGdWOlsyNAysBtYBtwKrgJttaNgglnTpgUPAnioAtRCfXmAUuAe424YHulDeDuGpIgENYC9wEKgnALk3DwDPATuBkdLmVghH7pYM5cFASsQ283NMPugZ4BZgFkm5JCStkXRW3VPrKmSr9t0hiXpAeRBY6fj/Cpx1XNOJpsKp1wH9wClg0t6q+2QrnYA/ei73qRvAWo8BNgJfEU7fDCi3eD62IUl9Hj8u6YKkHvMvSHrU47sk7a3Yj6S3g41xSXOx22K0bXvgL8+vBh4ENgEHgN2e/wB42l5pOKsveq0JrHeMr/HcMp94RciHoSIrCmTPGNWs20bP7zKf6HjImdTGvLbd/IYKT+4Jc8nTh6IHbihla9P9G8Bmj6fsiVHzve4fDhmO8yXVkRTvhvtYX6bj9ekvAUgbx4DPPO5xYn1rPoXpU+ZTvJaxj/RblWD6YKSbcQ54F9gHfAccdqxHgO2WeR+4BPSZrwd9tVIf68KZJAzwRwBSA/40/7kbwDthfifwmEPyO/AanSp6PhhMei8G/enQExHAz+7b3vwKcIIizgJm7PIaRbUcc9iOAKcpMn4fsBXYZjBN4Hnga+Ch4IHcB5koIHXubqpS7VLl+kLSKknrJT0gaULSNknLJb0k6WNJd0p6VdL9ko5Kuk3SiKTDQU87VMFjtpsnAEslnQuCs5JmfGUuSXrKcscl7ZC01YaR9JakAY93S3rC40ckfWmdM6UrOG6ZOpLqZsa9OB1Qp41vSqp5fK8Nyft+kPRkAHhS0n2SGvZI8mzsRy1fy0Py7AdOUtT/6dJtOB/kdvg23A7cSFH1NnhtE3CU4lvS5PLnV8vx/x44NpdzCYn7myT9VOGBU5JeD955T9IBSb+Yn5B0xONvJL3oSjfpuVRhZa/M2YwlNYHoc3JNqjuKpXqmYj3O7S/Zovwki6+i611sNgNrKD6xwxQflqVuvXQ+OAvRBeBZ4GU6xa5TmdTduzCC7KGofP2hDVJ84QYNvmEdJ4CPXLDSe6J4EWdZpzRq4ZdxWmxz5ffeYhS9yzwAZdLiPyNpnF1hLdJlT/v0V7TQhqsmdfFLFg3/T4n+Bq8URsXUHnozAAAAAElFTkSuQmCC';
 let tray: Tray | null = null;
 /** Rebuilds the tray context menu from the current UI language + window
  *  state. Hoisted out of `createTray` so the `uiLanguage` prefs path can
@@ -3713,7 +3269,7 @@ function createTray(): void {
     // macOS menu-bar icons are template images so they invert with the theme.
     if (process.platform === 'darwin') img.setTemplateImage(true);
     const t = new Tray(img);
-    t.setToolTip('FreeCrawl SEO Tool');
+    t.setToolTip('EXIT SEO Crawler');
     const rebuild = (): void => {
       const labels = L();
       const win = mainWindow;
@@ -3766,7 +3322,7 @@ function createWindow(): void {
     show: false,
     autoHideMenuBar: false,
     backgroundColor: windowBackgroundColor(),
-    title: `FreeCrawl SEO Tool v${app.getVersion()}`,
+    title: `EXIT SEO Crawler v${app.getVersion()}`,
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
       // sandbox stays false: enabling it was tried and blanks the renderer —
@@ -3910,7 +3466,7 @@ function createProjectWindow(): void {
     minHeight: 640,
     show: false,
     backgroundColor: windowBackgroundColor(),
-    title: `FreeCrawl SEO Tool v${app.getVersion()}`,
+    title: `EXIT SEO Crawler v${app.getVersion()}`,
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
       sandbox: false,
@@ -5076,7 +4632,7 @@ function registerIpc(): void {
 
       const userAgent =
         (input.userAgent ?? '').trim() ||
-        'FreeCrawl SEO Tool (extraction preview)';
+        'EXIT SEO Crawler (extraction preview)';
       const acceptLanguage = (input.acceptLanguage ?? '').trim() || 'en';
 
       const controller = new AbortController();
@@ -7079,7 +6635,7 @@ function registerIpc(): void {
       try {
         const title =
           input.title?.trim() ||
-          `FreeCrawl — ${input.category} — ${new Date().toISOString().slice(0, 10)}`;
+          `EXIT SEO Crawler — ${input.category} — ${new Date().toISOString().slice(0, 10)}`;
         const result = await exportCategoryToSheets(getDb(), input.category, title);
         return {
           ok: true,
@@ -7293,7 +6849,7 @@ function registerIpc(): void {
       if (Notification.isSupported() && !sess.window?.isFocused()) {
         try {
           new Notification({
-            title: 'FreeCrawl SEO Tool',
+            title: 'EXIT SEO Crawler',
             body: L()
               .notifCrawlFinished.replace('{urls}', summary.total.toLocaleString())
               .replace('{ms}', String(Math.round(summary.avgResponseTimeMs))),
@@ -7443,7 +6999,7 @@ function registerIpc(): void {
     let sheetsUrl: string | null = null;
     if (after.sheets) {
       try {
-        const r = await exportCategoryToSheets(db, 'all', `FreeCrawl — ${project} — ${stamp}`);
+        const r = await exportCategoryToSheets(db, 'all', `EXIT SEO Crawler — ${project} — ${stamp}`);
         sheetsUrl = r.spreadsheetUrl;
         logger.log('info', 'main', `Scheduled Sheets export: ${sheetsUrl} (${r.rowsWritten} rows)`, undefined, sess.logTag);
       } catch (err) {
@@ -8457,7 +8013,7 @@ function registerIpc(): void {
       if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') {
         return { ok: false, error: 'Only http(s) URLs supported' };
       }
-      const userAgent = (i.userAgent ?? '').trim() || 'FreeCrawl SEO Tool (extraction preview)';
+      const userAgent = (i.userAgent ?? '').trim() || 'EXIT SEO Crawler (extraction preview)';
       const acceptLanguage = (i.acceptLanguage ?? '').trim() || 'en';
       const controller = new AbortController();
       const timer = setTimeout(() => controller.abort(), 15_000);
@@ -10636,6 +10192,16 @@ function describeHostEnvironment(): string {
 }
 
 void app.whenReady().then(async () => {
+  // Dutch Toys Group: Help → About (and the macOS app menu's About item)
+  // shows this panel. It keeps the upstream credit the MIT licence asks for.
+  app.setAboutPanelOptions({
+    applicationName: 'EXIT SEO Crawler',
+    applicationVersion: app.getVersion(),
+    copyright: '© Dutch Toys Group. Based on FreeCrawl SEO Tool by kemalai (MIT licence).',
+    credits: 'Internal SEO crawler for EXIT Toys.',
+    website: 'https://github.com/Dutchtoysgroup/exit-seo-crawler',
+    ...(process.platform === 'darwin' ? {} : { iconPath: appIcon }),
+  });
   // Disk logging is bootstrapped after `app.whenReady()` — `getPath('userData')`
   // is only valid post-ready. Prior log lines are still in the ring buffer
   // and will be flushed to disk lazily via subsequent writes.
@@ -10910,15 +10476,6 @@ void app.whenReady().then(async () => {
       `MCP bridge failed to start: ${err instanceof Error ? err.message : String(err)} — MCP crawl control disabled this session.`,
     );
   }
-
-  // One-shot silent update check 8 s after launch. Ignores network /
-  // up-to-date outcomes (no popup), only opens the Update Available
-  // dialog when there is a newer release that hasn't been dismissed.
-  // The 8 s delay lets the renderer finish first paint so the prompt
-  // doesn't compete with the loading UI.
-  setTimeout(() => {
-    void checkForUpdates({ silent: true });
-  }, 8_000);
 
   // V2 Faz 1 — Provision the JS-rendering browser without the user ever
   // touching a terminal. Normally the installer already carries a

@@ -9,7 +9,7 @@ import type { Guide } from './types.js';
 export const GUIDES_ZH_CN: Record<string, Guide> = {
   openai: {
     intro:
-      '通过 OpenAI 的 API 对每个 URL 运行自定义提示词——内容分析、标题创意、摘要。用量计入你自己的 OpenAI 账户；FreeCrawl 是免费的中间件，API 调用费用由你承担。',
+      '通过 OpenAI 的 API 对每个 URL 运行自定义提示词——内容分析、标题创意、摘要。用量计入你自己的 OpenAI 账户；EXIT SEO Crawler 是免费的中间件，API 调用费用由你承担。',
     prereqs: [
       'OpenAI 账户（在 https://platform.openai.com 免费注册）。',
       '有效的付款方式——OpenAI 要求账户至少有 5 美元余额，密钥才能使用。',
@@ -34,7 +34,7 @@ export const GUIDES_ZH_CN: Record<string, Guide> = {
       {
         title: '点击右上角的 "+ Create new secret key"',
         detail:
-          '在对话框中：\n• Name："FreeCrawl SEO Tool"（任意备注名称）\n• Project：Default project 或你自选\n• Permissions：All（最简单；受限范围也可以）\n然后点击 "Create secret key"。',
+          '在对话框中：\n• Name："EXIT SEO Crawler"（任意备注名称）\n• Project：Default project 或你自选\n• Permissions：All（最简单；受限范围也可以）\n然后点击 "Create secret key"。',
       },
       {
         title: '复制密钥——它不会再次显示',
@@ -44,7 +44,7 @@ export const GUIDES_ZH_CN: Record<string, Guide> = {
       {
         title: '粘贴到本面板的 "API Key" 字段 + 点击保存',
         detail:
-          'FreeCrawl 将密钥加密存储在系统凭据库中（Windows DPAPI、macOS 钥匙串、Linux Secret Service）。绝不以明文写入。',
+          'EXIT SEO Crawler 将密钥加密存储在系统凭据库中（Windows DPAPI、macOS 钥匙串、Linux Secret Service）。绝不以明文写入。',
       },
       {
         title: '在 AI 标签页测试',
@@ -100,7 +100,7 @@ export const GUIDES_ZH_CN: Record<string, Guide> = {
       {
         title: '点击 "+ Create Key"',
         detail:
-          '在对话框中：\n• Name："FreeCrawl SEO Tool"\n• Workspace：Default workspace\n• Environment：Production\n然后点击 "Create Key"。',
+          '在对话框中：\n• Name："EXIT SEO Crawler"\n• Workspace：Default workspace\n• Environment：Production\n然后点击 "Create Key"。',
       },
       {
         title: '复制密钥——它不会再次显示',
@@ -133,7 +133,7 @@ export const GUIDES_ZH_CN: Record<string, Guide> = {
     ],
     notes: [
       '价格（2026-06）：Haiku 4.5 约 0.25/1.25 美元（每百万 token 输入/输出），Sonnet 4.6 约 3/15 美元，Opus 4.8 约 15/75 美元。',
-      'Anthropic 支持提示词缓存——5 分钟内重复的长系统提示词享受 90% 折扣（FreeCrawl 的 AI 面板暂未使用缓存——将在后续版本推出）。',
+      'Anthropic 支持提示词缓存——5 分钟内重复的长系统提示词享受 90% 折扣（EXIT SEO Crawler 的 AI 面板暂未使用缓存——将在后续版本推出）。',
     ],
     lastReviewed: '2026-06-01',
   },
@@ -171,7 +171,7 @@ export const GUIDES_ZH_CN: Record<string, Guide> = {
       },
       {
         title: '输入你拉取的模型名称',
-        detail: '例如 "llama3.2" 或 "qwen2.5:7b"。留空则由 FreeCrawl 选择第一个可用模型。',
+        detail: '例如 "llama3.2" 或 "qwen2.5:7b"。留空则由 EXIT SEO Crawler 选择第一个可用模型。',
       },
       {
         title: '保存并测试',
@@ -217,7 +217,7 @@ export const GUIDES_ZH_CN: Record<string, Guide> = {
       {
         title: '选择或创建项目',
         detail:
-          '左上角项目下拉框 → "New Project" → 名称："FreeCrawl SEO" → Create。无需结算账户——PSI 免费层只需要凭据用于身份验证。',
+          '左上角项目下拉框 → "New Project" → 名称："EXIT SEO Crawler" → Create。无需结算账户——PSI 免费层只需要凭据用于身份验证。',
       },
       {
         title: '启用 PageSpeed Insights API',
@@ -244,7 +244,7 @@ export const GUIDES_ZH_CN: Record<string, Guide> = {
       {
         title: '可选：限制 API 密钥（推荐）',
         detail:
-          '点击 "Edit API key" → "Restrict key"：\n• API restrictions："Restrict key" → "PageSpeed Insights API"\n• Application restrictions："None"（FreeCrawl 是桌面应用，referrer/IP 过滤不起作用）\n不限制的密钥也能用，但我们建议限制。',
+          '点击 "Edit API key" → "Restrict key"：\n• API restrictions："Restrict key" → "PageSpeed Insights API"\n• Application restrictions："None"（EXIT SEO Crawler 是桌面应用，referrer/IP 过滤不起作用）\n不限制的密钥也能用，但我们建议限制。',
       },
       {
         title: '把密钥粘贴到本面板的 "API Key" 字段 + 保存',
@@ -422,7 +422,7 @@ export const GUIDES_ZH_CN: Record<string, Guide> = {
   },
   gsc: {
     intro:
-      '通过 Google Search Console API 获取每个 URL 的 Search Console 指标（点击、展示、CTR、平均排名）。URL Inspection API 还提供覆盖率判定 + 上次抓取时间。“自带客户端”模式——你创建自己的 Google Cloud OAuth 客户端并粘贴进来；FreeCrawl 不使用共享的中间应用。',
+      '通过 Google Search Console API 获取每个 URL 的 Search Console 指标（点击、展示、CTR、平均排名）。URL Inspection API 还提供覆盖率判定 + 上次抓取时间。“自带客户端”模式——你创建自己的 Google Cloud OAuth 客户端并粘贴进来；EXIT SEO Crawler 不使用共享的中间应用。',
     prereqs: [
       'Google 账户（必须拥有 / 共同拥有你要连接的 GSC 资源）。',
       '至少已添加并验证一个 Google Search Console 资源。',
@@ -431,7 +431,7 @@ export const GUIDES_ZH_CN: Record<string, Guide> = {
       {
         title: '打开 Google Cloud Console 并新建项目',
         detail:
-          '左上角项目下拉框 → "New Project" → 名称："FreeCrawl SEO Integrations"（随意）→ Create。此项目仅用于 OAuth 凭据——无需结算。',
+          '左上角项目下拉框 → "New Project" → 名称："EXIT SEO Crawler Integrations"（随意）→ Create。此项目仅用于 OAuth 凭据——无需结算。',
         link: {
           label: 'console.cloud.google.com',
           url: 'https://console.cloud.google.com',
@@ -449,7 +449,7 @@ export const GUIDES_ZH_CN: Record<string, Guide> = {
       {
         title: '填写 OAuth 同意屏幕',
         detail:
-          '只填必填项：\n• App name："FreeCrawl Local"\n• User support email：你的邮箱\n• Developer contact information：你的邮箱\n其余留空。Save and Continue → Save and Continue → Save and Continue → Back to Dashboard。',
+          '只填必填项：\n• App name："EXIT SEO Crawler Local"\n• User support email：你的邮箱\n• Developer contact information：你的邮箱\n其余留空。Save and Continue → Save and Continue → Save and Continue → Back to Dashboard。',
       },
       {
         title: '关键：把自己添加为 Test User',
@@ -480,7 +480,7 @@ export const GUIDES_ZH_CN: Record<string, Guide> = {
       {
         title: 'OAuth Client 类型选择 "Desktop app"（不是 Web app！）',
         detail:
-          'Application type 下拉框 → "Desktop app"。Name："FreeCrawl SEO Tool"。Create → 对话框显示 Client ID + Client Secret。立即复制两者（Secret 不会再次显示）。\n\n为什么选 DESKTOP：FreeCrawl 每次连接使用随机本地端口（例如 127.0.0.1:63092）。"Web application" 需要固定的重定向 URI 列表——随机端口无法匹配 → 失败。"Desktop app" 自动接受回环重定向，与端口无关。',
+          'Application type 下拉框 → "Desktop app"。Name："EXIT SEO Crawler"。Create → 对话框显示 Client ID + Client Secret。立即复制两者（Secret 不会再次显示）。\n\n为什么选 DESKTOP：EXIT SEO Crawler 每次连接使用随机本地端口（例如 127.0.0.1:63092）。"Web application" 需要固定的重定向 URI 列表——随机端口无法匹配 → 失败。"Desktop app" 自动接受回环重定向，与端口无关。',
       },
       {
         title: '把 Client ID + Client Secret 粘贴到本面板 + 保存',
@@ -494,10 +494,10 @@ export const GUIDES_ZH_CN: Record<string, Guide> = {
       {
         title: '用你添加为测试用户的 Google 账户登录',
         detail:
-          '在账户选择器中选择你添加到测试用户的邮箱。"Continue" → "Google hasn\'t verified this app" 警告（测试模式下正常）。"Advanced" → "Go to FreeCrawl Local (unsafe)" → 接受权限 → Allow。',
+          '在账户选择器中选择你添加到测试用户的邮箱。"Continue" → "Google hasn\'t verified this app" 警告（测试模式下正常）。"Advanced" → "Go to EXIT SEO Crawler Local (unsafe)" → 接受权限 → Allow。',
       },
       {
-        title: '回到 FreeCrawl——你应该看到“已配置”',
+        title: '回到 EXIT SEO Crawler——你应该看到“已配置”',
         detail:
           '设置中的 Search Console 卡片现在显示绿色的“已配置”徽章。现在可以切换到顶部 "Search Console" 标签页列出资源 + 获取数据。',
       },
@@ -511,7 +511,7 @@ export const GUIDES_ZH_CN: Record<string, Guide> = {
       {
         problem: '"Request had insufficient authentication scopes"',
         solution:
-          '要么 Search Console API 未启用，要么 OAuth 同意屏幕上的 "View Search Console data for your verified sites" 权限复选框未勾选。(1) 启用 Search Console API（第 5 步），(2) myaccount.google.com/permissions → "FreeCrawl Local" → Remove access → 再次点击“连接”并在同意屏幕上勾选全部权限。',
+          '要么 Search Console API 未启用，要么 OAuth 同意屏幕上的 "View Search Console data for your verified sites" 权限复选框未勾选。(1) 启用 Search Console API（第 5 步），(2) myaccount.google.com/permissions → "EXIT SEO Crawler Local" → Remove access → 再次点击“连接”并在同意屏幕上勾选全部权限。',
       },
       {
         problem: '"redirect_uri_mismatch"',
@@ -590,7 +590,7 @@ export const GUIDES_ZH_CN: Record<string, Guide> = {
       {
         problem: '"Request had insufficient authentication scopes"',
         solution:
-          'OAuth 范围不包含 GA4。前往 myaccount.google.com/permissions → "FreeCrawl Local" → Remove access → 再次点击“连接” → 勾选 Google Analytics 权限复选框。',
+          'OAuth 范围不包含 GA4。前往 myaccount.google.com/permissions → "EXIT SEO Crawler Local" → Remove access → 再次点击“连接” → 勾选 Google Analytics 权限复选框。',
       },
       {
         problem: 'Property list comes back empty',
@@ -649,7 +649,7 @@ export const GUIDES_ZH_CN: Record<string, Guide> = {
     ],
     notes: [
       'Sheets 硬性上限：每个电子表格 1000 万个单元格——大型抓取（>50 万 URL）会被拆分。',
-      'Drive 范围是 "drive.file"——只能访问 FreeCrawl 创建的文件，不能访问你已有的文件。',
+      'Drive 范围是 "drive.file"——只能访问 EXIT SEO Crawler 创建的文件，不能访问你已有的文件。',
     ],
     lastReviewed: '2026-06-01',
   },
@@ -694,7 +694,7 @@ export const GUIDES_ZH_CN: Record<string, Guide> = {
       {
         title: '粘贴到本面板的 "Service Account JSON" 字段',
         detail:
-          '粘贴完整的 JSON（从开头的 `{` 到结尾的 `}`）。FreeCrawl 将 JSON 加密存储在系统凭据库中。',
+          '粘贴完整的 JSON（从开头的 `{` 到结尾的 `}`）。EXIT SEO Crawler 将 JSON 加密存储在系统凭据库中。',
       },
       {
         title: '填写 "GCP Project ID"',
@@ -725,12 +725,12 @@ export const GUIDES_ZH_CN: Record<string, Guide> = {
       {
         problem: '"Invalid JSON"',
         solution:
-          '你只粘贴了部分 JSON，或者首尾混入了多余字符。用真正的编辑器（推荐 VS Code，不要用记事本）打开服务账号 JSON 文件，Ctrl+A 全选，复制，清空 FreeCrawl 字段，粘贴。',
+          '你只粘贴了部分 JSON，或者首尾混入了多余字符。用真正的编辑器（推荐 VS Code，不要用记事本）打开服务账号 JSON 文件，Ctrl+A 全选，复制，清空 EXIT SEO Crawler 字段，粘贴。',
       },
     ],
     notes: [
       '费用：BigQuery 免费层（10GB 存储 + 每月 1TB 查询）覆盖正常使用。100 万 URL 的抓取约 500MB；查询费用取决于你的 SQL。',
-      '架构演进：FreeCrawl 自动创建/更新导出表。如果 CrawlUrlRow 架构新增列，导出表会自动纳入（BigQuery DDL 的灵活性）。',
+      '架构演进：EXIT SEO Crawler 自动创建/更新导出表。如果 CrawlUrlRow 架构新增列，导出表会自动纳入（BigQuery DDL 的灵活性）。',
     ],
     lastReviewed: '2026-06-01',
   },

@@ -6,7 +6,7 @@
   },
   "integrations": {
     "intro": "Connect external services with your own credentials. API keys and secrets are encrypted at rest using your operating system's secure storage and never leave this machine.",
-    "byocNote": "Google integrations use a \"bring your own client\" model — you create your own Google Cloud OAuth client and paste its ID/secret, so no shared FreeCrawl app or verification is involved.",
+    "byocNote": "Google integrations use a \"bring your own client\" model — you create your own Google Cloud OAuth client and paste its ID/secret, so no shared EXIT SEO Crawler app or verification is involved.",
     "connected": "Configured",
     "notConfigured": "Not set",
     "savedPlaceholder": "Saved — type to replace",
@@ -193,7 +193,7 @@
     "deleteDomainData": "Delete Domain Data…",
     "clearAllData": "Clear All Data…",
     "checkForUpdates": "Check for Updates…",
-    "about": "About FreeCrawl SEO"
+    "about": "About EXIT SEO Crawler"
   },
   "passwordPrompt": {
     "passwordLabel": "Password",
@@ -288,7 +288,7 @@
     "dropFailedProject": "Failed to open project: {{name}}",
     "dropNoUrls": "No URLs found in {{name}}.",
     "dropLoadedUrls": "Loaded {{count}} URLs from {{name}} into List mode.",
-    "crashRecovery": "FreeCrawl detected a previous crawl that didn't finish cleanly:\n\n  Mode: {{mode}}\n  Start URL: {{seed}}\n  Pending URLs: {{pending}}\n\nResume the crawl from where it stopped?\n\nClick OK to resume, Cancel to discard the recovery state and start fresh.",
+    "crashRecovery": "EXIT SEO Crawler detected a previous crawl that didn't finish cleanly:\n\n  Mode: {{mode}}\n  Start URL: {{seed}}\n  Pending URLs: {{pending}}\n\nResume the crawl from where it stopped?\n\nClick OK to resume, Cancel to discard the recovery state and start fresh.",
     "deleteDomainPrompt": "GDPR Domain Wipe — enter the host to delete (case-insensitive, exact match).\n\nExamples: example.com  ·  blog.example.com\n\nThis cannot be undone. Save Project As… first to keep a backup.",
     "deleteDomainConfirm": "Delete every URL hosted on \"{{host}}\", along with its links, headers, images, and source snapshots?\n\nThis action cannot be undone.",
     "deleteDomainResult_one": "Deleted {{formatted}} URL row from {{host}}.",
@@ -821,7 +821,7 @@
       "removeRule": "Remove rule"
     },
     "reports": {
-      "intro": "Brand the HTML and PDF reports (File → Export HTML / PDF Report). Changes apply to the next export; leave everything empty for the plain FreeCrawl header.",
+      "intro": "Brand the HTML and PDF reports (File → Export HTML / PDF Report). Changes apply to the next export; leave everything empty for the plain EXIT SEO Crawler header.",
       "brandName": "Brand name",
       "brandNamePlaceholder": "Acme SEO Agency",
       "preparedBy": "Prepared by",
@@ -861,7 +861,7 @@
   "scheduled": {
     "title": "Scheduled Crawl",
     "closeEsc": "Close (Esc)",
-    "warningPrefix": "The schedule fires only while FreeCrawl is open on this project. For triggers that survive an app restart, run",
+    "warningPrefix": "The schedule fires only while EXIT SEO Crawler is open on this project. For triggers that survive an app restart, run",
     "warningSuffix": "(the CLI) from Windows Task Scheduler / macOS launchd / cron.",
     "enabled": "Enabled",
     "cadence": "Cadence",
@@ -884,7 +884,7 @@
     "lastFired": "Last fired",
     "lastStatus": "Last status",
     "hintDisabled": "Disabled — set \"Enabled\" and Save to arm the schedule.",
-    "hintEnabled": "Save to compute the next fire time. The schedule only fires while FreeCrawl is open.",
+    "hintEnabled": "Save to compute the next fire time. The schedule only fires while EXIT SEO Crawler is open.",
     "confirmRemove": "Remove the scheduled crawl for this project?",
     "saving": "Saving…",
     "afterTitle": "After each scheduled crawl",
@@ -1680,7 +1680,7 @@
       "modeLabel": "Storage Mode",
       "modeDisk": "Disk (SQLite file) — persistent, resumable, uses worker pools",
       "modeRam": "RAM-only (in-memory) — fastest, nothing written to disk until Save As",
-      "modeRestart": "Applies the next time FreeCrawl starts (currently running in {{active}} mode).",
+      "modeRestart": "Applies the next time EXIT SEO Crawler starts (currently running in {{active}} mode).",
       "modeActiveNote": "Currently running in {{active}} mode.",
       "modeRamWarning": "In-memory projects are lost on exit — and when you open or switch to another project — unless you Save As first. Crash recovery is off and very large crawls are bounded by available RAM.",
       "defaultSaveFolder": "Default Save Folder",
@@ -1701,7 +1701,7 @@
     },
     "privacy": {
       "title": "Privacy",
-      "intro": "FreeCrawl is local-first — crawl results, project files, and URLs you visit never leave your machine.",
+      "intro": "EXIT SEO Crawler is local-first — crawl results, project files, and URLs you visit never leave your machine.",
       "telemetryHeading": "Anonymous Telemetry",
       "telemetryLabel": "Send anonymous usage telemetry (opt-in)",
       "telemetryHelp": "Off by default. When on, aggregated counts of feature use (e.g. \"export ran\", \"report opened\") may be sent — never URLs, project contents, or crawl results.",
@@ -1746,7 +1746,7 @@
       "customCssNote": "A custom-theme.css file in the app's user-data folder is still injected on top of either theme."
     },
     "system": {
-      "intro": "Live view of what FreeCrawl is using right now, plus the runtime it is running on. Refreshes every two seconds.",
+      "intro": "Live view of what EXIT SEO Crawler is using right now, plus the runtime it is running on. Refreshes every two seconds.",
       "memory": "Memory",
       "rss": "Process (RSS)",
       "heap": "JS heap (used / reserved)",
@@ -1756,7 +1756,7 @@
       "projected": "Projected at 1M URLs",
       "limitNote": "The memory soft limit that pauses the crawl lives under Hardware.",
       "environment": "Environment",
-      "version": "FreeCrawl",
+      "version": "EXIT SEO Crawler",
       "platform": "Platform",
       "cpus": "CPU cores",
       "uptime": "Uptime",
@@ -1919,7 +1919,7 @@
   "assistant": {
     "modelPlaceholder": "Model (provider default)",
     "tools": "Tools",
-    "builtinTools": "FreeCrawl project tools",
+    "builtinTools": "EXIT SEO Crawler project tools",
     "builtinToolsHint": "Read-only queries against the open crawl. Run without asking.",
     "mcpServers": "MCP servers",
     "noServers": "No MCP servers configured yet. Add one in Settings → MCP Servers.",

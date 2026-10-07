@@ -32,7 +32,7 @@ export const MENU_IT: MenuLabels = {
   compareWith: 'Confronta con progetto…',
   scheduledCrawl: 'Scansione pianificata…',
   scheduledCrawlTooltip:
-    'Imposta una scansione ricorrente nell’applicazione per il progetto aperto. Si attiva solo mentre FreeCrawl è aperto; usa la CLI con lo scheduler del sistema per attivazioni che sopravvivano a un riavvio.',
+    'Imposta una scansione ricorrente nell’applicazione per il progetto aperto. Si attiva solo mentre EXIT SEO Crawler è aperto; usa la CLI con lo scheduler del sistema per attivazioni che sopravvivano a un riavvio.',
   saveProject: 'Salva progetto',
   saveProjectAs: 'Salva progetto con nome…',
   titleUntitledProject: 'Progetto senza titolo',
@@ -75,10 +75,10 @@ export const MENU_IT: MenuLabels = {
   help: 'Aiuto',
   documentation: 'Documentazione',
   showLogs: 'Mostra log…',
-  trayShow: 'Mostra FreeCrawl',
+  trayShow: 'Mostra EXIT SEO Crawler',
   trayHide: 'Riduci nell’area di notifica',
   trayStopCrawl: 'Interrompi scansione',
-  trayQuit: 'Esci da FreeCrawl',
+  trayQuit: 'Esci da EXIT SEO Crawler',
   openLogsFolder: 'Apri cartella dei log',
   openLogsFolderTooltip:
     'Apre la directory in cui i file di log ruotati sono conservati su disco',
@@ -96,7 +96,7 @@ export const MENU_IT: MenuLabels = {
   checkForUpdates: 'Controlla aggiornamenti…',
   checkForUpdatesTooltip:
     'Recupera l’ultima release pubblicata su GitHub e la confronta con la versione installata. Nessun controllo in background: viene eseguito solo quando fai clic.',
-  about: 'Informazioni su FreeCrawl SEO',
+  about: 'Informazioni su EXIT SEO Crawler',
 
   ctxCopy: 'Copia',
   ctxOpenInBrowser: 'Apri nel browser',
@@ -172,20 +172,20 @@ export const MENU_IT: MenuLabels = {
 
   diagDnsRefusedTitle: 'Nessuna connettività di rete',
   diagDnsRefusedMsg:
-    'FreeCrawl ha tentato la risoluzione DNS su 3 livelli (sistema, server pubblici sulla porta 53 e DNS-over-HTTPS sulla porta 443): tutti sono stati rifiutati. Il computer sembra non avere una connessione internet funzionante.',
+    'EXIT SEO Crawler ha tentato la risoluzione DNS su 3 livelli (sistema, server pubblici sulla porta 53 e DNS-over-HTTPS sulla porta 443): tutti sono stati rifiutati. Il computer sembra non avere una connessione internet funzionante.',
   diagDnsRefusedDetail:
-    'FreeCrawl tenta già di aggirare automaticamente un DNS di sistema guasto: se vedi questa finestra, anche il DNS-over-HTTPS sulla porta 443 non ha funzionato.\n\n' +
+    'EXIT SEO Crawler tenta già di aggirare automaticamente un DNS di sistema guasto: se vedi questa finestra, anche il DNS-over-HTTPS sulla porta 443 non ha funzionato.\n\n' +
     'Cause più probabili (in ordine):\n' +
-    '  1. L\'antivirus o la sicurezza endpoint impedisce a FreeCrawl QUALSIASI connessione in uscita. Autorizza FreeCrawl nel tuo software di sicurezza.\n' +
+    '  1. L\'antivirus o la sicurezza endpoint impedisce a EXIT SEO Crawler QUALSIASI connessione in uscita. Autorizza EXIT SEO Crawler nel tuo software di sicurezza.\n' +
     '  2. Non sei connesso a internet: controlla il Wi-Fi o il cavo Ethernet.\n' +
     '  3. Un firewall aziendale blocca tutto il traffico in uscita: imposta HTTPS_PROXY in Impostazioni → Rete.\n' +
     '  4. Una VPN attiva è in uno stato inconsistente: disconnettila e riprova.\n\n' +
     'Fai clic su "Apri log" per vedere la catena completa degli errori.',
   diagDnsDestroyedTitle: 'Stack di rete non risponde',
   diagDnsDestroyedMsg:
-    'Il resolver DNS del sistema si è arrestato E anche l\'aggiramento automatico di FreeCrawl tramite DNS-over-HTTPS non ha funzionato. Significa che è lo stack di rete a essere guasto, non solo il DNS.',
+    'Il resolver DNS del sistema si è arrestato E anche l\'aggiramento automatico di EXIT SEO Crawler tramite DNS-over-HTTPS non ha funzionato. Significa che è lo stack di rete a essere guasto, non solo il DNS.',
   diagDnsDestroyedDetail:
-    'Normalmente FreeCrawl recupera da un Client DNS di Windows arrestato instradando le richieste tramite Cloudflare/Google su HTTPS:443. Se vedi questo messaggio, anche quel ripiego ha fallito, di solito perché lo stack di rete del sistema operativo ha bisogno di un ripristino.\n\n' +
+    'Normalmente EXIT SEO Crawler recupera da un Client DNS di Windows arrestato instradando le richieste tramite Cloudflare/Google su HTTPS:443. Se vedi questo messaggio, anche quel ripiego ha fallito, di solito perché lo stack di rete del sistema operativo ha bisogno di un ripristino.\n\n' +
     'Prova una di queste soluzioni (dalla più semplice alla più impegnativa):\n' +
     '  1. Attiva e disattiva la modalità aereo, oppure disconnetti e riconnetti il Wi-Fi.\n' +
     '  2. Riavvia la scheda di rete (Impostazioni → Rete → Modifica opzioni scheda).\n' +
@@ -198,13 +198,13 @@ export const MENU_IT: MenuLabels = {
   diagTlsDetail:
     'Responsabili più comuni: Kaspersky, ESET, Bitdefender, Zscaler, BlueCoat, Fortigate.\n\n' +
     'Prova una di queste soluzioni:\n' +
-    '  1. Autorizza FreeCrawl nel tuo antivirus.\n' +
+    '  1. Autorizza EXIT SEO Crawler nel tuo antivirus.\n' +
     '  2. Esporta la CA radice dell\'antivirus o del proxy in formato PEM e fai puntare la variabile d\'ambiente NODE_EXTRA_CA_CERTS a quel file prima dell\'avvio.\n' +
     '  3. Disattiva temporaneamente la scansione HTTPS nel tuo antivirus.\n\n' +
     'Fai clic su "Apri log" per vedere la catena completa degli errori.',
   diagSeedTitle: 'URL iniziale non raggiungibile',
   diagSeedMsg:
-    'FreeCrawl non è riuscito a raggiungere l\'URL inserito: né HTTPS né HTTP hanno risposto entro 5 secondi.',
+    'EXIT SEO Crawler non è riuscito a raggiungere l\'URL inserito: né HTTPS né HTTP hanno risposto entro 5 secondi.',
   diagSeedDetail:
     'Prova una di queste soluzioni:\n' +
     '  1. Apri l\'URL in un browser per verificare che il sito sia attivo.\n' +
@@ -238,17 +238,17 @@ export const MENU_IT: MenuLabels = {
   detailSeeReleasePage: 'Consulta la pagina della versione per il changelog.',
   dlgDontShowVersionAgain: 'Non mostrare più questa versione',
 
-  winLogsTitle: 'FreeCrawl — Log ({label})',
+  winLogsTitle: 'EXIT SEO Crawler — Log ({label})',
   winLabelPrimary: 'Principale',
-  winVisualizationTitle: 'FreeCrawl — Visualizzazione',
-  winLogAnalyzerTitle: 'FreeCrawl — Analizzatore di log',
+  winVisualizationTitle: 'EXIT SEO Crawler — Visualizzazione',
+  winLogAnalyzerTitle: 'EXIT SEO Crawler — Analizzatore di log',
 
   dlgPlaywrightDetail:
     'È un download una tantum di circa 250 MB che avviene dentro l\'applicazione, senza terminale. Il browser viene salvato nella tua cartella utente; viene scaricato solo il binario, da cdn.playwright.dev.\n\nScaricare adesso?',
   msgBrowserInstallFailed:
     'Il download di Chromium non è stato completato.\n\n' +
     'Controlla la connessione a internet (o le impostazioni del proxy) e riavvia la scansione: ' +
-    'FreeCrawl riprova automaticamente il download. Il rendering JavaScript resta ' +
+    'EXIT SEO Crawler riprova automaticamente il download. Il rendering JavaScript resta ' +
     'disattivato fino a quando non riesce; la scansione in modalità testo non è interessata.',
 
   notifCrawlFinished: 'Scansione completata: {urls} URL · media {ms} ms',
@@ -279,8 +279,8 @@ export const MENU_IT: MenuLabels = {
   msgDiagResetDone:
     'Avvisi riattivati: {n}. Ricompariranno alla prossima occorrenza del problema che li causa.',
 
-  filterFreeCrawlProject: 'Progetto FreeCrawl',
-  filterFreeCrawlEncProject: 'Progetto FreeCrawl crittografato',
+  filterFreeCrawlProject: 'Progetto EXIT SEO Crawler',
+  filterFreeCrawlEncProject: 'Progetto EXIT SEO Crawler crittografato',
   filterAllFiles: 'Tutti i file',
   filterLogFiles: 'File di log',
   filterExcelWorkbook: 'Cartella di lavoro di Excel',

@@ -9,7 +9,7 @@ import type { Guide } from './types.js';
 export const GUIDES_HI: Record<string, Guide> = {
   openai: {
     intro:
-      'OpenAI के API के ज़रिए हर URL पर एक कस्टम प्रॉम्प्ट चलाएँ — सामग्री विश्लेषण, शीर्षक सुझाव, सारांश। उपयोग आपके अपने OpenAI खाते से बिल होता है; FreeCrawl एक मुफ़्त मिडलवेयर है, API कॉल का खर्च आपकी जेब से जाता है।',
+      'OpenAI के API के ज़रिए हर URL पर एक कस्टम प्रॉम्प्ट चलाएँ — सामग्री विश्लेषण, शीर्षक सुझाव, सारांश। उपयोग आपके अपने OpenAI खाते से बिल होता है; EXIT SEO Crawler एक मुफ़्त मिडलवेयर है, API कॉल का खर्च आपकी जेब से जाता है।',
     prereqs: [
       'OpenAI खाता (https://platform.openai.com पर मुफ़्त साइन अप करें)।',
       'वैध भुगतान विधि — कुंजियाँ काम करने से पहले OpenAI को न्यूनतम $5 बैलेंस चाहिए।',
@@ -34,7 +34,7 @@ export const GUIDES_HI: Record<string, Guide> = {
       {
         title: '"+ Create new secret key" क्लिक करें (ऊपर दाएँ)',
         detail:
-          'डायलॉग में:\n• Name: "FreeCrawl SEO Tool" (कोई भी याद रखने वाला लेबल)\n• Project: Default project या अपनी पसंद\n• Permissions: All (सबसे आसान; सीमित स्कोप भी काम करते हैं)\nफिर "Create secret key"।',
+          'डायलॉग में:\n• Name: "EXIT SEO Crawler" (कोई भी याद रखने वाला लेबल)\n• Project: Default project या अपनी पसंद\n• Permissions: All (सबसे आसान; सीमित स्कोप भी काम करते हैं)\nफिर "Create secret key"।',
       },
       {
         title: 'कुंजी कॉपी करें — यह फिर कभी नहीं दिखेगी',
@@ -44,7 +44,7 @@ export const GUIDES_HI: Record<string, Guide> = {
       {
         title: 'इसे इस पैनल के "API Key" फ़ील्ड में पेस्ट करें + Save क्लिक करें',
         detail:
-          'FreeCrawl कुंजी को OS क्रेडेंशियल स्टोर (Windows DPAPI, macOS Keychain, Linux Secret Service) में एन्क्रिप्ट करके रखता है। कभी सादे टेक्स्ट में नहीं लिखी जाती।',
+          'EXIT SEO Crawler कुंजी को OS क्रेडेंशियल स्टोर (Windows DPAPI, macOS Keychain, Linux Secret Service) में एन्क्रिप्ट करके रखता है। कभी सादे टेक्स्ट में नहीं लिखी जाती।',
       },
       {
         title: 'AI टैब में परखें',
@@ -101,7 +101,7 @@ export const GUIDES_HI: Record<string, Guide> = {
       {
         title: '"+ Create Key" क्लिक करें',
         detail:
-          'डायलॉग में:\n• Name: "FreeCrawl SEO Tool"\n• Workspace: Default workspace\n• Environment: Production\nफिर "Create Key"।',
+          'डायलॉग में:\n• Name: "EXIT SEO Crawler"\n• Workspace: Default workspace\n• Environment: Production\nफिर "Create Key"।',
       },
       {
         title: 'कुंजी कॉपी करें — यह फिर कभी नहीं दिखेगी',
@@ -134,7 +134,7 @@ export const GUIDES_HI: Record<string, Guide> = {
     ],
     notes: [
       'मूल्य (2026-06): Haiku 4.5 ~$0.25/$1.25 (प्रति 1M टोकन इनपुट/आउटपुट), Sonnet 4.6 ~$3/$15, Opus 4.8 ~$15/$75।',
-      'Anthropic प्रॉम्प्ट कैशिंग सपोर्ट करता है — 5 मिनट के भीतर दोहराए गए लंबे सिस्टम प्रॉम्प्ट पर 90% छूट (FreeCrawl का AI पैनल अभी कैशिंग इस्तेमाल नहीं करता — बाद के रिलीज़ में आएगा)।',
+      'Anthropic प्रॉम्प्ट कैशिंग सपोर्ट करता है — 5 मिनट के भीतर दोहराए गए लंबे सिस्टम प्रॉम्प्ट पर 90% छूट (EXIT SEO Crawler का AI पैनल अभी कैशिंग इस्तेमाल नहीं करता — बाद के रिलीज़ में आएगा)।',
     ],
     lastReviewed: '2026-06-01',
   },
@@ -174,7 +174,7 @@ export const GUIDES_HI: Record<string, Guide> = {
       {
         title: 'जो मॉडल खींचा उसका नाम दर्ज करें',
         detail:
-          'जैसे "llama3.2" या "qwen2.5:7b"। खाली छोड़ें तो FreeCrawl पहला उपलब्ध मॉडल चुन लेगा।',
+          'जैसे "llama3.2" या "qwen2.5:7b"। खाली छोड़ें तो EXIT SEO Crawler पहला उपलब्ध मॉडल चुन लेगा।',
       },
       {
         title: 'सहेजें + परखें',
@@ -220,7 +220,7 @@ export const GUIDES_HI: Record<string, Guide> = {
       {
         title: 'प्रोजेक्ट चुनें या बनाएँ',
         detail:
-          'ऊपर-बाएँ प्रोजेक्ट ड्रॉपडाउन → "New Project" → नाम: "FreeCrawl SEO" → Create। बिलिंग खाते की ज़रूरत नहीं — PSI मुफ़्त टियर को प्रमाणीकरण के लिए सिर्फ़ क्रेडेंशियल चाहिए।',
+          'ऊपर-बाएँ प्रोजेक्ट ड्रॉपडाउन → "New Project" → नाम: "EXIT SEO Crawler" → Create। बिलिंग खाते की ज़रूरत नहीं — PSI मुफ़्त टियर को प्रमाणीकरण के लिए सिर्फ़ क्रेडेंशियल चाहिए।',
       },
       {
         title: 'PageSpeed Insights API सक्षम करें',
@@ -247,7 +247,7 @@ export const GUIDES_HI: Record<string, Guide> = {
       {
         title: 'वैकल्पिक: API कुंजी सीमित करें (अनुशंसित)',
         detail:
-          '"Edit API key" → "Restrict key" क्लिक करें:\n• API restrictions: "Restrict key" → "PageSpeed Insights API"\n• Application restrictions: "None" (FreeCrawl डेस्कटॉप ऐप है, इसलिए referrer/IP फ़िल्टरिंग काम नहीं करेगी)\nअसीमित कुंजियाँ भी चलती हैं, पर हम सीमित करने की सलाह देते हैं।',
+          '"Edit API key" → "Restrict key" क्लिक करें:\n• API restrictions: "Restrict key" → "PageSpeed Insights API"\n• Application restrictions: "None" (EXIT SEO Crawler डेस्कटॉप ऐप है, इसलिए referrer/IP फ़िल्टरिंग काम नहीं करेगी)\nअसीमित कुंजियाँ भी चलती हैं, पर हम सीमित करने की सलाह देते हैं।',
       },
       {
         title: 'कुंजी को इस पैनल के "API Key" फ़ील्ड में पेस्ट करें + Save',
@@ -427,7 +427,7 @@ export const GUIDES_HI: Record<string, Guide> = {
   },
   gsc: {
     intro:
-      'Google Search Console API से प्रति-URL Search Console मेट्रिक्स (क्लिक, इंप्रेशन, CTR, औसत स्थिति) खींचें। URL Inspection API कवरेज निर्णय + अंतिम क्रॉल समय भी देता है। "अपना क्लाइंट लाएँ" मॉडल — आप अपना Google Cloud OAuth क्लाइंट बनाकर पेस्ट करते हैं; FreeCrawl कोई साझा बिचौलिया ऐप इस्तेमाल नहीं करता।',
+      'Google Search Console API से प्रति-URL Search Console मेट्रिक्स (क्लिक, इंप्रेशन, CTR, औसत स्थिति) खींचें। URL Inspection API कवरेज निर्णय + अंतिम क्रॉल समय भी देता है। "अपना क्लाइंट लाएँ" मॉडल — आप अपना Google Cloud OAuth क्लाइंट बनाकर पेस्ट करते हैं; EXIT SEO Crawler कोई साझा बिचौलिया ऐप इस्तेमाल नहीं करता।',
     prereqs: [
       'Google खाता (जिस GSC प्रॉपर्टी को जोड़ना है उसका मालिक / सह-मालिक होना चाहिए)।',
       'कम से कम एक Google Search Console प्रॉपर्टी जोड़ी + सत्यापित हो।',
@@ -436,7 +436,7 @@ export const GUIDES_HI: Record<string, Guide> = {
       {
         title: 'Google Cloud Console खोलें और नया प्रोजेक्ट बनाएँ',
         detail:
-          'ऊपर-बाएँ प्रोजेक्ट ड्रॉपडाउन → "New Project" → नाम: "FreeCrawl SEO Integrations" (जो चाहें) → Create। यह प्रोजेक्ट सिर्फ़ OAuth क्रेडेंशियल के लिए है — बिलिंग ज़रूरी नहीं।',
+          'ऊपर-बाएँ प्रोजेक्ट ड्रॉपडाउन → "New Project" → नाम: "EXIT SEO Crawler Integrations" (जो चाहें) → Create। यह प्रोजेक्ट सिर्फ़ OAuth क्रेडेंशियल के लिए है — बिलिंग ज़रूरी नहीं।',
         link: {
           label: 'console.cloud.google.com',
           url: 'https://console.cloud.google.com',
@@ -454,7 +454,7 @@ export const GUIDES_HI: Record<string, Guide> = {
       {
         title: 'OAuth सहमति स्क्रीन भरें',
         detail:
-          'सिर्फ़ अनिवार्य फ़ील्ड:\n• App name: "FreeCrawl Local"\n• User support email: आपका ईमेल\n• Developer contact information: आपका ईमेल\nबाकी खाली छोड़ें। Save and Continue → Save and Continue → Save and Continue → Back to Dashboard।',
+          'सिर्फ़ अनिवार्य फ़ील्ड:\n• App name: "EXIT SEO Crawler Local"\n• User support email: आपका ईमेल\n• Developer contact information: आपका ईमेल\nबाकी खाली छोड़ें। Save and Continue → Save and Continue → Save and Continue → Back to Dashboard।',
       },
       {
         title: 'अति महत्वपूर्ण: खुद को Test User के रूप में जोड़ें',
@@ -486,7 +486,7 @@ export const GUIDES_HI: Record<string, Guide> = {
       {
         title: 'OAuth Client प्रकार में "Desktop app" चुनें (Web app नहीं!)',
         detail:
-          'Application type ड्रॉपडाउन → "Desktop app"। Name: "FreeCrawl SEO Tool"। Create → डायलॉग Client ID + Client Secret दिखाता है। दोनों तुरंत कॉपी करें (Secret फिर नहीं दिखता)।\n\nDESKTOP क्यों: FreeCrawl हर कनेक्शन के लिए एक यादृच्छिक स्थानीय पोर्ट (जैसे 127.0.0.1:63092) इस्तेमाल करता है। "Web application" को निश्चित redirect URI सूची चाहिए — वह यादृच्छिक पोर्ट मेल नहीं खा सकता → विफल। "Desktop app" पोर्ट की परवाह किए बिना loopback रीडायरेक्ट अपने आप स्वीकार करता है।',
+          'Application type ड्रॉपडाउन → "Desktop app"। Name: "EXIT SEO Crawler"। Create → डायलॉग Client ID + Client Secret दिखाता है। दोनों तुरंत कॉपी करें (Secret फिर नहीं दिखता)।\n\nDESKTOP क्यों: EXIT SEO Crawler हर कनेक्शन के लिए एक यादृच्छिक स्थानीय पोर्ट (जैसे 127.0.0.1:63092) इस्तेमाल करता है। "Web application" को निश्चित redirect URI सूची चाहिए — वह यादृच्छिक पोर्ट मेल नहीं खा सकता → विफल। "Desktop app" पोर्ट की परवाह किए बिना loopback रीडायरेक्ट अपने आप स्वीकार करता है।',
       },
       {
         title: 'Client ID + Client Secret इस पैनल में पेस्ट करें + Save',
@@ -501,10 +501,10 @@ export const GUIDES_HI: Record<string, Guide> = {
       {
         title: 'उस Google खाते से साइन इन करें जिसे टेस्ट यूज़र बनाया',
         detail:
-          'खाता चयनकर्ता में वह ईमेल चुनें जिसे टेस्ट यूज़र में जोड़ा। "Continue" → "Google hasn\'t verified this app" चेतावनी (टेस्टिंग मोड में अपेक्षित)। "Advanced" → "Go to FreeCrawl Local (unsafe)" → अनुमतियाँ स्वीकारें → Allow।',
+          'खाता चयनकर्ता में वह ईमेल चुनें जिसे टेस्ट यूज़र में जोड़ा। "Continue" → "Google hasn\'t verified this app" चेतावनी (टेस्टिंग मोड में अपेक्षित)। "Advanced" → "Go to EXIT SEO Crawler Local (unsafe)" → अनुमतियाँ स्वीकारें → Allow।',
       },
       {
-        title: 'वापस FreeCrawl में — आपको "कॉन्फ़िगर किया गया" दिखना चाहिए',
+        title: 'वापस EXIT SEO Crawler में — आपको "कॉन्फ़िगर किया गया" दिखना चाहिए',
         detail:
           'सेटिंग्स में Search Console कार्ड पर अब हरा "कॉन्फ़िगर किया गया" बैज दिखता है। अब आप ऊपर के "Search Console" टैब में जाकर प्रॉपर्टी सूची + डेटा ला सकते हैं।',
       },
@@ -518,7 +518,7 @@ export const GUIDES_HI: Record<string, Guide> = {
       {
         problem: '"Request had insufficient authentication scopes"',
         solution:
-          'या तो Search Console API सक्षम नहीं था या OAuth सहमति स्क्रीन पर "View Search Console data for your verified sites" अनुमति चेकबॉक्स अनचेक था। (1) Search Console API सक्षम करें (चरण 5), (2) myaccount.google.com/permissions → "FreeCrawl Local" → Remove access → फिर कनेक्ट क्लिक करें और सहमति स्क्रीन पर हर अनुमति चेक करें।',
+          'या तो Search Console API सक्षम नहीं था या OAuth सहमति स्क्रीन पर "View Search Console data for your verified sites" अनुमति चेकबॉक्स अनचेक था। (1) Search Console API सक्षम करें (चरण 5), (2) myaccount.google.com/permissions → "EXIT SEO Crawler Local" → Remove access → फिर कनेक्ट क्लिक करें और सहमति स्क्रीन पर हर अनुमति चेक करें।',
       },
       {
         problem: '"redirect_uri_mismatch"',
@@ -597,7 +597,7 @@ export const GUIDES_HI: Record<string, Guide> = {
       {
         problem: '"Request had insufficient authentication scopes"',
         solution:
-          'OAuth स्कोप में GA4 शामिल नहीं। myaccount.google.com/permissions → "FreeCrawl Local" → Remove access → फिर कनेक्ट क्लिक करें → Google Analytics अनुमति चेकबॉक्स चेक करें।',
+          'OAuth स्कोप में GA4 शामिल नहीं। myaccount.google.com/permissions → "EXIT SEO Crawler Local" → Remove access → फिर कनेक्ट क्लिक करें → Google Analytics अनुमति चेकबॉक्स चेक करें।',
       },
       {
         problem: 'Property list comes back empty',
@@ -661,7 +661,7 @@ export const GUIDES_HI: Record<string, Guide> = {
     ],
     notes: [
       'Sheets की कठोर सीमा: प्रति स्प्रेडशीट 10M सेल — बड़े क्रॉल (>500K URL) बाँट दिए जाते हैं।',
-      'Drive स्कोप "drive.file" है — केवल FreeCrawl द्वारा बनाई फ़ाइलें सुलभ हैं, आपकी मौजूदा फ़ाइलें नहीं।',
+      'Drive स्कोप "drive.file" है — केवल EXIT SEO Crawler द्वारा बनाई फ़ाइलें सुलभ हैं, आपकी मौजूदा फ़ाइलें नहीं।',
     ],
     lastReviewed: '2026-06-01',
   },
@@ -706,7 +706,7 @@ export const GUIDES_HI: Record<string, Guide> = {
       {
         title: 'इसे इस पैनल के "Service Account JSON" फ़ील्ड में पेस्ट करें',
         detail:
-          'पूरा JSON पेस्ट करें (खुलने वाले `{` से बंद होने वाले `}` तक)। FreeCrawl JSON को OS क्रेडेंशियल स्टोर में एन्क्रिप्ट करके रखता है।',
+          'पूरा JSON पेस्ट करें (खुलने वाले `{` से बंद होने वाले `}` तक)। EXIT SEO Crawler JSON को OS क्रेडेंशियल स्टोर में एन्क्रिप्ट करके रखता है।',
       },
       {
         title: '"GCP Project ID" भरें',
@@ -737,12 +737,12 @@ export const GUIDES_HI: Record<string, Guide> = {
       {
         problem: '"Invalid JSON"',
         solution:
-          'आपने JSON का सिर्फ़ हिस्सा पेस्ट किया या किनारों पर कोई फ़ालतू अक्षर है। सर्विस अकाउंट JSON फ़ाइल को असली एडिटर (VS Code अनुशंसित, Notepad नहीं) में खोलें, Ctrl+A से सब चुनें, कॉपी करें, FreeCrawl फ़ील्ड खाली करें, पेस्ट करें।',
+          'आपने JSON का सिर्फ़ हिस्सा पेस्ट किया या किनारों पर कोई फ़ालतू अक्षर है। सर्विस अकाउंट JSON फ़ाइल को असली एडिटर (VS Code अनुशंसित, Notepad नहीं) में खोलें, Ctrl+A से सब चुनें, कॉपी करें, EXIT SEO Crawler फ़ील्ड खाली करें, पेस्ट करें।',
       },
     ],
     notes: [
       'लागत: BigQuery मुफ़्त टियर (10GB स्टोरेज + 1TB क्वेरी/माह) सामान्य उपयोग के लिए काफ़ी है। 1M-URL क्रॉल ~500MB; क्वेरी लागत आपके SQL पर निर्भर।',
-      'स्कीमा विकास: FreeCrawl निर्यात टेबल अपने आप बनाता/अपडेट करता है। CrawlUrlRow स्कीमा में नए कॉलम आएँ तो निर्यात टेबल उन्हें अपना लेती है (BigQuery DDL लचीलापन)।',
+      'स्कीमा विकास: EXIT SEO Crawler निर्यात टेबल अपने आप बनाता/अपडेट करता है। CrawlUrlRow स्कीमा में नए कॉलम आएँ तो निर्यात टेबल उन्हें अपना लेती है (BigQuery DDL लचीलापन)।',
     ],
     lastReviewed: '2026-06-01',
   },

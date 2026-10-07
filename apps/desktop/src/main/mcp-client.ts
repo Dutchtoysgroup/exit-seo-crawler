@@ -676,6 +676,6 @@ export async function callTool(
 
 /** Display label for a server id (falls back to the id itself). */
 export function labelFor(serverId: string): string {
-  if (serverId === BUILTIN_SERVER_ID) return 'FreeCrawl';
+  if (serverId === BUILTIN_SERVER_ID) return 'EXIT SEO Crawler';
   return storedServer(serverId)?.label ?? serverId;
 }

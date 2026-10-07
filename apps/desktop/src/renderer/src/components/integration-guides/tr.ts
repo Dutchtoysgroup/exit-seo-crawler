@@ -9,7 +9,7 @@ import type { Guide } from './types.js';
 export const GUIDES_TR: Record<string, Guide> = {
   openai: {
     intro:
-      "OpenAI'in API'sini kullanarak her URL için özel bir prompt çalıştırırsın — içerik analizi, title önerisi, açıklama özeti gibi. Kullanım kendi OpenAI hesabına faturalanır (FreeCrawl bedava aracılık yapar, API çağrıları senin hesabından düşer).",
+      "OpenAI'in API'sini kullanarak her URL için özel bir prompt çalıştırırsın — içerik analizi, title önerisi, açıklama özeti gibi. Kullanım kendi OpenAI hesabına faturalanır (EXIT SEO Crawler bedava aracılık yapar, API çağrıları senin hesabından düşer).",
     prereqs: [
       'OpenAI hesabı (https://platform.openai.com adresinden ücretsiz açılır).',
       'Geçerli bir ödeme yöntemi (kredi kartı) — OpenAI API anahtarları $5 minimum bakiye gerektirir.',
@@ -35,7 +35,7 @@ export const GUIDES_TR: Record<string, Guide> = {
       {
         title: 'Sağ üstte "+ Create new secret key" butonuna bas',
         detail:
-          'Açılan dialog\'a:\n• Name: "FreeCrawl SEO Tool" (istediğin isim, hatırlatıcı için)\n• Project: Default project veya istediğin project\n• Permissions: All (en kolayı; daha kısıtlı izinler de iş görür)\nsonra "Create secret key" butonuna bas.',
+          'Açılan dialog\'a:\n• Name: "EXIT SEO Crawler" (istediğin isim, hatırlatıcı için)\n• Project: Default project veya istediğin project\n• Permissions: All (en kolayı; daha kısıtlı izinler de iş görür)\nsonra "Create secret key" butonuna bas.',
       },
       {
         title: 'Anahtarı KOPYALA — bir daha gösterilmez',
@@ -45,7 +45,7 @@ export const GUIDES_TR: Record<string, Guide> = {
       {
         title: 'Anahtarı bu pencerenin "API Key" alanına yapıştır + Save\'e bas',
         detail:
-          "FreeCrawl anahtarı OS'un güvenli credential store'unda (Windows: DPAPI, macOS: Keychain, Linux: Secret Service) şifreli olarak saklar. Düz metin dosyaya yazılmaz.",
+          "EXIT SEO Crawler anahtarı OS'un güvenli credential store'unda (Windows: DPAPI, macOS: Keychain, Linux: Secret Service) şifreli olarak saklar. Düz metin dosyaya yazılmaz.",
       },
       {
         title: 'AI sekmesinde test et',
@@ -102,7 +102,7 @@ export const GUIDES_TR: Record<string, Guide> = {
       {
         title: '"+ Create Key" butonuna bas',
         detail:
-          'Açılan dialog:\n• Name: "FreeCrawl SEO Tool"\n• Workspace: Default workspace (varsayılan)\n• Environment: Production\nsonra "Create Key" butonuna bas.',
+          'Açılan dialog:\n• Name: "EXIT SEO Crawler"\n• Workspace: Default workspace (varsayılan)\n• Environment: Production\nsonra "Create Key" butonuna bas.',
       },
       {
         title: 'Anahtarı KOPYALA — bir daha gösterilmez',
@@ -136,7 +136,7 @@ export const GUIDES_TR: Record<string, Guide> = {
     ],
     notes: [
       'Maliyet (2026-06): Haiku 4.5 ~$0.25/1M input + $1.25/1M output; Sonnet 4.6 ~$3/1M input + $15/1M output; Opus 4.8 ~$15/1M input + $75/1M output.',
-      "Anthropic prompt caching destekliyor — uzun system prompt'lar 5dk içinde tekrar kullanılırsa 90% indirimli (FreeCrawl AI panel'i şu an caching kullanmıyor, sonraki sürümde gelecek).",
+      "Anthropic prompt caching destekliyor — uzun system prompt'lar 5dk içinde tekrar kullanılırsa 90% indirimli (EXIT SEO Crawler AI panel'i şu an caching kullanmıyor, sonraki sürümde gelecek).",
     ],
     lastReviewed: '2026-06-01',
   },
@@ -176,7 +176,7 @@ export const GUIDES_TR: Record<string, Guide> = {
       {
         title: 'Model alanına indirdiğin model adını yaz',
         detail:
-          'Örn: "llama3.2" veya "qwen2.5:7b". Adım 2\'de indirdiğin modelin adı. Boş bırakırsan FreeCrawl ilk available modeli seçer.',
+          'Örn: "llama3.2" veya "qwen2.5:7b". Adım 2\'de indirdiğin modelin adı. Boş bırakırsan EXIT SEO Crawler ilk available modeli seçer.',
       },
       {
         title: 'Save + test',
@@ -223,7 +223,7 @@ export const GUIDES_TR: Record<string, Guide> = {
       {
         title: 'Bir project seç veya oluştur',
         detail:
-          'Üst soldaki project dropdown\'a tıkla → "New Project" → isim: "FreeCrawl SEO" → Create. Billing account ZORUNLU DEĞİL (PSI free tier sadece authentication için credentials ister).',
+          'Üst soldaki project dropdown\'a tıkla → "New Project" → isim: "EXIT SEO Crawler" → Create. Billing account ZORUNLU DEĞİL (PSI free tier sadece authentication için credentials ister).',
       },
       {
         title: "PageSpeed Insights API'yı enable et",
@@ -250,7 +250,7 @@ export const GUIDES_TR: Record<string, Guide> = {
       {
         title: "Optional: API key'i kısıtla (önerilir)",
         detail:
-          'Açılan dialog\'dan "Edit API key" → "Restrict key" altında:\n• API restrictions: "Restrict key" → "PageSpeed Insights API"\n• Application restrictions: "None" (FreeCrawl desktop app olduğu için referrer/IP filtrelemesi işe yaramaz)\nKısıtlama yapmasan da çalışır, ama tavsiye ederiz.',
+          'Açılan dialog\'dan "Edit API key" → "Restrict key" altında:\n• API restrictions: "Restrict key" → "PageSpeed Insights API"\n• Application restrictions: "None" (EXIT SEO Crawler desktop app olduğu için referrer/IP filtrelemesi işe yaramaz)\nKısıtlama yapmasan da çalışır, ama tavsiye ederiz.',
       },
       {
         title: 'Anahtarı bu pencerenin "API Key" alanına yapıştır + Save',
@@ -275,7 +275,7 @@ export const GUIDES_TR: Record<string, Guide> = {
       {
         problem: '"Quota exceeded" — 25.000\'den önce',
         solution:
-          "Free tier per-minute limit'i de var: 240 query/dakika. FreeCrawl Settings → PageSpeed → Concurrency'yi 2-3'te tut. Day quota 25K — bu çok yüksek, normal kullanımda görmezsin.",
+          "Free tier per-minute limit'i de var: 240 query/dakika. EXIT SEO Crawler Settings → PageSpeed → Concurrency'yi 2-3'te tut. Day quota 25K — bu çok yüksek, normal kullanımda görmezsin.",
       },
     ],
     notes: [
@@ -435,7 +435,7 @@ export const GUIDES_TR: Record<string, Guide> = {
   },
   gsc: {
     intro:
-      'Google Search Console API ile her crawl edilmiş URL için clicks, impressions, CTR, average position metriklerini Google\'dan çekersin. URL Inspection API ile coverage verdict + last-crawl-time de mümkün. "Bring your own client" model — kendi Google Cloud OAuth client\'ını oluşturup pasti, FreeCrawl shared bir aracı uygulama kullanmıyor.',
+      'Google Search Console API ile her crawl edilmiş URL için clicks, impressions, CTR, average position metriklerini Google\'dan çekersin. URL Inspection API ile coverage verdict + last-crawl-time de mümkün. "Bring your own client" model — kendi Google Cloud OAuth client\'ını oluşturup pasti, EXIT SEO Crawler shared bir aracı uygulama kullanmıyor.',
     prereqs: [
       "Google hesabı (bağlanacak GSC property'lerinin sahibi/sahiplerinden biri olmalı).",
       'En az bir Google Search Console property eklenmiş + doğrulanmış olmalı.',
@@ -444,7 +444,7 @@ export const GUIDES_TR: Record<string, Guide> = {
       {
         title: "Google Cloud Console'a gir + yeni bir project oluştur",
         detail:
-          'Üst soldaki project dropdown → "New Project" → isim: "FreeCrawl SEO Integrations" (veya istediğin) → Create. Bu project sadece OAuth credentials için, billing istemiyor.',
+          'Üst soldaki project dropdown → "New Project" → isim: "EXIT SEO Crawler Integrations" (veya istediğin) → Create. Bu project sadece OAuth credentials için, billing istemiyor.',
         link: {
           label: 'console.cloud.google.com',
           url: 'https://console.cloud.google.com',
@@ -462,7 +462,7 @@ export const GUIDES_TR: Record<string, Guide> = {
       {
         title: "OAuth consent screen'i doldur",
         detail:
-          'Sadece zorunlu alanlar yeter:\n• App name: "FreeCrawl Local"\n• User support email: kendi email\'in\n• Developer contact information: kendi email\'in\nDiğer alanları boş bırakabilirsin. Save and Continue → Save and Continue → Save and Continue → Back to Dashboard.',
+          'Sadece zorunlu alanlar yeter:\n• App name: "EXIT SEO Crawler Local"\n• User support email: kendi email\'in\n• Developer contact information: kendi email\'in\nDiğer alanları boş bırakabilirsin. Save and Continue → Save and Continue → Save and Continue → Back to Dashboard.',
       },
       {
         title: "ÖNEMLİ: Test User olarak kendi email'ini ekle",
@@ -494,7 +494,7 @@ export const GUIDES_TR: Record<string, Guide> = {
       {
         title: 'OAuth Client tipini "Desktop app" SEÇ (Web app değil!)',
         detail:
-          'Application type dropdown\'dan "Desktop app" seç. Adı: "FreeCrawl SEO Tool". Create → açılan dialog\'da Client ID + Client Secret görünür. İkisini de kopyala (Client secret bir daha gösterilmez, mutlaka kaydet).\n\nNEDEN DESKTOP: FreeCrawl her bağlantıda rastgele bir local port (örn. 127.0.0.1:63092) kullanır. "Web application" tipinde redirect URI listesi sabit olmak zorunda, bu port her seferinde değişir → fail. "Desktop app" tipi localhost loopback redirect\'i otomatik kabul eder, port-agnostic.',
+          'Application type dropdown\'dan "Desktop app" seç. Adı: "EXIT SEO Crawler". Create → açılan dialog\'da Client ID + Client Secret görünür. İkisini de kopyala (Client secret bir daha gösterilmez, mutlaka kaydet).\n\nNEDEN DESKTOP: EXIT SEO Crawler her bağlantıda rastgele bir local port (örn. 127.0.0.1:63092) kullanır. "Web application" tipinde redirect URI listesi sabit olmak zorunda, bu port her seferinde değişir → fail. "Desktop app" tipi localhost loopback redirect\'i otomatik kabul eder, port-agnostic.',
       },
       {
         title: "Client ID + Client Secret'i bu panele yapıştır + Save",
@@ -509,10 +509,10 @@ export const GUIDES_TR: Record<string, Guide> = {
       {
         title: 'Test user olarak eklediğin Google account ile giriş yap',
         detail:
-          'Account picker\'da test users\'a eklediğin email\'i seç. "Continue" → "Google hasn\'t verified this app" uyarısı çıkacak (normal, test mode için beklenen). "Advanced" → "Go to FreeCrawl Local (unsafe)" tıkla → izinleri kabul et → consent → Allow.',
+          'Account picker\'da test users\'a eklediğin email\'i seç. "Continue" → "Google hasn\'t verified this app" uyarısı çıkacak (normal, test mode için beklenen). "Advanced" → "Go to EXIT SEO Crawler Local (unsafe)" tıkla → izinleri kabul et → consent → Allow.',
       },
       {
-        title: 'FreeCrawl\'a dönüş — "Configured" görmen lazım',
+        title: 'EXIT SEO Crawler\'a dönüş — "Configured" görmen lazım',
         detail:
           'Settings dialog\'daki Search Console kartı yeşil "Configured" badge\'i göstermeli. Artık üst tab bar\'dan "Search Console" sekmesinde property listele + fetch yapabilirsin.',
       },
@@ -526,7 +526,7 @@ export const GUIDES_TR: Record<string, Guide> = {
       {
         problem: '"Request had insufficient authentication scopes"',
         solution:
-          'Search Console API enable edilmemiş VEYA OAuth consent ekranında "View Search Console data for your verified sites" izninin checkbox\'ı işaretlenmemiş. (1) Search Console API\'yı enable et (Adım 5), (2) myaccount.google.com/permissions → "FreeCrawl Local" → Remove access → tekrar Connect yap ve consent screen\'inde tüm izinleri tikle.',
+          'Search Console API enable edilmemiş VEYA OAuth consent ekranında "View Search Console data for your verified sites" izninin checkbox\'ı işaretlenmemiş. (1) Search Console API\'yı enable et (Adım 5), (2) myaccount.google.com/permissions → "EXIT SEO Crawler Local" → Remove access → tekrar Connect yap ve consent screen\'inde tüm izinleri tikle.',
       },
       {
         problem: '"redirect_uri_mismatch"',
@@ -583,7 +583,7 @@ export const GUIDES_TR: Record<string, Guide> = {
       {
         title: "GSC için kullandığın aynı Client ID + Secret'i bu panele yapıştır",
         detail:
-          "Eğer GSC zaten bağlıysa, ayrıca paste etmen gerekmeyebilir (kart aynı credential'ı paylaşabilir). FreeCrawl'da her Google entegrasyonu kendi credential field'ına sahip — sıfırdan kuruyorsan GSC için yapılan setup'taki ID/Secret'i kopyala buraya da yapıştır.",
+          "Eğer GSC zaten bağlıysa, ayrıca paste etmen gerekmeyebilir (kart aynı credential'ı paylaşabilir). EXIT SEO Crawler'da her Google entegrasyonu kendi credential field'ına sahip — sıfırdan kuruyorsan GSC için yapılan setup'taki ID/Secret'i kopyala buraya da yapıştır.",
       },
       {
         title: '"Connect" → tarayıcıda Google\'a giriş + GA4 scope\'unu onayla',
@@ -605,7 +605,7 @@ export const GUIDES_TR: Record<string, Guide> = {
       {
         problem: '"Request had insufficient authentication scopes"',
         solution:
-          "OAuth scope GA4'i kapsamıyor. myaccount.google.com/permissions → \"FreeCrawl Local\" → Remove access → tekrar Connect → consent screen'de Google Analytics izinleri checkbox'ını tik'le.",
+          "OAuth scope GA4'i kapsamıyor. myaccount.google.com/permissions → \"EXIT SEO Crawler Local\" → Remove access → tekrar Connect → consent screen'de Google Analytics izinleri checkbox'ını tik'le.",
       },
       {
         problem: 'Property listesi boş geliyor',
@@ -666,7 +666,7 @@ export const GUIDES_TR: Record<string, Guide> = {
     ],
     notes: [
       "Sheets per-Sheet 10M cell hard limit'i var — büyük crawl'lar (>500K URL) split edilir.",
-      'Drive scope "drive.file" — sadece FreeCrawl tarafından oluşturulan dosyalara erişim, mevcut dosyalarına dokunmaz.',
+      'Drive scope "drive.file" — sadece EXIT SEO Crawler tarafından oluşturulan dosyalara erişim, mevcut dosyalarına dokunmaz.',
     ],
     lastReviewed: '2026-06-01',
   },
@@ -711,7 +711,7 @@ export const GUIDES_TR: Record<string, Guide> = {
       {
         title: 'Bu panelin "Service Account JSON" alanına yapıştır',
         detail:
-          "Tüm JSON içeriği (kapsayıcı `{` dan `}` a kadar) yapıştır. FreeCrawl JSON'u OS'un secure credential store'unda şifreli olarak saklar.",
+          "Tüm JSON içeriği (kapsayıcı `{` dan `}` a kadar) yapıştır. EXIT SEO Crawler JSON'u OS'un secure credential store'unda şifreli olarak saklar.",
       },
       {
         title: '"GCP Project ID" alanına project ID\'ni yaz',
@@ -742,12 +742,12 @@ export const GUIDES_TR: Record<string, Guide> = {
       {
         problem: '"Invalid JSON" hatası',
         solution:
-          "JSON'u kısmen yapıştırmışsındır veya başına/sonuna ekstra karakter eklemişsindir. Service account JSON dosyasını editör ile aç (notepad değil, VS Code önerilir), Ctrl+A → kopyala, FreeCrawl alanına git, mevcut içeriği sil, yapıştır.",
+          "JSON'u kısmen yapıştırmışsındır veya başına/sonuna ekstra karakter eklemişsindir. Service account JSON dosyasını editör ile aç (notepad değil, VS Code önerilir), Ctrl+A → kopyala, EXIT SEO Crawler alanına git, mevcut içeriği sil, yapıştır.",
       },
     ],
     notes: [
       "Maliyet: BigQuery free tier (10GB storage + 1TB query/ay) tipik kullanım için yeterli. 1M URL crawl ~500MB, query maliyeti SQL'inle değişir.",
-      "Şema değişiklikleri: FreeCrawl her export'ta tabloyu otomatik oluşturur/günceller. CrawlUrlRow schema'sı değişirse export tablosu yeni kolonları otomatik ekler (BigQuery DDL flexibility).",
+      "Şema değişiklikleri: EXIT SEO Crawler her export'ta tabloyu otomatik oluşturur/günceller. CrawlUrlRow schema'sı değişirse export tablosu yeni kolonları otomatik ekler (BigQuery DDL flexibility).",
     ],
     lastReviewed: '2026-06-01',
   },

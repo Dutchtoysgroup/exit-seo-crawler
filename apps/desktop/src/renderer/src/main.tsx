@@ -4,6 +4,7 @@ import { App } from './App.js';
 import { LogsView } from './LogsView.js';
 import { VisualizationView } from './VisualizationView.js';
 import { LogAnalyzerView } from './LogAnalyzerView.js';
+import '@fontsource-variable/inter';
 import './styles.css';
 import './i18n/index.js';
 import './theme.js';

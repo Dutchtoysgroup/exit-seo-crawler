@@ -18,29 +18,29 @@ import { getTheme, subscribeTheme } from '../theme.js';
 /** The Tailwind palette the grid body paints with — dark theme values. */
 const GRID_DARK = {
   /** surface-950 — the body background. */
-  background: '#0a0a0a',
+  background: '#0f110f',
   /** surface-900 — row and cell borders. */
-  border: '#171717',
+  border: '#181a18',
   /** surface-900/30 — hovered row. */
-  rowHover: 'rgba(23, 23, 23, 0.3)',
+  rowHover: 'rgba(24, 26, 24, 0.3)',
   /** surface-800/40 — hovered data cell. */
-  cellHover: 'rgba(38, 38, 38, 0.4)',
+  cellHover: 'rgba(40, 43, 40, 0.4)',
   /** surface-800/60 — hovered row-number cell. */
-  rowNumHover: 'rgba(38, 38, 38, 0.6)',
-  /** accent-500/15 — a selected row. */
-  rowSelected: 'rgba(37, 99, 235, 0.15)',
-  /** accent-500/30 — a selected cell, column or row-number cell. */
-  cellSelected: 'rgba(37, 99, 235, 0.3)',
+  rowNumHover: 'rgba(40, 43, 40, 0.6)',
+  /** EXIT green #78be20 at 15% — a selected row. */
+  rowSelected: 'rgba(120, 190, 32, 0.15)',
+  /** EXIT green #78be20 at 30% — a selected cell, column or row-number cell. */
+  cellSelected: 'rgba(120, 190, 32, 0.3)',
   /** surface-50 — text inside a selected cell. */
-  selectedText: '#fafafa',
+  selectedText: '#f9faf9',
   /** surface-100 — mono text (URLs). */
-  mono: '#f5f5f5',
+  mono: '#f4f6f4',
   /** surface-200 — plain text and numbers. */
-  text: '#e5e5e5',
+  text: '#e4e6e3',
   /** surface-500 — row numbers. */
-  rowNum: '#737373',
+  rowNum: '#787b78',
   /** surface-700 — the "—" / "…" placeholders. */
-  placeholder: '#404040',
+  placeholder: '#3e413e',
   /** emerald-400 — Indexable, and the re-crawl change marker. */
   good: '#34d399',
   /** amber-400 — Non-Indexable, and the Robots badge text. */
@@ -53,18 +53,18 @@ type GridColors = { -readonly [K in keyof typeof GRID_DARK]: string };
 
 /** The same roles on the mirrored (light) surface scale — see styles.css. */
 const GRID_LIGHT: GridColors = {
-  background: '#fafafa',
-  border: '#e5e5e5',
-  rowHover: 'rgba(23, 23, 23, 0.05)',
-  cellHover: 'rgba(38, 38, 38, 0.08)',
-  rowNumHover: 'rgba(38, 38, 38, 0.12)',
-  rowSelected: 'rgba(37, 99, 235, 0.12)',
-  cellSelected: 'rgba(37, 99, 235, 0.28)',
-  selectedText: '#0a0a0a',
-  mono: '#171717',
-  text: '#262626',
-  rowNum: '#737373',
-  placeholder: '#d4d4d4',
+  background: '#f9fbf8',
+  border: '#e7ebe2',
+  rowHover: 'rgba(15, 16, 14, 0.05)',
+  cellHover: 'rgba(36, 40, 32, 0.08)',
+  rowNumHover: 'rgba(36, 40, 32, 0.12)',
+  rowSelected: 'rgba(120, 190, 32, 0.14)',
+  cellSelected: 'rgba(120, 190, 32, 0.34)',
+  selectedText: '#070706',
+  mono: '#0f100e',
+  text: '#242820',
+  rowNum: '#737570',
+  placeholder: '#d6dbd0',
   good: '#059669',
   warn: '#d97706',
   pinnedShadow: 'rgba(0, 0, 0, 0.12)',
@@ -88,9 +88,9 @@ const BADGES_DARK = {
   /** 5xx — red-900/60 on red-300. */
   serverError: { bg: 'rgba(127, 29, 29, 0.6)', fg: '#fca5a5' },
   /** 1xx and anything else — surface-800 on surface-400. */
-  other: { bg: '#262626', fg: '#a3a3a3' },
+  other: { bg: '#282b28', fg: '#a8aca8' },
   /** Robots-blocked — surface-800 on amber-400. */
-  robots: { bg: '#262626', fg: '#fbbf24' },
+  robots: { bg: '#282b28', fg: '#fbbf24' },
   /** No HTTP response — rose-950/60 on rose-300. */
   failure: { bg: 'rgba(76, 5, 25, 0.6)', fg: '#fda4af' },
 } as const;
@@ -103,8 +103,8 @@ const BADGES_LIGHT: StatusBadges = {
   redirect: { bg: '#fef3c7', fg: '#b45309' },
   clientError: { bg: '#ffedd5', fg: '#c2410c' },
   serverError: { bg: '#fee2e2', fg: '#b91c1c' },
-  other: { bg: '#e5e5e5', fg: '#525252' },
-  robots: { bg: '#e5e5e5', fg: '#b45309' },
+  other: { bg: '#e7ebe2', fg: '#515350' },
+  robots: { bg: '#e7ebe2', fg: '#b45309' },
   failure: { bg: '#ffe4e6', fg: '#be123c' },
 };
 

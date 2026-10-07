@@ -9,7 +9,7 @@ import type { Guide } from './types.js';
 export const GUIDES_EN: Record<string, Guide> = {
   openai: {
     intro:
-      "Run a custom prompt per URL through OpenAI's API — content analysis, title ideas, summaries. Usage is billed to your own OpenAI account; FreeCrawl is a free middleware, API calls hit your wallet.",
+      "Run a custom prompt per URL through OpenAI's API — content analysis, title ideas, summaries. Usage is billed to your own OpenAI account; EXIT SEO Crawler is a free middleware, API calls hit your wallet.",
     prereqs: [
       'OpenAI account (sign up free at https://platform.openai.com).',
       'Valid payment method — OpenAI requires a $5 minimum balance before keys work.',
@@ -34,7 +34,7 @@ export const GUIDES_EN: Record<string, Guide> = {
       {
         title: 'Click "+ Create new secret key" (top right)',
         detail:
-          'In the dialog:\n• Name: "FreeCrawl SEO Tool" (any reminder label)\n• Project: Default project or your choice\n• Permissions: All (easiest; restricted scopes also work)\nthen "Create secret key".',
+          'In the dialog:\n• Name: "EXIT SEO Crawler" (any reminder label)\n• Project: Default project or your choice\n• Permissions: All (easiest; restricted scopes also work)\nthen "Create secret key".',
       },
       {
         title: 'COPY the key — it is never shown again',
@@ -44,7 +44,7 @@ export const GUIDES_EN: Record<string, Guide> = {
       {
         title: 'Paste it into this panel\'s "API Key" field + click Save',
         detail:
-          'FreeCrawl stores the key encrypted in the OS credential store (Windows DPAPI, macOS Keychain, Linux Secret Service). Never written as plaintext.',
+          'EXIT SEO Crawler stores the key encrypted in the OS credential store (Windows DPAPI, macOS Keychain, Linux Secret Service). Never written as plaintext.',
       },
       {
         title: 'Test in the AI tab',
@@ -101,7 +101,7 @@ export const GUIDES_EN: Record<string, Guide> = {
       {
         title: 'Click "+ Create Key"',
         detail:
-          'In the dialog:\n• Name: "FreeCrawl SEO Tool"\n• Workspace: Default workspace\n• Environment: Production\nthen "Create Key".',
+          'In the dialog:\n• Name: "EXIT SEO Crawler"\n• Workspace: Default workspace\n• Environment: Production\nthen "Create Key".',
       },
       {
         title: 'COPY the key — it is never shown again',
@@ -134,7 +134,7 @@ export const GUIDES_EN: Record<string, Guide> = {
     ],
     notes: [
       'Pricing (2026-06): Haiku 4.5 ~$0.25/$1.25 (in/out per 1M tokens), Sonnet 4.6 ~$3/$15, Opus 4.8 ~$15/$75.',
-      "Anthropic supports prompt caching — repeated long system prompts within 5 min are 90% discounted (FreeCrawl AI panel doesn't use caching yet — coming in a later release).",
+      "Anthropic supports prompt caching — repeated long system prompts within 5 min are 90% discounted (EXIT SEO Crawler AI panel doesn't use caching yet — coming in a later release).",
     ],
     lastReviewed: '2026-06-01',
   },
@@ -174,7 +174,7 @@ export const GUIDES_EN: Record<string, Guide> = {
       {
         title: 'Enter the model name you pulled',
         detail:
-          'E.g. "llama3.2" or "qwen2.5:7b". Leave blank to let FreeCrawl pick the first available model.',
+          'E.g. "llama3.2" or "qwen2.5:7b". Leave blank to let EXIT SEO Crawler pick the first available model.',
       },
       {
         title: 'Save + test',
@@ -223,7 +223,7 @@ export const GUIDES_EN: Record<string, Guide> = {
       {
         title: 'Pick or create a project',
         detail:
-          'Top-left project dropdown → "New Project" → name: "FreeCrawl SEO" → Create. NO billing account required — PSI free tier only needs credentials for authentication.',
+          'Top-left project dropdown → "New Project" → name: "EXIT SEO Crawler" → Create. NO billing account required — PSI free tier only needs credentials for authentication.',
       },
       {
         title: 'Enable the PageSpeed Insights API',
@@ -250,7 +250,7 @@ export const GUIDES_EN: Record<string, Guide> = {
       {
         title: 'Optional: restrict the API key (recommended)',
         detail:
-          'Click "Edit API key" → "Restrict key":\n• API restrictions: "Restrict key" → "PageSpeed Insights API"\n• Application restrictions: "None" (FreeCrawl is a desktop app, so referrer/IP filtering won\'t work)\nUnrestricted keys also work, but we recommend you restrict.',
+          'Click "Edit API key" → "Restrict key":\n• API restrictions: "Restrict key" → "PageSpeed Insights API"\n• Application restrictions: "None" (EXIT SEO Crawler is a desktop app, so referrer/IP filtering won\'t work)\nUnrestricted keys also work, but we recommend you restrict.',
       },
       {
         title: 'Paste the key into this panel\'s "API Key" field + Save',
@@ -433,7 +433,7 @@ export const GUIDES_EN: Record<string, Guide> = {
   },
   gsc: {
     intro:
-      'Pull per-URL Search Console metrics (clicks, impressions, CTR, average position) via the Google Search Console API. URL Inspection API also gives you coverage verdict + last-crawl time. "Bring your own client" model — you create your own Google Cloud OAuth client and paste it; FreeCrawl does not use a shared middleman app.',
+      'Pull per-URL Search Console metrics (clicks, impressions, CTR, average position) via the Google Search Console API. URL Inspection API also gives you coverage verdict + last-crawl time. "Bring your own client" model — you create your own Google Cloud OAuth client and paste it; EXIT SEO Crawler does not use a shared middleman app.',
     prereqs: [
       'Google account (must own / co-own the GSC property you want to connect).',
       'At least one Google Search Console property added + verified.',
@@ -442,7 +442,7 @@ export const GUIDES_EN: Record<string, Guide> = {
       {
         title: 'Open Google Cloud Console and create a new project',
         detail:
-          'Top-left project dropdown → "New Project" → name: "FreeCrawl SEO Integrations" (anything you like) → Create. This project is only for OAuth credentials — billing not required.',
+          'Top-left project dropdown → "New Project" → name: "EXIT SEO Crawler Integrations" (anything you like) → Create. This project is only for OAuth credentials — billing not required.',
         link: {
           label: 'console.cloud.google.com',
           url: 'https://console.cloud.google.com',
@@ -460,7 +460,7 @@ export const GUIDES_EN: Record<string, Guide> = {
       {
         title: 'Fill in the OAuth consent screen',
         detail:
-          'Only the required fields:\n• App name: "FreeCrawl Local"\n• User support email: your email\n• Developer contact information: your email\nLeave the rest blank. Save and Continue → Save and Continue → Save and Continue → Back to Dashboard.',
+          'Only the required fields:\n• App name: "EXIT SEO Crawler Local"\n• User support email: your email\n• Developer contact information: your email\nLeave the rest blank. Save and Continue → Save and Continue → Save and Continue → Back to Dashboard.',
       },
       {
         title: 'CRITICAL: Add yourself as a Test User',
@@ -491,7 +491,7 @@ export const GUIDES_EN: Record<string, Guide> = {
       {
         title: 'Pick "Desktop app" as the OAuth Client type (NOT Web app!)',
         detail:
-          'Application type dropdown → "Desktop app". Name: "FreeCrawl SEO Tool". Create → the dialog shows Client ID + Client Secret. Copy both immediately (Secret is not shown again).\n\nWHY DESKTOP: FreeCrawl uses a random local port (e.g. 127.0.0.1:63092) per connection. "Web application" needs a fixed redirect URI list — that random port can\'t match → fail. "Desktop app" automatically accepts loopback redirects, port-agnostic.',
+          'Application type dropdown → "Desktop app". Name: "EXIT SEO Crawler". Create → the dialog shows Client ID + Client Secret. Copy both immediately (Secret is not shown again).\n\nWHY DESKTOP: EXIT SEO Crawler uses a random local port (e.g. 127.0.0.1:63092) per connection. "Web application" needs a fixed redirect URI list — that random port can\'t match → fail. "Desktop app" automatically accepts loopback redirects, port-agnostic.',
       },
       {
         title: 'Paste Client ID + Client Secret into this panel + Save',
@@ -506,10 +506,10 @@ export const GUIDES_EN: Record<string, Guide> = {
       {
         title: 'Sign in with the Google account you added as a test user',
         detail:
-          'In the account picker pick the email you added to test users. "Continue" → "Google hasn\'t verified this app" warning (expected for testing mode). "Advanced" → "Go to FreeCrawl Local (unsafe)" → accept the permissions → Allow.',
+          'In the account picker pick the email you added to test users. "Continue" → "Google hasn\'t verified this app" warning (expected for testing mode). "Advanced" → "Go to EXIT SEO Crawler Local (unsafe)" → accept the permissions → Allow.',
       },
       {
-        title: 'Back to FreeCrawl — you should see "Configured"',
+        title: 'Back to EXIT SEO Crawler — you should see "Configured"',
         detail:
           'The Search Console card in Settings now shows a green "Configured" badge. You can now switch to the top "Search Console" tab to list properties + fetch data.',
       },
@@ -523,7 +523,7 @@ export const GUIDES_EN: Record<string, Guide> = {
       {
         problem: '"Request had insufficient authentication scopes"',
         solution:
-          'Either the Search Console API was not enabled OR the OAuth consent screen had the "View Search Console data for your verified sites" permission checkbox unchecked. (1) Enable the Search Console API (step 5), (2) myaccount.google.com/permissions → "FreeCrawl Local" → Remove access → click Connect again and tick every permission on the consent screen.',
+          'Either the Search Console API was not enabled OR the OAuth consent screen had the "View Search Console data for your verified sites" permission checkbox unchecked. (1) Enable the Search Console API (step 5), (2) myaccount.google.com/permissions → "EXIT SEO Crawler Local" → Remove access → click Connect again and tick every permission on the consent screen.',
       },
       {
         problem: '"redirect_uri_mismatch"',
@@ -602,7 +602,7 @@ export const GUIDES_EN: Record<string, Guide> = {
       {
         problem: '"Request had insufficient authentication scopes"',
         solution:
-          'OAuth scope doesn\'t cover GA4. Go to myaccount.google.com/permissions → "FreeCrawl Local" → Remove access → click Connect again → tick the Google Analytics permission checkbox.',
+          'OAuth scope doesn\'t cover GA4. Go to myaccount.google.com/permissions → "EXIT SEO Crawler Local" → Remove access → click Connect again → tick the Google Analytics permission checkbox.',
       },
       {
         problem: 'Property list comes back empty',
@@ -663,7 +663,7 @@ export const GUIDES_EN: Record<string, Guide> = {
     ],
     notes: [
       'Sheets hard limit: 10M cells per spreadsheet — large crawls (>500K URLs) get split.',
-      'Drive scope is "drive.file" — only files FreeCrawl creates are accessible, not your existing files.',
+      'Drive scope is "drive.file" — only files EXIT SEO Crawler creates are accessible, not your existing files.',
     ],
     lastReviewed: '2026-06-01',
   },
@@ -708,7 +708,7 @@ export const GUIDES_EN: Record<string, Guide> = {
       {
         title: 'Paste it into this panel\'s "Service Account JSON" field',
         detail:
-          'Paste the full JSON (from the opening `{` to closing `}`). FreeCrawl stores the JSON encrypted in the OS credential store.',
+          'Paste the full JSON (from the opening `{` to closing `}`). EXIT SEO Crawler stores the JSON encrypted in the OS credential store.',
       },
       {
         title: 'Fill in "GCP Project ID"',
@@ -739,12 +739,12 @@ export const GUIDES_EN: Record<string, Guide> = {
       {
         problem: '"Invalid JSON"',
         solution:
-          "You pasted only part of the JSON or there's a stray character at the edges. Open the service account JSON file with a real editor (VS Code recommended, NOT Notepad), Ctrl+A to select all, copy, clear the FreeCrawl field, paste.",
+          "You pasted only part of the JSON or there's a stray character at the edges. Open the service account JSON file with a real editor (VS Code recommended, NOT Notepad), Ctrl+A to select all, copy, clear the EXIT SEO Crawler field, paste.",
       },
     ],
     notes: [
       'Cost: BigQuery free tier (10GB storage + 1TB query/mo) covers normal use. A 1M-URL crawl is ~500MB; query cost depends on your SQL.',
-      'Schema evolution: FreeCrawl creates/updates the export table automatically. If the CrawlUrlRow schema gains new columns, the export table picks them up (BigQuery DDL flexibility).',
+      'Schema evolution: EXIT SEO Crawler creates/updates the export table automatically. If the CrawlUrlRow schema gains new columns, the export table picks them up (BigQuery DDL flexibility).',
     ],
     lastReviewed: '2026-06-01',
   },

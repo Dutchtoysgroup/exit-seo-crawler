@@ -13,11 +13,13 @@ import fs from 'node:fs';
  *   - macOS:   ~/Library/Application Support/<productName>
  *   - Linux:   $XDG_CONFIG_HOME/<productName> or ~/.config/<productName>
  *
- * `productName` for FreeCrawl is `@freecrawl/desktop` (taken from
- * `apps/desktop/package.json`'s `name` field).
+ * `productName` is `EXIT SEO Crawler` (`apps/desktop/package.json`'s
+ * `productName`). Upstream FreeCrawl uses `@freecrawl/desktop`; the
+ * Dutch Toys Group build sets its own name so the two never share
+ * settings or projects.
  */
 
-const PRODUCT_NAME = '@freecrawl/desktop';
+const PRODUCT_NAME = 'EXIT SEO Crawler';
 const PROJECT_FILENAME = 'default.seoproject';
 
 /**

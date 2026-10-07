@@ -121,7 +121,7 @@ export async function decryptFile(
   }
   const srcSize = statSync(srcPath).size;
   if (srcSize < HEADER_LEN + TAG_LEN) {
-    throw new Error('Encrypted file is truncated or not a FreeCrawl encrypted project.');
+    throw new Error('Encrypted file is truncated or not a EXIT SEO Crawler encrypted project.');
   }
   // Positional reads for the fixed-size header and the trailing tag —
   // the ciphertext between them is never held in memory.
@@ -133,13 +133,13 @@ export async function decryptFile(
       readSync(fd, header, 0, HEADER_LEN, 0) !== HEADER_LEN ||
       readSync(fd, tag, 0, TAG_LEN, srcSize - TAG_LEN) !== TAG_LEN
     ) {
-      throw new Error('Encrypted file is truncated or not a FreeCrawl encrypted project.');
+      throw new Error('Encrypted file is truncated or not a EXIT SEO Crawler encrypted project.');
     }
   } finally {
     closeSync(fd);
   }
   if (!header.subarray(0, MAGIC.length).equals(MAGIC)) {
-    throw new Error('File is not a FreeCrawl encrypted project (bad magic).');
+    throw new Error('File is not a EXIT SEO Crawler encrypted project (bad magic).');
   }
   const version = header[MAGIC.length];
   if (version !== VERSION) {

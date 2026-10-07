@@ -32,7 +32,7 @@ export const MENU_EN: MenuLabels = {
   compareWith: 'Compare With Project…',
   scheduledCrawl: 'Scheduled Crawl…',
   scheduledCrawlTooltip:
-    'Set up an in-app recurring crawl for the currently-open project. Fires only while FreeCrawl is open; use the CLI + OS scheduler for triggers that survive restarts.',
+    'Set up an in-app recurring crawl for the currently-open project. Fires only while EXIT SEO Crawler is open; use the CLI + OS scheduler for triggers that survive restarts.',
   saveProject: 'Save Project',
   saveProjectAs: 'Save Project As…',
   titleUntitledProject: 'Untitled project',
@@ -74,10 +74,10 @@ export const MENU_EN: MenuLabels = {
   help: 'Help',
   documentation: 'Documentation',
   showLogs: 'Show Logs…',
-  trayShow: 'Show FreeCrawl',
+  trayShow: 'Show EXIT SEO Crawler',
   trayHide: 'Hide to Tray',
   trayStopCrawl: 'Stop Crawl',
-  trayQuit: 'Quit FreeCrawl',
+  trayQuit: 'Quit EXIT SEO Crawler',
   openLogsFolder: 'Open Logs Folder',
   openLogsFolderTooltip:
     'Open the directory where rotated log files are persisted on disk',
@@ -95,7 +95,7 @@ export const MENU_EN: MenuLabels = {
   checkForUpdates: 'Check for Updates…',
   checkForUpdatesTooltip:
     'Fetch the latest GitHub release and compare it with your installed version. No background polling — runs only when you click.',
-  about: 'About FreeCrawl SEO',
+  about: 'About EXIT SEO Crawler',
 
   ctxCopy: 'Copy',
   ctxOpenInBrowser: 'Open in Browser',
@@ -170,20 +170,20 @@ export const MENU_EN: MenuLabels = {
 
   diagDnsRefusedTitle: 'No Network Connectivity',
   diagDnsRefusedMsg:
-    'FreeCrawl tried 3 layers of DNS lookup (system, public servers on port 53, and DNS-over-HTTPS on port 443) — every one was refused. Your machine appears to have no working internet connection.',
+    'EXIT SEO Crawler tried 3 layers of DNS lookup (system, public servers on port 53, and DNS-over-HTTPS on port 443) — every one was refused. Your machine appears to have no working internet connection.',
   diagDnsRefusedDetail:
-    'FreeCrawl already attempts to bypass broken system DNS automatically — if you see this dialog, even DNS-over-HTTPS over port 443 failed.\n\n' +
+    'EXIT SEO Crawler already attempts to bypass broken system DNS automatically — if you see this dialog, even DNS-over-HTTPS over port 443 failed.\n\n' +
     'Most likely causes (in order):\n' +
-    '  1. Antivirus / endpoint security is blocking FreeCrawl from making ANY outbound connection. Whitelist FreeCrawl in your security software.\n' +
+    '  1. Antivirus / endpoint security is blocking EXIT SEO Crawler from making ANY outbound connection. Whitelist EXIT SEO Crawler in your security software.\n' +
     '  2. You are not connected to the internet — check Wi-Fi / Ethernet.\n' +
     '  3. A corporate firewall is blocking all outbound traffic — set HTTPS_PROXY in Settings → Network.\n' +
     '  4. Active VPN is in a broken state — disconnect and try again.\n\n' +
     'Click "Open Logs" to see the full error chain.',
   diagDnsDestroyedTitle: 'Network Stack Unresponsive',
   diagDnsDestroyedMsg:
-    "Your system's DNS resolver crashed AND FreeCrawl's automatic DNS-over-HTTPS bypass also failed. This means the network stack is in a broken state — not just DNS.",
+    "Your system's DNS resolver crashed AND EXIT SEO Crawler's automatic DNS-over-HTTPS bypass also failed. This means the network stack is in a broken state — not just DNS.",
   diagDnsDestroyedDetail:
-    'FreeCrawl normally recovers from a crashed Windows DNS Client by routing lookups through Cloudflare/Google over HTTPS:443. If you are seeing this dialog, that fallback also failed — usually because the operating-system network stack itself needs a reset.\n\n' +
+    'EXIT SEO Crawler normally recovers from a crashed Windows DNS Client by routing lookups through Cloudflare/Google over HTTPS:443. If you are seeing this dialog, that fallback also failed — usually because the operating-system network stack itself needs a reset.\n\n' +
     'Try one of these (in order of effort):\n' +
     '  1. Toggle airplane mode / disconnect & reconnect Wi-Fi.\n' +
     '  2. Restart the network adapter (Settings → Network → Change adapter options).\n' +
@@ -196,13 +196,13 @@ export const MENU_EN: MenuLabels = {
   diagTlsDetail:
     'Common culprits: Kaspersky, ESET, Bitdefender, Zscaler, BlueCoat, Fortigate.\n\n' +
     'Try one of these:\n' +
-    '  1. Whitelist FreeCrawl in your antivirus.\n' +
+    '  1. Whitelist EXIT SEO Crawler in your antivirus.\n' +
     '  2. Export the antivirus / proxy root CA as PEM and set the NODE_EXTRA_CA_CERTS environment variable to it before launching.\n' +
     '  3. Temporarily disable HTTPS scanning in your antivirus.\n\n' +
     'Click "Open Logs" to see the full error chain.',
   diagSeedTitle: 'Start URL Unreachable',
   diagSeedMsg:
-    'FreeCrawl could not reach the URL you entered — neither HTTPS nor HTTP responded within 5 seconds.',
+    'EXIT SEO Crawler could not reach the URL you entered — neither HTTPS nor HTTP responded within 5 seconds.',
   diagSeedDetail:
     'Try one of these:\n' +
     '  1. Open the URL in a browser to confirm the site is up.\n' +
@@ -236,17 +236,17 @@ export const MENU_EN: MenuLabels = {
   detailSeeReleasePage: 'See the release page for the changelog.',
   dlgDontShowVersionAgain: "Don't show this version again",
 
-  winLogsTitle: 'FreeCrawl — Logs ({label})',
+  winLogsTitle: 'EXIT SEO Crawler — Logs ({label})',
   winLabelPrimary: 'Primary',
-  winVisualizationTitle: 'FreeCrawl — Visualization',
-  winLogAnalyzerTitle: 'FreeCrawl — Log Analyzer',
+  winVisualizationTitle: 'EXIT SEO Crawler — Visualization',
+  winLogAnalyzerTitle: 'EXIT SEO Crawler — Log Analyzer',
 
   dlgPlaywrightDetail:
     'This is a one-time ~250 MB download that runs inside the app — no terminal needed. The browser is stored in your user folder; only the binary is downloaded, from cdn.playwright.dev.\n\nDownload now?',
   msgBrowserInstallFailed:
     'The Chromium download could not be completed.\n\n' +
     'Check your internet connection (or proxy settings) and start the crawl again — ' +
-    'FreeCrawl will retry the download automatically. JavaScript rendering stays ' +
+    'EXIT SEO Crawler will retry the download automatically. JavaScript rendering stays ' +
     'disabled until it succeeds; text-mode crawling is unaffected.',
 
   notifCrawlFinished: 'Crawl finished: {urls} URLs · avg {ms} ms',
@@ -277,8 +277,8 @@ export const MENU_EN: MenuLabels = {
   msgDiagResetDone:
     'Warnings re-enabled: {n}. They will pop up again the next time the underlying issue occurs.',
 
-  filterFreeCrawlProject: 'FreeCrawl Project',
-  filterFreeCrawlEncProject: 'FreeCrawl Encrypted Project',
+  filterFreeCrawlProject: 'EXIT SEO Crawler Project',
+  filterFreeCrawlEncProject: 'EXIT SEO Crawler Encrypted Project',
   filterAllFiles: 'All Files',
   filterLogFiles: 'Log Files',
   filterExcelWorkbook: 'Excel Workbook',

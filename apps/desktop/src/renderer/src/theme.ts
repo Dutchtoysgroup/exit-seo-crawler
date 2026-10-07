@@ -1,4 +1,4 @@
-import { normalizeUiTheme, type UiTheme } from '@freecrawl/shared-types';
+import { DEFAULT_UI_THEME, normalizeUiTheme, type UiTheme } from '@freecrawl/shared-types';
 
 /**
  * Renderer side of the colour theme.
@@ -15,7 +15,7 @@ import { normalizeUiTheme, type UiTheme } from '@freecrawl/shared-types';
  */
 type Listener = (theme: UiTheme) => void;
 const listeners = new Set<Listener>();
-let current: UiTheme = 'dark';
+let current: UiTheme = DEFAULT_UI_THEME;
 
 export function getTheme(): UiTheme {
   return current;
@@ -44,8 +44,8 @@ export function resolveInitialTheme(): UiTheme {
   try {
     return normalizeUiTheme(window.freecrawl.prefsGet('uiTheme'));
   } catch {
-    /* preload not ready yet — dark is the floor */
-    return 'dark';
+    /* preload not ready yet — the default is the floor */
+    return DEFAULT_UI_THEME;
   }
 }
 

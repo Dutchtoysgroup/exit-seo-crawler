@@ -115,7 +115,7 @@ export function buildTools(): Tool[] {
     {
       name: 'get_summary',
       description:
-        'Top-level crawl summary for the active FreeCrawl project: total URLs crawled, indexable/non-indexable counts, status-code distribution, average response time, plus crawl start/end timestamps. Use this first when reporting on a crawl.',
+        'Top-level crawl summary for the active EXIT SEO Crawler project: total URLs crawled, indexable/non-indexable counts, status-code distribution, average response time, plus crawl start/end timestamps. Use this first when reporting on a crawl.',
       inputSchema: {
         type: 'object',
         properties: {},
@@ -263,7 +263,7 @@ export function buildTools(): Tool[] {
       requiresDb: false,
       name: 'start_crawl',
       description:
-        'Start a crawl in the running FreeCrawl desktop app. The desktop app must be open — this drives the SAME crawler the UI uses, so progress shows up in the app as it runs. `startUrl` is required unless the user has already run a crawl in this session (the last-used start URL is reused). Other config overrides are optional and layered on top of the desktop\'s saved settings. Returns a `crawlId` you own — `stop_crawl`/`pause_crawl` refuse to touch a crawl owned by a different client unless forced. If a crawl is ALREADY running, this fails with `crawl-in-progress` by default; set `onBusy` to "queue" to wait your turn or "takeover" to replace it. NOTE: when the previous crawl with the same start URL already completed, the crawler treats a re-start as a resume and exits immediately; call `clear_crawl` first to force a fresh BFS from the seed.',
+        'Start a crawl in the running EXIT SEO Crawler desktop app. The desktop app must be open — this drives the SAME crawler the UI uses, so progress shows up in the app as it runs. `startUrl` is required unless the user has already run a crawl in this session (the last-used start URL is reused). Other config overrides are optional and layered on top of the desktop\'s saved settings. Returns a `crawlId` you own — `stop_crawl`/`pause_crawl` refuse to touch a crawl owned by a different client unless forced. If a crawl is ALREADY running, this fails with `crawl-in-progress` by default; set `onBusy` to "queue" to wait your turn or "takeover" to replace it. NOTE: when the previous crawl with the same start URL already completed, the crawler treats a re-start as a resume and exits immediately; call `clear_crawl` first to force a fresh BFS from the seed.',
       inputSchema: {
         type: 'object',
         properties: {

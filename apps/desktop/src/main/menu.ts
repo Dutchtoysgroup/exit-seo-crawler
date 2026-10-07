@@ -286,7 +286,7 @@ export function buildAppMenu(handlers: AppMenuHandlers): Menu {
       submenu: [
         {
           label: L.documentation,
-          click: () => void shell.openExternal('https://github.com/kemalai/FreeCrawl-SEO-Tool'),
+          click: () => void shell.openExternal('https://github.com/Dutchtoysgroup/exit-seo-crawler#readme'),
         },
         { type: 'separator' },
         {
@@ -333,7 +333,7 @@ export function buildAppMenu(handlers: AppMenuHandlers): Menu {
         { type: 'separator' },
         {
           label: L.about,
-          click: () => void shell.openExternal('https://freecrawl.net/'),
+          click: () => app.showAboutPanel(),
         },
       ],
     },

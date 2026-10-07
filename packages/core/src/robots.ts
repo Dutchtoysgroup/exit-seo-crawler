@@ -129,7 +129,7 @@ export async function loadRobots(
     }
     if (res.status >= 500 && onNotice) {
       onNotice(
-        `robots.txt for ${origin} returned HTTP ${res.status}. Per RFC 9309 a 5xx should be treated as "disallow all", but FreeCrawl continues crawling to avoid a transient server error blocking the whole run — verify the site is reachable if results look off.`,
+        `robots.txt for ${origin} returned HTTP ${res.status}. Per RFC 9309 a 5xx should be treated as "disallow all", but EXIT SEO Crawler continues crawling to avoid a transient server error blocking the whole run — verify the site is reachable if results look off.`,
       );
     }
   } catch {
@@ -260,7 +260,7 @@ export async function testUrlAgainstRobots(
         crawlDelay: null,
         sitemaps: [],
         error: is5xx
-          ? `robots.txt returned HTTP ${status}. Per RFC 9309 a 5xx means "disallow all"; FreeCrawl still crawls to survive transient server errors, but a compliant crawler (Googlebot) would stop.`
+          ? `robots.txt returned HTTP ${status}. Per RFC 9309 a 5xx means "disallow all"; EXIT SEO Crawler still crawls to survive transient server errors, but a compliant crawler (Googlebot) would stop.`
           : `robots.txt returned HTTP ${status} (4xx = unavailable) — allow all, per RFC 9309.`,
       };
     }

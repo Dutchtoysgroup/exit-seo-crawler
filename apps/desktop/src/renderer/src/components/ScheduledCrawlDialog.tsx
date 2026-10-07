@@ -182,7 +182,7 @@ export function ScheduledCrawlDialog({ open, onClose }: Props) {
 
   const nextFiresHint = useMemo(() => {
     if (!form.enabled) return t('scheduled.hintDisabled', { defaultValue: 'Disabled — set "Enabled" and Save to arm the schedule.' });
-    return t('scheduled.hintEnabled', { defaultValue: 'Save to compute the next fire time. The schedule only fires while FreeCrawl is open.' });
+    return t('scheduled.hintEnabled', { defaultValue: 'Save to compute the next fire time. The schedule only fires while EXIT SEO Crawler is open.' });
   }, [form.enabled, t]);
 
   if (!open) return null;
@@ -215,7 +215,7 @@ export function ScheduledCrawlDialog({ open, onClose }: Props) {
             <div className="flex items-start gap-2">
               <AlertTriangle className="mt-0.5 h-3.5 w-3.5 shrink-0" />
               <div>
-                {t('scheduled.warningPrefix', { defaultValue: 'The schedule fires only while FreeCrawl is open on this project. For triggers that survive an app restart, run' })}
+                {t('scheduled.warningPrefix', { defaultValue: 'The schedule fires only while EXIT SEO Crawler is open on this project. For triggers that survive an app restart, run' })}
                 <code className="mx-1 rounded bg-surface-950 px-1 font-mono">freecrawl</code>
                 {t('scheduled.warningSuffix', { defaultValue: '(the CLI) from Windows Task Scheduler / macOS launchd / cron.' })}
               </div>

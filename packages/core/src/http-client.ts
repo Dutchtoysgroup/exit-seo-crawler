@@ -325,10 +325,10 @@ export function formatFetchError(err: unknown): string {
     return `${chain}  (DNS server refused on port 53. Likely cause: antivirus / firewall blocking outbound DNS, or no internet connection. Check your network and security software.)`;
   }
   if (isDnsQuery && /ETIMEOUT|ETIMEDOUT/.test(chain)) {
-    return `${chain}  (DNS query timed out. Check whether you have internet access at all, and whether antivirus / firewall is blocking FreeCrawl from reaching the network.)`;
+    return `${chain}  (DNS query timed out. Check whether you have internet access at all, and whether antivirus / firewall is blocking EXIT SEO Crawler from reaching the network.)`;
   }
   if (/EDESTRUCTION/.test(chain)) {
-    return `${chain}  (System DNS resolver crashed. Check your internet connection and that antivirus is not blocking FreeCrawl; on Windows, restarting the "DNS Client" service usually fixes it.)`;
+    return `${chain}  (System DNS resolver crashed. Check your internet connection and that antivirus is not blocking EXIT SEO Crawler; on Windows, restarting the "DNS Client" service usually fixes it.)`;
   }
   if (/ENOTFOUND|EAI_AGAIN|ENODATA|ESERVFAIL|EREFUSED|ENOTIMP|ENONAME/.test(chain)) {
     return `${chain}  (DNS lookup failed. Most likely the host genuinely doesn't exist, or your machine has no internet at all. Check the spelling and your connection.)`;
@@ -343,7 +343,7 @@ export function formatFetchError(err: unknown): string {
     return `${chain}  (server stopped sending the response body — slow upstream, drip-throttling, or WAF; raising Timeout (ms) in Settings may help)`;
   }
   if (/UND_ERR_SOCKET|ECONNRESET|EPIPE/.test(chain)) {
-    return `${chain}  (connection reset by remote — often antivirus / firewall TLS inspection or anti-bot drop; whitelist FreeCrawl in your security software)`;
+    return `${chain}  (connection reset by remote — often antivirus / firewall TLS inspection or anti-bot drop; whitelist EXIT SEO Crawler in your security software)`;
   }
   if (/UND_ERR_CONNECT_TIMEOUT|ETIMEDOUT/.test(chain)) {
     return `${chain}  (TCP connect timed out — firewall, corporate proxy blocking outbound, or host is offline; try setting HTTPS_PROXY if behind a proxy)`;

@@ -151,7 +151,7 @@ function exportStandaloneHtml(
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
-<title>FreeCrawl Graph</title>
+<title>EXIT SEO Crawler Graph</title>
 <style>
   html, body { margin: 0; height: 100%; background: #2F2F2F; color: #e2e8f0; font-family: system-ui, sans-serif; }
   #cy { position: absolute; inset: 0; }
@@ -162,7 +162,7 @@ function exportStandaloneHtml(
 <body>
 <div id="cy"></div>
 <div id="legend">
-  <h1>FreeCrawl SEO — Site Graph</h1>
+  <h1>EXIT SEO Crawler — Site Graph</h1>
   <div>Exported: ${new Date().toISOString()}</div>
   <div>Nodes: ${cy.nodes().length} · Edges: ${cy.edges().length}</div>
 </div>

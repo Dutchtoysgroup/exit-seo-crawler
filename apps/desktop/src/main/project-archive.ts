@@ -143,7 +143,7 @@ export async function unpackProject(
     const head = Buffer.alloc(HEADER_LEN);
     const read = readSync(fd, head, 0, HEADER_LEN, 0);
     if (read < HEADER_LEN || !head.subarray(0, MAGIC.length).equals(MAGIC)) {
-      throw new Error('Not a FreeCrawl project archive (bad signature).');
+      throw new Error('Not a EXIT SEO Crawler project archive (bad signature).');
     }
     version = head[MAGIC.length]!;
   } finally {
@@ -151,7 +151,7 @@ export async function unpackProject(
   }
   if (version > VERSION) {
     throw new Error(
-      `This project was saved by a newer version of FreeCrawl (format v${version}). Please update to open it.`,
+      `This project was saved by a newer version of EXIT SEO Crawler (format v${version}). Please update to open it.`,
     );
   }
 

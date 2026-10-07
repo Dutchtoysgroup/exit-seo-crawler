@@ -1,20 +1,17 @@
 {
   "name": "@freecrawl/desktop",
   "version": "1.0.0",
+  "productName": "EXIT SEO Crawler",
   "private": true,
-  "description": "FreeCrawl SEO â€” desktop application",
-  "homepage": "https://github.com/kemalai/FreeCrawl-SEO-Tool",
+  "description": "EXIT SEO Crawler — desktop application (Dutch Toys Group, based on FreeCrawl SEO Tool)",
+  "homepage": "https://github.com/Dutchtoysgroup/exit-seo-crawler",
   "repository": {
     "type": "git",
-    "url": "https://github.com/kemalai/FreeCrawl-SEO-Tool.git"
-  },
-  "funding": {
-    "type": "patreon",
-    "url": "https://www.patreon.com/kemalacar"
+    "url": "https://github.com/Dutchtoysgroup/exit-seo-crawler.git"
   },
   "author": {
-    "name": "kemalai",
-    "email": "kemalacarofficial@gmail.com"
+    "name": "Dutch Toys Group",
+    "email": "marketing@dutchtoysgroup.com"
   },
   "main": "./out/main/index.js",
   "scripts": {
@@ -33,6 +30,7 @@
     "@dnd-kit/core": "^6.3.1",
     "@dnd-kit/sortable": "^10.0.0",
     "@dnd-kit/utilities": "^3.2.2",
+    "@fontsource-variable/inter": "^5.3.0",
     "@freecrawl/core": "*",
     "@freecrawl/db": "*",
     "@freecrawl/shared-types": "*",

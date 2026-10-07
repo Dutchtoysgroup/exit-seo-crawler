@@ -63,7 +63,7 @@ interface DiscoveryFile {
 export class BridgeUnavailableError extends Error {
   constructor(reason: string) {
     super(
-      `FreeCrawl desktop app does not appear to be running (${reason}). ` +
+      `EXIT SEO Crawler desktop app does not appear to be running (${reason}). ` +
         'Open the desktop app first — it writes the bridge discovery file ' +
         '(<userData>/mcp-bridge.json) on launch.',
     );
