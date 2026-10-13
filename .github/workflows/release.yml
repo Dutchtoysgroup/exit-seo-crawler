@@ -78,11 +78,16 @@ jobs:
   # One publish, after every installer passed its smoke test: a release is
   # complete or absent, never half there, so the update feed never points
   # at a release without its Mac or Windows files. If a leg fails, re-run
-  # the failed jobs of this run (the installers that passed stay with the
-  # run as artifacts), or start the workflow by hand with the tag.
+  # the failed jobs of this run within 7 days (the installers that passed
+  # stay with the run as artifacts until then), or start the workflow by
+  # hand with the tag.
   publish:
     needs: [resolve, installers]
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      # Delete this run's installer artifacts once they are on the Release.
+      actions: write
     steps:
       - uses: actions/download-artifact@v4
         with:
@@ -119,3 +124,20 @@ jobs:
           generate_release_notes: true
           draft: false
           prerelease: false
+
+      # The installers now live on the Release; the run's copies would only
+      # fill the organisation's shared Actions storage until they expire. A
+      # failure here leaves the release intact, so it does not fail the run.
+      - name: Delete installer artifacts
+        continue-on-error: true
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          gh api --paginate "repos/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID/artifacts" \
+            --jq '.artifacts[] | select(.name | test("-installer")) | "\(.id) \(.name)"' |
+          while read -r id name; do
+            gh api -X DELETE "repos/$GITHUB_REPOSITORY/actions/artifacts/$id"
+            echo "Deleted artifact $name ($id)"
+          done

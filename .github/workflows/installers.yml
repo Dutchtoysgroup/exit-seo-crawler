@@ -5,7 +5,9 @@ name: Installers
 #   - release.yml: signed, for a release tag; publishes once all pass.
 #   - installer-smoke.yml: unsigned dry run of any branch, publishes nothing.
 # The installers leave as artifacts of the calling run
-# (windows-installer, macos-installer-arm64, macos-installer-x64).
+# (windows-installer, macos-installer-arm64, macos-installer-x64), kept for
+# 7 days: a release is ~2.3 GB of artifacts and the organisation's Actions
+# storage is shared and small. release.yml deletes them once published.
 on:
   workflow_call:
     inputs:
@@ -223,6 +225,8 @@ jobs:
           if-no-files-found: warn
           # A re-run of a failed leg uploads under the same name again.
           overwrite: true
+          # Long enough to re-run a failed release leg; not 90 days of GBs.
+          retention-days: 7
 
       # The build is the pinned commit, every file this leg ships exists and
       # carries the version, and — for a release — the tag hasn't moved.

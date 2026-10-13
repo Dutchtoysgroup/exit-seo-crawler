@@ -113,7 +113,7 @@ De workflow [Installer smoke test](.github/workflows/installer-smoke.yml) doet d
    git tag v1.0.1 && git push origin main v1.0.1
    ```
 3. De workflow [Release](.github/workflows/release.yml) bouwt de macOS-installers (Apple Silicon en Intel) en de Windows-installers, met Chromium meegebundeld, en test elke installer op een machine met zijn eigen architectuur (de Intel-installer op een Intel-Mac). Pas als alle drie slagen, komen ze samen op de Releases-pagina. Dat duurt ongeveer een kwartier.
-4. Faalt een platform? Dan wordt er niets gepubliceerd. Klik in de run op **Re-run failed jobs**: alleen het mislukte platform wordt opnieuw gebouwd en getest, daarna volgt de publicatie. Is de run te oud, start de workflow dan opnieuw met dezelfde tag. De build gebruikt de commit van die tag, ook als je de workflow vanaf `main` start, en controleert vóór het uploaden of commit, versies en bestandsnamen kloppen:
+4. Faalt een platform? Dan wordt er niets gepubliceerd. Klik in de run op **Re-run failed jobs**: alleen het mislukte platform wordt opnieuw gebouwd en getest, daarna volgt de publicatie. De geslaagde installers blijven 7 dagen bij de run staan; is de run ouder, start de workflow dan opnieuw met dezelfde tag. De build gebruikt de commit van die tag, ook als je de workflow vanaf `main` start, en controleert vóór het uploaden of commit, versies en bestandsnamen kloppen:
    ```bash
    gh workflow run release.yml -f tag=v1.0.1
    ```
