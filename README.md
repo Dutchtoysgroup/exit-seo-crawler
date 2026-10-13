@@ -103,7 +103,7 @@ De installer-smoketest installeert een gebouwde installer, start de app in een t
 npm run smoke-test:installer -- apps/desktop/release/EXIT-SEO-Crawler-1.0.4-macOS-Apple-Silicon.dmg --arch arm64
 ```
 
-De workflow [Installer smoke test](.github/workflows/installer-smoke.yml) doet dit zonder iets te publiceren voor alle drie de installers, ongetekend, op een branch naar keuze. Start hem met de hand (Actions → Installer smoke test → Run workflow) als je iets aan de verpakking, Playwright of Electron verandert; een run kost ongeveer een half uur macOS- en Windows-runnertijd.
+De workflow [Installer smoke test](.github/workflows/installer-smoke.yml) doet dit zonder iets te publiceren voor alle drie de installers, ongetekend, op een branch naar keuze. Start hem met de hand (Actions → Installer smoke test → Run workflow) als je iets aan de verpakking, Playwright of Electron verandert. Een run duurt zo'n 12 minuten en kost ongeveer 20 minuten macOS- en Windows-runnertijd.
 
 ## Release maken
 
@@ -112,7 +112,7 @@ De workflow [Installer smoke test](.github/workflows/installer-smoke.yml) doet d
    ```bash
    git tag v1.0.1 && git push origin main v1.0.1
    ```
-3. De workflow [Release](.github/workflows/release.yml) bouwt de macOS-installers (Apple Silicon en Intel) en de Windows-installers, met Chromium meegebundeld, en test elke installer op een machine met zijn eigen architectuur (de Intel-installer op een Intel-Mac). Pas als alle drie slagen, komen ze samen op de Releases-pagina. Dat duurt ongeveer 25 minuten.
+3. De workflow [Release](.github/workflows/release.yml) bouwt de macOS-installers (Apple Silicon en Intel) en de Windows-installers, met Chromium meegebundeld, en test elke installer op een machine met zijn eigen architectuur (de Intel-installer op een Intel-Mac). Pas als alle drie slagen, komen ze samen op de Releases-pagina. Dat duurt ongeveer een kwartier.
 4. Faalt een platform? Dan wordt er niets gepubliceerd. Klik in de run op **Re-run failed jobs**: alleen het mislukte platform wordt opnieuw gebouwd en getest, daarna volgt de publicatie. Is de run te oud, start de workflow dan opnieuw met dezelfde tag. De build gebruikt de commit van die tag, ook als je de workflow vanaf `main` start, en controleert vóór het uploaden of commit, versies en bestandsnamen kloppen:
    ```bash
    gh workflow run release.yml -f tag=v1.0.1

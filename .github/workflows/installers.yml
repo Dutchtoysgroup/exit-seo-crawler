@@ -32,6 +32,7 @@ jobs:
   # native toolchain (NSIS for .exe, hdiutil for .dmg, etc.) of the
   # runner OS — cross-compiling is not supported.
   build:
+    name: build ${{ matrix.artifact_name }}
     strategy:
       fail-fast: false
       matrix:
@@ -274,6 +275,7 @@ jobs:
   # once shipped the arm64 Chromium in the Intel .dmg; this is the check
   # that would have stopped it.
   smoke:
+    name: smoke-test ${{ matrix.artifact_name }}
     needs: build
     strategy:
       fail-fast: false
