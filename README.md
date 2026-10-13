@@ -87,12 +87,16 @@ CSC_IDENTITY_AUTO_DISCOVERY=false npm --workspace apps/desktop run build:mac -- 
 
 ## Release maken
 
-1. Verhoog de versie in `package.json` en `apps/desktop/package.json`.
+1. Verhoog de versie in `package.json`, `apps/desktop/package.json` en `apps/cli/package.json`. De workflow weigert een tag als een van de drie niet overeenkomt.
 2. Commit, tag en push:
    ```bash
    git tag v1.0.1 && git push origin main v1.0.1
    ```
 3. De workflow [Release](.github/workflows/release.yml) bouwt de macOS-installers (Apple Silicon en Intel) en de Windows-installers en zet ze op de Releases-pagina, met Chromium meegebundeld. Dat duurt ongeveer 20 minuten.
+4. Faalt één platform? Start de workflow opnieuw met dezelfde tag. De build gebruikt de commit van die tag, ook als je de workflow vanaf `main` start, en controleert vóór het uploaden of commit, versies en bestandsnamen kloppen:
+   ```bash
+   gh workflow run release.yml -f tag=v1.0.1
+   ```
 
 ## Updates van FreeCrawl binnenhalen
 

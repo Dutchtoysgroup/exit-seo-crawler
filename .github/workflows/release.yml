@@ -6,7 +6,9 @@ on:
       - 'v*.*.*'
   # Manual runs rebuild the assets of an existing release: pass its tag
   # and the job uploads into that release instead of one named after the
-  # branch. Used when a leg failed after the tag was pushed.
+  # branch. Used when a leg failed after the tag was pushed. The build
+  # checks out the tag's commit, not the branch the run was started from,
+  # so newer code on main can never ship under an older version number.
   workflow_dispatch:
     inputs:
       tag:
@@ -18,6 +20,49 @@ permissions:
   contents: write
 
 jobs:
+  # Pins the release to one commit before anything is built: the tag that
+  # was pushed, or the tag a manual run names. Refuses a tag that is
+  # malformed or missing, or whose package.json versions don't match it,
+  # so every leg below builds that exact commit or nothing at all.
+  resolve:
+    runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.tag.outputs.tag }}
+      sha: ${{ steps.tag.outputs.sha }}
+      version: ${{ steps.tag.outputs.version }}
+    steps:
+      - name: Resolve and validate release tag
+        id: tag
+        shell: bash
+        env:
+          # Via env, never interpolated into the script: the input is free text.
+          TAG: ${{ inputs.tag || github.ref_name }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          fail() { echo "::error::$*"; exit 1; }
+          [[ "$TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?$ ]] || fail "'$TAG' is not a release tag (vX.Y.Z)"
+          ref=$(gh api "repos/$GITHUB_REPOSITORY/git/ref/tags/$TAG" 2>/dev/null) || fail "Tag $TAG does not exist in $GITHUB_REPOSITORY"
+          type=$(jq -r .object.type <<<"$ref")
+          sha=$(jq -r .object.sha <<<"$ref")
+          # Annotated tags point at a tag object; peel it down to the commit.
+          while [ "$type" = tag ]; do
+            obj=$(gh api "repos/$GITHUB_REPOSITORY/git/tags/$sha")
+            type=$(jq -r .object.type <<<"$obj")
+            sha=$(jq -r .object.sha <<<"$obj")
+          done
+          [ "$type" = commit ] || fail "Tag $TAG points at a $type, not a commit"
+          version="${TAG#v}"
+          # Root: the CLI's version. apps/desktop: the installers' and the
+          # update feed's. apps/cli: its own manifest. A release bumps all three.
+          for f in package.json apps/desktop/package.json apps/cli/package.json; do
+            v=$(gh api "repos/$GITHUB_REPOSITORY/contents/$f?ref=$sha" -H 'Accept: application/vnd.github.raw' | jq -r .version) \
+              || fail "Cannot read $f at $TAG"
+            [ "$v" = "$version" ] || fail "$f at $TAG ($sha) has version $v, expected $version"
+          done
+          echo "Release $TAG builds commit $sha"
+          { echo "tag=$TAG"; echo "sha=$sha"; echo "version=$version"; } >> "$GITHUB_OUTPUT"
+
   # Dutch Toys Group: macOS (Apple Silicon + Intel) and Windows only — the
   # upstream Linux leg is dropped. Release assets land on this private
   # repo's Releases page; downloading them needs access to the
@@ -30,6 +75,7 @@ jobs:
   # release, the other appends its artifacts via softprops/action-gh-release
   # which handles the duplicate-tag case idempotently.
   build:
+    needs: resolve
     strategy:
       fail-fast: false
       matrix:
@@ -102,6 +148,9 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          # The commit the resolve job pinned, never the dispatching branch.
+          ref: ${{ needs.resolve.outputs.sha }}
 
       - uses: actions/setup-node@v4
         with:
@@ -215,10 +264,52 @@ jobs:
           path: ${{ matrix.artifact_paths }}
           if-no-files-found: warn
 
+      # Last gate before the release page: the build is still the pinned
+      # commit, the tag hasn't moved to another one meanwhile, and every
+      # file this leg publishes exists and carries the release version.
+      - name: Verify release assets
+        shell: bash
+        env:
+          TAG: ${{ needs.resolve.outputs.tag }}
+          SHA: ${{ needs.resolve.outputs.sha }}
+          VERSION: ${{ needs.resolve.outputs.version }}
+          ARTIFACT_PATHS: ${{ matrix.artifact_paths }}
+        run: |
+          set -euo pipefail
+          fail() { echo "::error::$*"; exit 1; }
+          head=$(git rev-parse HEAD)
+          [ "$head" = "$SHA" ] || fail "Built commit $head, expected $SHA ($TAG)"
+          git fetch --quiet --depth=1 origin "+refs/tags/$TAG:refs/tags/$TAG" || fail "Tag $TAG was deleted during the build"
+          now=$(git rev-parse "refs/tags/$TAG^{commit}")
+          [ "$now" = "$SHA" ] || fail "Tag $TAG moved from $SHA to $now during the build"
+          for f in package.json apps/desktop/package.json apps/cli/package.json; do
+            v=$(node -p "require('./$f').version")
+            [ "$v" = "$VERSION" ] || fail "$f has version $v, expected $VERSION"
+          done
+          count=0
+          while IFS= read -r pattern; do
+            [ -n "$pattern" ] || continue
+            matched=0
+            for file in $pattern; do
+              [ -f "$file" ] || continue
+              matched=1
+              count=$((count + 1))
+              name=$(basename "$file")
+              case "$name" in
+                latest*.yml)
+                  tr -d '\r' < "$file" | grep -qxF "version: $VERSION" || fail "$name does not describe version $VERSION" ;;
+                *)
+                  [[ "$name" == *"-$VERSION-"* ]] || fail "$name does not carry version $VERSION" ;;
+              esac
+            done
+            [ "$matched" = 1 ] || fail "No file matches $pattern"
+          done <<<"$ARTIFACT_PATHS"
+          echo "$count files verified for $TAG at $SHA"
+
       - name: Publish GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ inputs.tag || github.ref_name }}
+          tag_name: ${{ needs.resolve.outputs.tag }}
           files: ${{ matrix.artifact_paths }}
           generate_release_notes: true
           draft: false
