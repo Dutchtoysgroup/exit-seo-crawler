@@ -15,6 +15,9 @@ release/
 *.AppImage
 *.deb
 *.rpm
+# Chromium copied in by prepare-playwright-bundle.mjs (~250 MB) before
+# electron-builder packs the installer.
+apps/desktop/resources/playwright-browsers/
 
 # Generated config artifacts (from tsc -b on .config.ts files)
 /apps/desktop/electron.vite.config.js
@@ -49,21 +52,11 @@ pnpm-debug.log*
 Thumbs.db
 desktop.ini
 
-# Testing — kept local, never published (CLAUDE.md rule 1.12).
-# Tests still run on the dev machine via `npm test`; they just don't
-# ship in the repo, which holds only what builds and runs the product.
+# Testing. Upstream FreeCrawl keeps its tests out of the repo; this fork
+# commits the crawler regression tests in tests/ so CI runs them. Only
+# their output stays local.
 coverage/
 .nyc_output/
-tests/
-__tests__/
-__mocks__/
-__fixtures__/
-*.test.ts
-*.test.tsx
-*.spec.ts
-*.spec.tsx
-vitest.config.ts
-vitest.workspace.ts
 # Scratch / debug helpers
 debug-*.mjs
 debug-*.ts

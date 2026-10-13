@@ -1,0 +1,19 @@
+name: Installer smoke test
+
+# Dry run of the release pipeline for the branch you pick: builds the three
+# installers unsigned and smoke-tests each on its own architecture, without
+# publishing anything. Run it before tagging when packaging, Playwright or
+# Electron changed. Manual only: one run costs about half an hour of
+# macOS and Windows runner time.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  installers:
+    uses: ./.github/workflows/installers.yml
+    with:
+      ref: ${{ github.sha }}
+      sign: false

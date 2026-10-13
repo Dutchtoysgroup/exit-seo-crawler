@@ -85,6 +85,26 @@ Een installer lokaal bouwen (alleen voor je eigen platform):
 CSC_IDENTITY_AUTO_DISCOVERY=false npm --workspace apps/desktop run build:mac -- --arm64
 ```
 
+## Testen
+
+De regressietests in `tests/` crawlen kleine websites die de test zelf op 127.0.0.1 start, en vergelijken het resultaat met wat er per URL hoort uit te komen: redirects (ketens en lussen), canonicals (HTML en HTTP-header), noindex, robots.txt (ook een trage), pauzeren en hervatten, en het hervatten van een onderbroken crawl. CI draait ze bij elke push. Ze hebben geen build nodig:
+
+```bash
+npm test
+```
+
+```bash
+npm run typecheck:tests
+```
+
+De installer-smoketest installeert een gebouwde installer, start de app in een testmodus en laat hem een lokale pagina crawlen waarvan de enige link door JavaScript ontstaat, met de Chromium die in de installer zit. Draai hem op een machine met dezelfde architectuur als de installer:
+
+```bash
+npm run smoke-test:installer -- apps/desktop/release/EXIT-SEO-Crawler-1.0.4-macOS-Apple-Silicon.dmg --arch arm64
+```
+
+De workflow [Installer smoke test](.github/workflows/installer-smoke.yml) doet dit zonder iets te publiceren voor alle drie de installers, ongetekend, op een branch naar keuze. Start hem met de hand (Actions → Installer smoke test → Run workflow) als je iets aan de verpakking, Playwright of Electron verandert; een run kost ongeveer een half uur macOS- en Windows-runnertijd.
+
 ## Release maken
 
 1. Verhoog de versie in `package.json`, `apps/desktop/package.json` en `apps/cli/package.json`. De workflow weigert een tag als een van de drie niet overeenkomt.
@@ -92,8 +112,8 @@ CSC_IDENTITY_AUTO_DISCOVERY=false npm --workspace apps/desktop run build:mac -- 
    ```bash
    git tag v1.0.1 && git push origin main v1.0.1
    ```
-3. De workflow [Release](.github/workflows/release.yml) bouwt de macOS-installers (Apple Silicon en Intel) en de Windows-installers en zet ze op de Releases-pagina, met Chromium meegebundeld. Dat duurt ongeveer 20 minuten.
-4. Faalt één platform? Start de workflow opnieuw met dezelfde tag. De build gebruikt de commit van die tag, ook als je de workflow vanaf `main` start, en controleert vóór het uploaden of commit, versies en bestandsnamen kloppen:
+3. De workflow [Release](.github/workflows/release.yml) bouwt de macOS-installers (Apple Silicon en Intel) en de Windows-installers, met Chromium meegebundeld, en test elke installer op een machine met zijn eigen architectuur (de Intel-installer op een Intel-Mac). Pas als alle drie slagen, komen ze samen op de Releases-pagina. Dat duurt ongeveer 25 minuten.
+4. Faalt een platform? Dan wordt er niets gepubliceerd. Klik in de run op **Re-run failed jobs**: alleen het mislukte platform wordt opnieuw gebouwd en getest, daarna volgt de publicatie. Is de run te oud, start de workflow dan opnieuw met dezelfde tag. De build gebruikt de commit van die tag, ook als je de workflow vanaf `main` start, en controleert vóór het uploaden of commit, versies en bestandsnamen kloppen:
    ```bash
    gh workflow run release.yml -f tag=v1.0.1
    ```

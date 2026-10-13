@@ -5,10 +5,11 @@ on:
     tags:
       - 'v*.*.*'
   # Manual runs rebuild the assets of an existing release: pass its tag
-  # and the job uploads into that release instead of one named after the
-  # branch. Used when a leg failed after the tag was pushed. The build
-  # checks out the tag's commit, not the branch the run was started from,
-  # so newer code on main can never ship under an older version number.
+  # and the run uploads into that release instead of one named after the
+  # branch. Used when a run failed and "Re-run failed jobs" is no longer an
+  # option. The build checks out the tag's commit, not the branch the run
+  # was started from, so newer code on main can never ship under an older
+  # version number.
   workflow_dispatch:
     inputs:
       tag:
@@ -23,7 +24,7 @@ jobs:
   # Pins the release to one commit before anything is built: the tag that
   # was pushed, or the tag a manual run names. Refuses a tag that is
   # malformed or missing, or whose package.json versions don't match it,
-  # so every leg below builds that exact commit or nothing at all.
+  # so the installers below are built from that exact commit or not at all.
   resolve:
     runs-on: ubuntu-latest
     outputs:
@@ -63,254 +64,58 @@ jobs:
           echo "Release $TAG builds commit $sha"
           { echo "tag=$TAG"; echo "sha=$sha"; echo "version=$version"; } >> "$GITHUB_OUTPUT"
 
-  # Dutch Toys Group: macOS (Apple Silicon + Intel) and Windows only — the
-  # upstream Linux leg is dropped. Release assets land on this private
-  # repo's Releases page; downloading them needs access to the
-  # Dutchtoysgroup organisation.
-  #
-  # Each platform is its own job because electron-builder needs the
-  # native toolchain (NSIS for .exe, hdiutil for .dmg, etc.) of the
-  # runner OS — cross-compiling is not supported. The matrix wires both
-  # jobs to the same release tag; whichever finishes first creates the
-  # release, the other appends its artifacts via softprops/action-gh-release
-  # which handles the duplicate-tag case idempotently.
-  build:
+  # Builds the three installers of the pinned commit, signed, and
+  # smoke-tests each one on a machine of its own architecture.
+  installers:
     needs: resolve
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - os: windows-latest
-            build_script: build:win
-            build_args: ''
-            cli_target: win-x64
-            artifact_name: windows-installer
-            artifact_paths: |
-              apps/desktop/release/*.exe
-              apps/desktop/release/*.exe.blockmap
-              apps/desktop/release/latest.yml
-              apps/cli/release/*
-          # macOS is built once per architecture rather than both arches
-          # in one job. The bundled Playwright browsers are arch-specific
-          # (`chrome-mac-arm64` vs `chrome-mac-x64`), so a single job on
-          # an Apple-silicon runner used to ship arm64 binaries inside the
-          # Intel .dmg — where Playwright looked for `chrome-mac-x64`,
-          # found nothing, and every Intel user landed on the "browser
-          # missing" dialog. Each job now downloads the browsers for the
-          # architecture it is packaging. The `--arm64` / `--x64` flag is
-          # the ONLY place the arch is chosen: electron-builder.yml must not
-          # list `mac.target[].arch`, or the config list silently overrides
-          # the flag and each leg builds both images again (that is what
-          # broke 1.0.0's first run).
-          #
-          # Each leg also names its .dmg with the words a user actually
-          # knows ("Apple-Silicon" / "Intel") instead of arm64 / x64.
-          # electron-builder's artifactName template cannot branch on
-          # arch, so the override rides on the CLI; single quotes keep
-          # ${version} / ${ext} away from the shell so electron-builder
-          # expands them.
-          - os: macos-latest
-            build_script: build:mac
-            build_args: "-- --arm64 -c.dmg.artifactName='EXIT-SEO-Crawler-${version}-macOS-Apple-Silicon.${ext}'"
-            cli_target: darwin-arm64
-            artifact_name: macos-installer-arm64
-            artifact_paths: |
-              apps/desktop/release/*Apple-Silicon*.dmg
-              apps/desktop/release/*Apple-Silicon*.dmg.blockmap
-              apps/desktop/release/*-macOS-arm64.zip
-              apps/desktop/release/*-macOS-arm64.zip.blockmap
-              apps/desktop/release/latest-mac.yml
-              apps/cli/release/*
-          - os: macos-latest
-            build_script: build:mac
-            build_args: "-- --x64 -c.dmg.artifactName='EXIT-SEO-Crawler-${version}-macOS-Intel.${ext}'"
-            # Cross-download the Intel browsers on the arm64 runner.
-            # Playwright picks its download by host platform, so this
-            # override is what makes the x64 bundle actually x64.
-            playwright_host_platform: mac15
-            cli_target: darwin-x64
-            # The runner is Apple silicon: the Intel CLI is injected into an
-            # official x64 Node binary of the same version.
-            cli_node_platform: darwin-x64
-            artifact_name: macos-installer-x64
-            # Both jobs write a latest-mac.yml describing only their own
-            # arch. The arm64 one is published as is; this one is renamed
-            # to latest-mac-x64.yml, and the update feed on the dashboard
-            # merges the two so Intel Macs find their zip.
-            rename_latest_mac: latest-mac-x64.yml
-            artifact_paths: |
-              apps/desktop/release/*Intel*.dmg
-              apps/desktop/release/*Intel*.dmg.blockmap
-              apps/desktop/release/*-macOS-x64.zip
-              apps/desktop/release/*-macOS-x64.zip.blockmap
-              apps/desktop/release/latest-mac-x64.yml
-              apps/cli/release/*
-    runs-on: ${{ matrix.os }}
+    uses: ./.github/workflows/installers.yml
+    with:
+      ref: ${{ needs.resolve.outputs.sha }}
+      sign: true
+      tag: ${{ needs.resolve.outputs.tag }}
+    secrets: inherit
+
+  # One publish, after every installer passed its smoke test: a release is
+  # complete or absent, never half there, so the update feed never points
+  # at a release without its Mac or Windows files. If a leg fails, re-run
+  # the failed jobs of this run (the installers that passed stay with the
+  # run as artifacts), or start the workflow by hand with the tag.
+  publish:
+    needs: [resolve, installers]
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
         with:
-          # The commit the resolve job pinned, never the dispatching branch.
-          ref: ${{ needs.resolve.outputs.sha }}
+          pattern: '*-installer*'
+          path: artifacts
+          merge-multiple: true
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: npm
-
-      - name: Install dependencies
-        run: npm ci
-        env:
-          # Skip the postinstall browser download on cross-arch jobs so
-          # the cache holds only the target architecture — otherwise the
-          # installer would carry both (~+180 MB of dead weight).
-          PLAYWRIGHT_SKIP_BROWSER_INSTALL: ${{ matrix.playwright_host_platform && '1' || '0' }}
-
-      - name: Build shared packages
-        run: npx tsc -b
-
-      - name: Ensure Playwright browsers downloaded
-        # `npm ci` runs `postinstall` which already pulls Chromium +
-        # chrome-headless-shell, but we re-invoke explicitly to make
-        # the dependency obvious in the workflow logs and to force a
-        # re-check if Playwright was upgraded since the lockfile was
-        # written.
-        run: npm run playwright:install
-        env:
-          PLAYWRIGHT_HOST_PLATFORM_OVERRIDE: ${{ matrix.playwright_host_platform }}
-
-      # Developer ID signing (macOS legs only). The .p12 from the CSC_LINK
-      # secret goes into a throwaway keychain that dies with the runner;
-      # electron-builder finds the identity there via CSC_NAME, and the CLI
-      # build signs with it too. CSC_LINK itself is never handed to
-      # electron-builder, so the Windows leg can't mistake the Apple
-      # certificate for an Authenticode one. The Developer ID G2 intermediate
-      # is imported as well so codesign can build the chain on a clean runner.
-      - name: Import signing certificate (macOS)
-        if: runner.os == 'macOS'
-        shell: bash
-        env:
-          CSC_LINK: ${{ secrets.CSC_LINK }}
-          CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
-          APPLE_API_KEY_P8: ${{ secrets.APPLE_API_KEY_P8 }}
-        run: |
-          KEYCHAIN="$RUNNER_TEMP/signing.keychain-db"
-          KEYCHAIN_PASSWORD="$(openssl rand -base64 24)"
-          security create-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN"
-          security set-keychain-settings -lut 21600 "$KEYCHAIN"
-          security unlock-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN"
-          printf '%s' "$CSC_LINK" | base64 --decode > "$RUNNER_TEMP/cert.p12"
-          security import "$RUNNER_TEMP/cert.p12" -k "$KEYCHAIN" -P "$CSC_KEY_PASSWORD" -T /usr/bin/codesign -T /usr/bin/security
-          rm "$RUNNER_TEMP/cert.p12"
-          curl -sfL https://www.apple.com/certificateauthority/DeveloperIDG2CA.cer -o "$RUNNER_TEMP/DeveloperIDG2CA.cer"
-          security import "$RUNNER_TEMP/DeveloperIDG2CA.cer" -k "$KEYCHAIN" || true
-          security set-key-partition-list -S apple-tool:,apple: -s -k "$KEYCHAIN_PASSWORD" "$KEYCHAIN" > /dev/null
-          security list-keychains -d user -s "$KEYCHAIN" $(security list-keychains -d user | tr -d '"')
-          security find-identity -v -p codesigning "$KEYCHAIN"
-          printf '%s' "$APPLE_API_KEY_P8" > "$RUNNER_TEMP/AuthKey.p8"
-          echo "APPLE_API_KEY=$RUNNER_TEMP/AuthKey.p8" >> "$GITHUB_ENV"
-
-      - name: Build installer (with bundled Playwright browsers)
-        run: npm --workspace apps/desktop run ${{ matrix.build_script }} ${{ matrix.build_args }}
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # macOS: sign with the Developer ID imported above and notarize
-          # (APPLE_API_KEY is the .p8 path the import step exported).
-          # Windows: no certificate yet, so no signing at all.
-          CSC_IDENTITY_AUTO_DISCOVERY: ${{ runner.os == 'macOS' && 'true' || 'false' }}
-          CSC_NAME: ${{ runner.os == 'macOS' && 'Sven Dijk (VAM683M962)' || '' }}
-          APPLE_API_KEY_ID: ${{ runner.os == 'macOS' && secrets.APPLE_API_KEY_ID || '' }}
-          APPLE_API_ISSUER: ${{ runner.os == 'macOS' && secrets.APPLE_API_ISSUER || '' }}
-          # V2 Faz 1 — Bundle the Playwright Chromium browser into the
-          # installer so JS rendering works offline / on first launch
-          # with zero extra download. The prepare-playwright-bundle.mjs
-          # script reads this env var and copies the OS cache into
-          # apps/desktop/resources/playwright-browsers/ before
-          # electron-builder packs the installer.
-          BUNDLE_PLAYWRIGHT: '1'
-          # Also read by prepare-playwright-bundle.mjs, which refuses to
-          # package a browser cache that doesn't match the architecture
-          # being built — the exact mismatch that shipped an arm64
-          # Chromium inside the Intel .dmg.
-          PLAYWRIGHT_HOST_PLATFORM_OVERRIDE: ${{ matrix.playwright_host_platform }}
-
-      - name: Rename per-arch update manifest
-        if: matrix.rename_latest_mac
-        shell: bash
-        run: mv apps/desktop/release/latest-mac.yml "apps/desktop/release/${{ matrix.rename_latest_mac }}"
-
-      - name: Build CLI (single executable, no Node needed)
-        shell: bash
-        env:
-          MAC_CODESIGN_IDENTITY: "${{ runner.os == 'macOS' && 'Developer ID Application: Sven Dijk (VAM683M962)' || '' }}"
-          APPLE_API_KEY_ID: ${{ runner.os == 'macOS' && secrets.APPLE_API_KEY_ID || '' }}
-          APPLE_API_ISSUER: ${{ runner.os == 'macOS' && secrets.APPLE_API_ISSUER || '' }}
-        run: |
-          npm run build:cli
-          NODE_ARG=""
-          if [ -n "${{ matrix.cli_node_platform }}" ]; then
-            V=$(node -p process.version)
-            F="node-$V-${{ matrix.cli_node_platform }}.tar.gz"
-            curl -sfLO "https://nodejs.org/dist/$V/$F"
-            curl -sfL "https://nodejs.org/dist/$V/SHASUMS256.txt" | grep " $F\$" | shasum -a 256 -c -
-            tar -xzf "$F"
-            NODE_ARG="--node node-$V-${{ matrix.cli_node_platform }}/bin/node"
-          fi
-          node apps/cli/scripts/build-sea.mjs --target ${{ matrix.cli_target }} $NODE_ARG
-
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ matrix.artifact_name }}
-          path: ${{ matrix.artifact_paths }}
-          if-no-files-found: warn
-
-      # Last gate before the release page: the build is still the pinned
-      # commit, the tag hasn't moved to another one meanwhile, and every
-      # file this leg publishes exists and carries the release version.
-      - name: Verify release assets
+      - name: Check tag and collect assets
         shell: bash
         env:
           TAG: ${{ needs.resolve.outputs.tag }}
           SHA: ${{ needs.resolve.outputs.sha }}
           VERSION: ${{ needs.resolve.outputs.version }}
-          ARTIFACT_PATHS: ${{ matrix.artifact_paths }}
+          GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
           fail() { echo "::error::$*"; exit 1; }
-          head=$(git rev-parse HEAD)
-          [ "$head" = "$SHA" ] || fail "Built commit $head, expected $SHA ($TAG)"
-          git fetch --quiet --depth=1 origin "+refs/tags/$TAG:refs/tags/$TAG" || fail "Tag $TAG was deleted during the build"
-          now=$(git rev-parse "refs/tags/$TAG^{commit}")
+          now=$(gh api "repos/$GITHUB_REPOSITORY/commits/refs/tags/$TAG" --jq .sha 2>/dev/null) || fail "Tag $TAG was deleted during the build"
           [ "$now" = "$SHA" ] || fail "Tag $TAG moved from $SHA to $now during the build"
-          for f in package.json apps/desktop/package.json apps/cli/package.json; do
-            v=$(node -p "require('./$f').version")
-            [ "$v" = "$VERSION" ] || fail "$f has version $v, expected $VERSION"
+          mkdir dist
+          find artifacts -type f -exec mv -n {} dist/ \;
+          [ -z "$(find artifacts -type f)" ] || fail "Two artifacts share a file name"
+          for want in latest.yml latest-mac.yml latest-mac-x64.yml; do
+            [ -f "dist/$want" ] || fail "$want is missing"
           done
-          count=0
-          while IFS= read -r pattern; do
-            [ -n "$pattern" ] || continue
-            matched=0
-            for file in $pattern; do
-              [ -f "$file" ] || continue
-              matched=1
-              count=$((count + 1))
-              name=$(basename "$file")
-              case "$name" in
-                latest*.yml)
-                  tr -d '\r' < "$file" | grep -qxF "version: $VERSION" || fail "$name does not describe version $VERSION" ;;
-                *)
-                  [[ "$name" == *"-$VERSION-"* ]] || fail "$name does not carry version $VERSION" ;;
-              esac
-            done
-            [ "$matched" = 1 ] || fail "No file matches $pattern"
-          done <<<"$ARTIFACT_PATHS"
-          echo "$count files verified for $TAG at $SHA"
+          ls -l dist
+          echo "$(ls dist | wc -l) files for $TAG ($VERSION) at $SHA"
 
       - name: Publish GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ needs.resolve.outputs.tag }}
-          files: ${{ matrix.artifact_paths }}
+          files: dist/*
           generate_release_notes: true
           draft: false
           prerelease: false

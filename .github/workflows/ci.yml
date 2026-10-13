@@ -25,3 +25,11 @@ jobs:
 
       - name: Build all workspaces
         run: npm run build
+
+      - name: Typecheck tests
+        run: npm run typecheck:tests
+
+      # Crawls local fixture sites: redirects, canonicals, robots.txt,
+      # pause/resume and resuming an interrupted crawl (tests/).
+      - name: Crawler regression tests
+        run: npm test

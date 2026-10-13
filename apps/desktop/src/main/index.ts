@@ -248,6 +248,7 @@ import {
   installInProgress,
   abortChromiumInstall,
 } from './playwright-setup.js';
+import { isSmokeTest, runSmokeTest } from './smoke-test.js';
 import {
   detectProjectFormat,
   packProject,
@@ -10070,7 +10071,8 @@ installWebContentsPolicy();
 // and produces the "Unable to move the cache: Erişim engellendi (0x5)"
 // errors on stderr. The second instance is told to quit; the original
 // window is brought to focus so the user gets the expected behaviour.
-const gotSingleInstanceLock = app.requestSingleInstanceLock();
+// The installer smoke test opens no window and must run regardless.
+const gotSingleInstanceLock = isSmokeTest() || app.requestSingleInstanceLock();
 if (!gotSingleInstanceLock) {
   app.quit();
 } else {
@@ -10179,6 +10181,12 @@ function describeHostEnvironment(): string {
 }
 
 void app.whenReady().then(async () => {
+  // Installer smoke test (release workflow): crawl, report and exit before
+  // any window, tray, updater or prompt exists. See smoke-test.ts.
+  if (isSmokeTest()) {
+    app.exit(await runSmokeTest(browserCacheDecision));
+    return;
+  }
   // Dutch Toys Group: Help → About (and the macOS app menu's About item)
   // shows this panel. It keeps the upstream credit the MIT licence asks for.
   app.setAboutPanelOptions({

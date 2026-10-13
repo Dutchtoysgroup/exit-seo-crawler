@@ -1,0 +1,14 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "types": ["node"],
+    // Same mapping as vitest.config.ts: the tests run against the sources.
+    "paths": {
+      "@freecrawl/core": ["../packages/core/src/index.ts"],
+      "@freecrawl/db": ["../packages/db/src/index.ts"],
+      "@freecrawl/shared-types": ["../packages/shared-types/src/index.ts"]
+    }
+  },
+  "include": ["**/*.ts", "../vitest.config.ts"]
+}

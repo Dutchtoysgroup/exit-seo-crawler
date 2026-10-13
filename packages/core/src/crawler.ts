@@ -335,8 +335,12 @@ export class Crawler extends EventEmitter {
    * its own checker, loaded lazily and cached.
    */
   private robotsByOrigin = new Map<string, RobotsChecker>();
-  /** Origins whose robots.txt fetch is in flight (load-once guard). */
-  private robotsLoadingOrigins = new Set<string>();
+  /**
+   * The robots.txt load of each origin, started once. Settles after the
+   * checker has landed in `robotsByOrigin`; `fetchAndProcess` awaits it so
+   * no URL goes on the wire before its origin's rules are known.
+   */
+  private robotsLoads = new Map<string, Promise<void>>();
   /** robots.txt `Crawl-delay` for the start origin, in ms (0 = none). */
   private robotsCrawlDelayMs = 0;
   /** Monotonic dispatch clock for the maxRps gate (see acquireRateSlot). */
@@ -1089,11 +1093,13 @@ export class Crawler extends EventEmitter {
     const origin = new URL(start).origin;
     // robots.txt + sitemap discovery used to block the crawl start
     // sequentially (~1–4 s before the first row appeared). Both are now
-    // fire-and-forget. The robots check in enqueue() short-circuits when
-    // `this.robots === null`; by the time the start URL has been fetched
-    // (~500 ms) and outlinks are enqueued, robots.txt has typically
-    // loaded. Both promises are awaited at end-of-crawl so post-crawl
-    // recompute and sitemap-derived issue counts use the full data set.
+    // fire-and-forget. enqueue() admits URLs while robots.txt is still
+    // loading and fetchAndProcess() waits for it before the first request,
+    // so the queue fills at once yet a disallowed URL is never fetched —
+    // a robots.txt slower than the start page used to let the first
+    // pages' disallowed links through. Both promises are awaited at
+    // end-of-crawl so post-crawl recompute and sitemap-derived issue
+    // counts use the full data set.
     const robotsPromise = this.config.respectRobotsTxt
       ? loadRobots(origin, this.config.userAgent, (msg) => {
           if (!this.stopped) this.emit('warn', msg);
@@ -1132,6 +1138,10 @@ export class Crawler extends EventEmitter {
           }
         })
       : Promise.resolve();
+    // Registered as the start origin's load, so robotsAllows() doesn't
+    // fetch the same robots.txt a second time and fetchAndProcess() waits
+    // on this one.
+    if (this.config.respectRobotsTxt) this.robotsLoads.set(origin, robotsPromise);
     // Runs when auto-discovery is on OR the user supplied explicit sitemap
     // seed URLs — both are handled inside `discoverAndIngestSitemaps`, which
     // writes `sitemap_urls` exactly once (merged) to avoid the replace-all
@@ -1344,6 +1354,16 @@ export class Crawler extends EventEmitter {
     // Suppress 'done' if a stop() ran during teardown — otherwise the
     // zombie crawler's done-event clobbers the new crawl's UI state.
     if (!this.stopped) {
+      // A finished crawl has nothing left to resume. The checkpoint timer
+      // last wrote the queue up to 30 s before the end, so without this a
+      // spider crawl longer than that (or a resumed one) left a stale
+      // crawl_queue behind and the next launch offered to resume a crawl
+      // that had completed. List mode already did this.
+      try {
+        this.db.clearQueueCheckpoint();
+      } catch {
+        /* checkpoint table may not yet exist on very old DBs — ignore */
+      }
       this.emit('done', this.db.getSummary());
       this.fireWebhook();
     }
@@ -3174,10 +3194,9 @@ export class Crawler extends EventEmitter {
   /**
    * Is `url` allowed by the robots.txt of ITS OWN origin? Caller guards on
    * `respectRobotsTxt`. Loads and caches a per-origin checker on first sight;
-   * while a fetch is in flight the URL is allowed optimistically — the same
-   * window the start origin already has before its own robots.txt finishes
-   * loading (see `start`), so behaviour is consistent, just now correct for
-   * additional origins instead of skipping them entirely.
+   * while that load is in flight the URL is allowed optimistically, which
+   * only lets it into the queue: `robotsAllowsOnceLoaded` decides again
+   * before it is fetched.
    */
   private robotsAllows(url: string): boolean {
     let origin: string;
@@ -3188,16 +3207,56 @@ export class Crawler extends EventEmitter {
     }
     const checker = this.robotsByOrigin.get(origin);
     if (checker) return checker.isAllowed(url);
-    if (!this.robotsLoadingOrigins.has(origin)) {
-      this.robotsLoadingOrigins.add(origin);
-      void loadRobots(origin, this.config.userAgent)
-        .then((r) => {
-          if (!this.stopped) this.robotsByOrigin.set(origin, r);
-        })
-        .catch(() => undefined)
-        .finally(() => this.robotsLoadingOrigins.delete(origin));
+    if (!this.robotsLoads.has(origin)) {
+      this.robotsLoads.set(
+        origin,
+        loadRobots(origin, this.config.userAgent)
+          .then((r) => {
+            if (!this.stopped) this.robotsByOrigin.set(origin, r);
+          })
+          .catch(() => undefined),
+      );
     }
     return true;
+  }
+
+  /**
+   * The robots decision for a queued URL, made once its origin's robots.txt
+   * has arrived. A URL that turns out to be disallowed is recorded the same
+   * way `enqueue` records one it can reject up front.
+   */
+  private async robotsAllowsOnceLoaded(item: QueueItem): Promise<boolean> {
+    let origin: string;
+    try {
+      origin = new URL(item.url).origin;
+    } catch {
+      return true;
+    }
+    if (!this.robotsByOrigin.has(origin)) await this.robotsLoads.get(origin);
+    if (this.robotsAllows(item.url)) return true;
+    await this.recordRobotsBlocked(item);
+    return false;
+  }
+
+  /** A lightweight row for a URL robots.txt disallows. Best-effort. */
+  private async recordRobotsBlocked(item: QueueItem): Promise<void> {
+    try {
+      await this.dbCall<number>('upsertUrl', [
+        {
+          url: item.url,
+          urlMalformed: isUrlMalformed(item.url) ? 1 : 0,
+          urlTrap: this.trapKind(item.url),
+          contentKind: 'html',
+          statusCode: null,
+          statusText: null,
+          indexability: 'non-indexable:robots-blocked',
+          indexabilityReason: 'Blocked by robots.txt',
+          depth: item.depth,
+        },
+      ]);
+    } catch {
+      /* a failed record must not break the crawl */
+    }
   }
 
   private enqueue(item: QueueItem): void {
@@ -3231,21 +3290,7 @@ export class Crawler extends EventEmitter {
       // write paths.
       if (!this.seen.has(item.url) && this.seen.size < this.config.maxUrls) {
         this.seen.add(item.url);
-        void this.dbCall<number>('upsertUrl', [
-          {
-            url: item.url,
-            urlMalformed: isUrlMalformed(item.url) ? 1 : 0,
-            urlTrap: this.trapKind(item.url),
-            contentKind: 'html',
-            statusCode: null,
-            statusText: null,
-            indexability: 'non-indexable:robots-blocked',
-            indexabilityReason: 'Blocked by robots.txt',
-            depth: item.depth,
-          },
-        ]).catch(() => {
-          /* best-effort — a failed record must not break the crawl */
-        });
+        void this.recordRobotsBlocked(item);
       }
       return;
     }
@@ -3544,6 +3589,11 @@ export class Crawler extends EventEmitter {
   private async fetchAndProcess(item: QueueItem): Promise<void> {
     if (this.stopped) return;
     this.setOp(`crawl:fetch:${item.url}`);
+
+    // enqueue() admits a URL whose origin's robots.txt hasn't arrived yet;
+    // settle that before anything goes on the wire.
+    if (this.config.respectRobotsTxt && !(await this.robotsAllowsOnceLoaded(item))) return;
+    if (this.stopped) return;
 
     // I-1 — Cooperative yield BEFORE we start work on this URL. The
     // crawler runs in the same Node event loop as Electron's IPC

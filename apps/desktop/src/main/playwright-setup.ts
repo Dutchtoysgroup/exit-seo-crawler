@@ -171,6 +171,16 @@ export function setupPlaywrightBrowsersPath(): string {
 }
 
 /**
+ * True when {@link setupPlaywrightBrowsersPath} chose the browsers shipped
+ * inside the installer, as opposed to a download, the developer's cache or
+ * an operator override. The installer smoke test requires it.
+ */
+export function usingBundledBrowsers(): boolean {
+  const bundled = bundledDir();
+  return bundled !== null && activeBrowsersPath === bundled;
+}
+
+/**
  * Cheap, playwright-free installation check against the directory we
  * actually resolved. Safe to call at startup on the main thread.
  */
