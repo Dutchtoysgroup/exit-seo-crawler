@@ -4,16 +4,12 @@ on:
   push:
     tags:
       - 'v*.*.*'
-  # Manual runs rebuild the assets of an existing release: pass its tag
-  # and the run uploads into that release instead of one named after the
-  # branch. Used when a run failed and "Re-run failed jobs" is no longer an
-  # option. The build checks out the tag's commit, not the branch the run
-  # was started from, so newer code on main can never ship under an older
-  # version number.
+  # Manual runs resume an unfinished draft release of an existing tag.
+  # Published assets are immutable; a new version needs a new tag.
   workflow_dispatch:
     inputs:
       tag:
-        description: 'Existing release tag to (re)build assets for, e.g. v1.0.0'
+        description: 'Existing tag of an unfinished draft release, e.g. v1.0.5'
         required: true
         type: string
 
@@ -61,6 +57,13 @@ jobs:
               || fail "Cannot read $f at $TAG"
             [ "$v" = "$version" ] || fail "$f at $TAG ($sha) has version $v, expected $version"
           done
+          # One draft also transports assets after their native smoke test.
+          # Refuse to replace files belonging to an already published release.
+          if gh release view "$TAG" --repo "$GITHUB_REPOSITORY" --json isDraft > release.json 2>/dev/null; then
+            [ "$(jq -r .isDraft release.json)" = true ] || fail "Release $TAG is already published"
+          else
+            gh release create "$TAG" --repo "$GITHUB_REPOSITORY" --verify-tag --target "$sha" --draft --title "$TAG" --generate-notes
+          fi
           echo "Release $TAG builds commit $sha"
           { echo "tag=$TAG"; echo "sha=$sha"; echo "version=$version"; } >> "$GITHUB_OUTPUT"
 
@@ -75,27 +78,15 @@ jobs:
       tag: ${{ needs.resolve.outputs.tag }}
     secrets: inherit
 
-  # One publish, after every installer passed its smoke test: a release is
-  # complete or absent, never half there, so the update feed never points
-  # at a release without its Mac or Windows files. If a leg fails, re-run
-  # the failed jobs of this run within 7 days (the installers that passed
-  # stay with the run as artifacts until then), or start the workflow by
-  # hand with the tag.
+  # The draft stays invisible to the update feed until all three native
+  # builds, signing, installer smoke tests and asset checks have passed.
   publish:
     needs: [resolve, installers]
     runs-on: ubuntu-latest
     permissions:
       contents: write
-      # Delete this run's installer artifacts once they are on the Release.
-      actions: write
     steps:
-      - uses: actions/download-artifact@v4
-        with:
-          pattern: '*-installer*'
-          path: artifacts
-          merge-multiple: true
-
-      - name: Check tag and collect assets
+      - name: Check the draft assets and publish once
         shell: bash
         env:
           TAG: ${{ needs.resolve.outputs.tag }}
@@ -105,39 +96,27 @@ jobs:
         run: |
           set -euo pipefail
           fail() { echo "::error::$*"; exit 1; }
-          now=$(gh api "repos/$GITHUB_REPOSITORY/commits/refs/tags/$TAG" --jq .sha 2>/dev/null) || fail "Tag $TAG was deleted during the build"
-          [ "$now" = "$SHA" ] || fail "Tag $TAG moved from $SHA to $now during the build"
-          mkdir dist
-          find artifacts -type f -exec mv -n {} dist/ \;
-          [ -z "$(find artifacts -type f)" ] || fail "Two artifacts share a file name"
-          for want in latest.yml latest-mac.yml latest-mac-x64.yml; do
-            [ -f "dist/$want" ] || fail "$want is missing"
+          now=$(gh api "repos/$GITHUB_REPOSITORY/commits/refs/tags/$TAG" --jq .sha) || fail "Tag $TAG was deleted"
+          [ "$now" = "$SHA" ] || fail "Tag $TAG moved during the build"
+          gh release view "$TAG" --repo "$GITHUB_REPOSITORY" --json isDraft,assets > release.json
+          [ "$(jq -r .isDraft release.json)" = true ] || fail "Release is no longer a draft"
+          for suffix in \
+            Windows-Setup.exe Windows-Setup.exe.blockmap Windows-Portable.exe \
+            macOS-Apple-Silicon.dmg macOS-Apple-Silicon.dmg.blockmap \
+            macOS-Intel.dmg macOS-Intel.dmg.blockmap \
+            macOS-arm64.zip macOS-arm64.zip.blockmap \
+            macOS-x64.zip macOS-x64.zip.blockmap; do
+            name="EXIT-SEO-Crawler-$VERSION-$suffix"
+            jq -e --arg name "$name" '.assets[] | select(.name == $name and .size > 0)' release.json >/dev/null || fail "$name is missing"
           done
-          ls -l dist
-          echo "$(ls dist | wc -l) files for $TAG ($VERSION) at $SHA"
-
-      - name: Publish GitHub Release
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: ${{ needs.resolve.outputs.tag }}
-          files: dist/*
-          generate_release_notes: true
-          draft: false
-          prerelease: false
-
-      # The installers now live on the Release; the run's copies would only
-      # fill the organisation's shared Actions storage until they expire. A
-      # failure here leaves the release intact, so it does not fail the run.
-      - name: Delete installer artifacts
-        continue-on-error: true
-        shell: bash
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          set -euo pipefail
-          gh api --paginate "repos/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID/artifacts" \
-            --jq '.artifacts[] | select(.name | test("-installer")) | "\(.id) \(.name)"' |
-          while read -r id name; do
-            gh api -X DELETE "repos/$GITHUB_REPOSITORY/actions/artifacts/$id"
-            echo "Deleted artifact $name ($id)"
+          for platform in Windows.zip macOS-Apple-Silicon.tar.gz macOS-Intel.tar.gz; do
+            name="EXIT-SEO-Crawler-CLI-$VERSION-$platform"
+            jq -e --arg part "$name" '.assets[] | select(.name == $part and .size > 0)' release.json >/dev/null || fail "CLI $platform is missing"
           done
+          mkdir manifests
+          gh release download "$TAG" --repo "$GITHUB_REPOSITORY" --pattern 'latest*.yml' --dir manifests
+          for manifest in latest.yml latest-mac.yml latest-mac-x64.yml; do
+            [ -f "manifests/$manifest" ] || fail "$manifest is missing"
+            tr -d '\r' < "manifests/$manifest" | grep -qxF "version: $VERSION" || fail "$manifest has the wrong version"
+          done
+          gh release edit "$TAG" --repo "$GITHUB_REPOSITORY" --draft=false --latest
