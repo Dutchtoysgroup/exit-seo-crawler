@@ -1,6 +1,6 @@
 appId: com.dutchtoysgroup.exitseocrawler
 productName: EXIT SEO Crawler
-electronVersion: 41.2.2
+electronVersion: 42.11.16
 # Update feed for electron-updater (written into the app as app-update.yml).
 # The repo is private, so the public download page proxies the release:
 # dashboard-exit.com/crawler/update serves latest.yml / latest-mac.yml and

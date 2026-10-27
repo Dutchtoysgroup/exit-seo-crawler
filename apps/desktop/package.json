@@ -3,7 +3,7 @@
   "version": "1.0.4",
   "productName": "EXIT SEO Crawler",
   "private": true,
-  "description": "EXIT SEO Crawler — desktop application (Dutch Toys Group, based on FreeCrawl SEO Tool)",
+  "description": "EXIT SEO Crawler \u2014 desktop application (Dutch Toys Group, based on FreeCrawl SEO Tool)",
   "homepage": "https://github.com/Dutchtoysgroup/exit-seo-crawler",
   "repository": {
     "type": "git",
@@ -64,7 +64,7 @@
     "@types/react-dom": "^19.2.0",
     "@vitejs/plugin-react": "^5.0.0",
     "autoprefixer": "^10.4.20",
-    "electron": "^41.0.0",
+    "electron": "42.11.16",
     "electron-builder": "^26.0.0",
     "electron-vite": "^5.0.0",
     "postcss": "^8.5.0",
