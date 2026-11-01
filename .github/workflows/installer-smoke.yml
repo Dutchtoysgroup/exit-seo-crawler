@@ -1,7 +1,7 @@
 name: Installer smoke test
 
-# Dry run of the release pipeline for the branch you pick: builds the three
-# installers unsigned and smoke-tests each on its native build runner,
+# Dry run of the release pipeline for the branch you pick: builds the macOS and
+# Windows installers unsigned and smoke-tests each on its native build runner,
 # without uploading artifacts or publishing anything. Run it before tagging when packaging, Playwright or
 # Electron changed. Manual only: a run takes about 12 minutes and some
 # 20 minutes of macOS and Windows runner time.
