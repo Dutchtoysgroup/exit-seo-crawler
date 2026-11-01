@@ -67,7 +67,7 @@ jobs:
           echo "Release $TAG builds commit $sha"
           { echo "tag=$TAG"; echo "sha=$sha"; echo "version=$version"; } >> "$GITHUB_OUTPUT"
 
-  # Builds the three installers of the pinned commit, signed, and
+  # Builds the macOS and Windows installers of the pinned commit, signed, and
   # smoke-tests each one on a machine of its own architecture.
   installers:
     needs: resolve
@@ -78,8 +78,8 @@ jobs:
       tag: ${{ needs.resolve.outputs.tag }}
     secrets: inherit
 
-  # The draft stays invisible to the update feed until all three native
-  # builds, signing, installer smoke tests and asset checks have passed.
+  # The draft stays invisible to the update feed until both native builds,
+  # signing, installer smoke tests and asset checks have passed.
   publish:
     needs: [resolve, installers]
     runs-on: ubuntu-latest
@@ -103,19 +103,17 @@ jobs:
           for suffix in \
             Windows-Setup.exe Windows-Setup.exe.blockmap Windows-Portable.exe \
             macOS-Apple-Silicon.dmg macOS-Apple-Silicon.dmg.blockmap \
-            macOS-Intel.dmg macOS-Intel.dmg.blockmap \
-            macOS-arm64.zip macOS-arm64.zip.blockmap \
-            macOS-x64.zip macOS-x64.zip.blockmap; do
+            macOS-arm64.zip macOS-arm64.zip.blockmap; do
             name="EXIT-SEO-Crawler-$VERSION-$suffix"
             jq -e --arg name "$name" '.assets[] | select(.name == $name and .size > 0)' release.json >/dev/null || fail "$name is missing"
           done
-          for platform in Windows.zip macOS-Apple-Silicon.tar.gz macOS-Intel.tar.gz; do
+          for platform in Windows.zip macOS-Apple-Silicon.tar.gz; do
             name="EXIT-SEO-Crawler-CLI-$VERSION-$platform"
             jq -e --arg part "$name" '.assets[] | select(.name == $part and .size > 0)' release.json >/dev/null || fail "CLI $platform is missing"
           done
           mkdir manifests
           gh release download "$TAG" --repo "$GITHUB_REPOSITORY" --pattern 'latest*.yml' --dir manifests
-          for manifest in latest.yml latest-mac.yml latest-mac-x64.yml; do
+          for manifest in latest.yml latest-mac.yml; do
             [ -f "manifests/$manifest" ] || fail "$manifest is missing"
             tr -d '\r' < "manifests/$manifest" | grep -qxF "version: $VERSION" || fail "$manifest has the wrong version"
           done

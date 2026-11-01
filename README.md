@@ -6,13 +6,14 @@ Gebaseerd op [FreeCrawl SEO Tool](https://github.com/kemalai/FreeCrawl-SEO-Tool)
 
 ## Installeren
 
-Download de installer van [dashboard-exit.com/crawler](https://dashboard-exit.com/crawler) (zonder inlog) of van de [Releases-pagina](https://github.com/Dutchtoysgroup/exit-seo-crawler/releases) (met toegang tot de Dutchtoysgroup-organisatie op GitHub).
+Download de installer van [dashboard-exit.com/crawler](https://dashboard-exit.com/crawler) (zonder inlog) of van de [Releases-pagina](https://github.com/Dutchtoysgroup/exit-seo-crawler/releases).
 
 | Systeem | Bestand |
 |---|---|
 | Mac met Apple-chip (M1 en nieuwer) | `EXIT-SEO-Crawler-<versie>-macOS-Apple-Silicon.dmg` |
-| Mac met Intel-chip | `EXIT-SEO-Crawler-<versie>-macOS-Intel.dmg` |
 | Windows | `EXIT-SEO-Crawler-<versie>-Windows-Setup.exe` (of `-Portable.exe` zonder installatie) |
+
+Versie 1.0.5 is de laatste voor Macs met een Intel-chip: die blijft werken, maar krijgt geen updates meer.
 
 De Mac-versie is vanaf 1.0.2 ondertekend en door Apple genotariseerd: hij opent zonder waarschuwing, ook de CLI. De Windows-versie is nog niet ondertekend:
 
@@ -112,7 +113,7 @@ De workflow [Installer smoke test](.github/workflows/installer-smoke.yml) doet d
    ```bash
    git tag v1.0.1 && git push origin main v1.0.1
    ```
-3. De workflow [Release](.github/workflows/release.yml) bouwt de macOS-installers (Apple Silicon en Intel) en de Windows-installers, met Chromium meegebundeld, en test elke installer op een machine met zijn eigen architectuur (de Intel-installer op een Intel-Mac). Pas als alle drie slagen, komen ze samen op de Releases-pagina. Dat duurt ongeveer een kwartier.
+3. De workflow [Release](.github/workflows/release.yml) bouwt de macOS-installer (Apple Silicon) en de Windows-installers, met Chromium meegebundeld, en test elke installer op een machine met zijn eigen architectuur. Pas als beide platforms slagen, komen ze samen op de Releases-pagina. Dat duurt ongeveer een kwartier.
 4. Faalt een platform? Dan wordt er niets gepubliceerd. Klik in de run op **Re-run failed jobs**: alleen het mislukte platform wordt opnieuw gebouwd en getest, daarna volgt de publicatie. De geslaagde bestanden blijven in één conceptrelease staan, zonder de gedeelde Actions-opslag te gebruiken. Je kunt een onafgemaakte conceptrelease ook opnieuw bouwen met dezelfde tag. Een gepubliceerde release wordt niet overschreven. De build gebruikt de commit van die tag, ook als je de workflow vanaf `main` start, en controleert vóór het uploaden of commit, versies en bestandsnamen kloppen:
    ```bash
    gh workflow run release.yml -f tag=v1.0.1
